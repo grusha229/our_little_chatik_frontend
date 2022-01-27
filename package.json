@@ -4,8 +4,8 @@
   "description": "[Backend](https://github.com/vr009/our-little-chatik)",
   "main": "index.js",
   "scripts": {
-    "start": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,10 @@
     "pug": "^3.0.2",
     "webpack": "^5.67.0",
     "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.2.3",
+    "babel-preset-env": "^1.7.0"
   }
 }

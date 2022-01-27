@@ -8,3 +8,4 @@ root.innerHTML = '';
 root.appendChild(menu);
 createMenu();
 Rout.go(decodeURIComponent(window.location.pathname), document.title);
+console.log('test');
