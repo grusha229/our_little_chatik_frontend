@@ -1,10 +1,10 @@
-export class router {
+export class Router {
     constructor() {
         this.routs = {
-            '/': displayMessages,
-            '/signup': authModule.renderRegistration,
-            '/login': authModule.renderAuth,
-            '/logout': logOut,
+            // '/': displayMessages,
+            // '/signup': authModule.renderRegistration,
+            // '/login': authModule.renderAuth,
+            // '/logout': logOut,
         }
     }
 

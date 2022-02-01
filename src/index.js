@@ -1,11 +1,10 @@
-import {router} from "../router/router";
+import {Router} from "../router/router";
+import {createMenu} from "../src/components/headerMenu/index"
 
-new router();
+new Router();
 const root = document.getElementById('root');
-const menu = document.createElement('div');
-menu.setAttribute('id', 'menu');
 root.innerHTML = '';
-root.appendChild(menu);
 createMenu();
-Rout.go(decodeURIComponent(window.location.pathname), document.title);
+
+Router.goTo(decodeURIComponent(window.location.pathname), document.title);
 console.log('test');

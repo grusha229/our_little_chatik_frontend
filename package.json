@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/vr009/our_little_chatik_frontend#readme",
   "devDependencies": {
+    "html-webpack-plugin": "^5.5.0",
     "pug": "^3.0.2",
+    "pug-loader": "^2.4.0",
     "webpack": "^5.67.0",
     "webpack-cli": "^4.9.2"
   },
