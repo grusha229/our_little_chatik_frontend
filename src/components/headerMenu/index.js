@@ -1,4 +1,6 @@
 import menuPug from "./index.pug"
+import "./style.scss"
+import {Router} from "../../../router/router";
 
 export function createMenu () {
     const root = document.getElementById('root');

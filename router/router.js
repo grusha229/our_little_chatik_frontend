@@ -7,7 +7,6 @@ export class Router {
             // '/logout': logOut,
         }
     }
-
     goTo(path, title, state=null) {
         state.path = path;
         state.title = title;
@@ -17,6 +16,4 @@ export class Router {
             path, // URL новой записи (same origin)
         );
     }
-
-
 }

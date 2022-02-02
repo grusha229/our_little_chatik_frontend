@@ -37,6 +37,25 @@ module.exports = {
                         ]
                     }
                 }
+            },
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    {
+                        loader: 'style-loader',
+                        options: {injectType: 'singletonStyleTag'},
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {url: false},
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            implementation: require('sass'),
+                        },
+                    },
+                ],
             }
         ]
     },

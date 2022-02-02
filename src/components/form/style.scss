@@ -1,0 +1,53 @@
+.form-block {
+  padding-top: 70px;
+  background-color: #0A0A0A;
+  height: 100vh;
+  &__panel {
+    position: relative;
+    z-index: 2;
+    margin: 110px auto;
+    width: 430px;
+    justify-content: center;
+    align-items: center;
+    padding: 35px 40px;
+    background: rgba(0,0,0,.69);
+    border-radius: 30px 40px;
+    border: .1em solid rgba(208, 203, 139, 0.39);
+    box-shadow: 0 0 1.2em #c5ccf1;
+  }
+}
+
+#error {
+  color: red;
+}
+
+.signup-login-form {
+    padding: 0 10px;
+  &__text {
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  &__column {
+  }
+
+  &__btn {
+    width: 100%;
+    margin-top: 20px;
+    color: #D0CB8BBA;
+    background: transparent;
+    height: 45px;
+    border-radius: 15px;
+    border: 1px solid #D0CB8B;
+    //box-shadow: 0 0 1.2em #c5ccf1;
+  }
+
+  &__row {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid #a3A3A3 !important;
+    margin: 10px 0;
+    width: 100%;
+  }
+}

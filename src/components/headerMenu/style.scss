@@ -1,9 +1,47 @@
-#navbar {
-  --navbar-height: 76px;
-  height: var(--navbar-height);
-  left: 0;
-  right: 0;
-  z-index: 5;
+img
+{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.header {
+  background-color: #0a0a0a;
+  height: 70px;
+  width: 100%;
   position: fixed;
-  background: rgb(12 12 12 / 93%);
+  box-shadow: 0 0 1.2em rgba(91, 51, 171, 0.78);
+
+  &__container {
+    width: 100%;
+    height: 100%;
+    max-width: 1440px;
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__logo {
+    margin-left: 10px;
+    flex: 0 0 10%;
+    &_icon {
+      width: 50px;
+      height: 50px;
+    }
+  }
+  &__navbar {
+    flex: 0 0 90%;
+    display: flex;
+    text-align: center;
+  }
+}
+
+.navbar {
+  &__element {
+    color: #a3A3A3;
+    margin: 0 auto;
+    justify-content: center;
+    text-align: center;
+    flex: 0 0 33.333%;
+  }
 }
