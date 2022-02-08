@@ -19,8 +19,9 @@ export class Router {
             const stuff = document.createElement('div');
             stuff.setAttribute('id','stuff');
             root.appendChild(stuff);
-            debugger;
         }
+        const state = {}
+        history.pushState(state, title, path)
         const func = this.routs[path];
         if ((func === null) || (func === undefined)) {
             alert(`плохо ${path}`);
