@@ -33,6 +33,21 @@ img
     flex: 0 0 90%;
     display: flex;
     text-align: center;
+    font-weight: 300;
+    &_element {
+      color: #fff;
+      text-decoration: none;
+      moz-text-shadow:0 0 10px #D0CB8B;
+      -webkit-text-shadow:0 0 10px #D0CB8B;
+      text-shadow:0 0 10px #D0CB8B;
+        &:hover {
+          moz-text-shadow:0 0 10px #5B33AB;
+          -webkit-text-shadow:0 0 10px #5B33AB;
+          text-shadow:2px 2px 10px #5B33AB;
+          font-weight: 700;
+          color: #fff;
+        }
+    }
   }
 }
 
@@ -44,4 +59,11 @@ img
     text-align: center;
     flex: 0 0 33.333%;
   }
+}
+
+.element-background {
+  margin: 0 auto;
+  justify-content: center;
+  text-align: center;
+  flex: 0 0 33.333%;
 }

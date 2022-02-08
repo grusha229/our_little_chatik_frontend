@@ -1,19 +1,31 @@
+import {createFormLogin} from "../src/components/form";
+import {createFormSignup} from "../src/components/form";
+import {createAbout} from "../src/components/about";
+import {createMain} from "../src/components/main";
+
 export class Router {
     constructor() {
         this.routs = {
-            // '/': displayMessages,
-            // '/signup': authModule.renderRegistration,
-            // '/login': authModule.renderAuth,
+            '/': createMain,
+            '/about': createAbout,
+            '/signup': createFormSignup,
+            '/login': createFormLogin,
             // '/logout': logOut,
         }
     }
-    goTo(path, title, state=null) {
-        state.path = path;
-        state.title = title;
-        window.history.pushState(
-            state, // объект состояния
-            state.title, // заголовок состояния
-            path, // URL новой записи (same origin)
-        );
+    goTo(path, title) {
+        if (document.getElementById('stuff') == null){
+            const root = document.getElementById('root');
+            const stuff = document.createElement('div');
+            stuff.setAttribute('id','stuff');
+            root.appendChild(stuff);
+            debugger;
+        }
+        const func = this.routs[path];
+        if ((func === null) || (func === undefined)) {
+            alert(`плохо ${path}`);
+        } else {
+            func();
+        }
     }
-}
+} export default new Router();

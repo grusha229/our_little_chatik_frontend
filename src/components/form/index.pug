@@ -1,9 +1,19 @@
 div(class="form-block")
     div(class="form-block__panel")
         form(class="signup-login-form")
-            div(class="signup-login-form__text") Вход
+            if auth === 'login'
+                div(class="signup-login-form__text") Вход
+            else
+                div(class="signup-login-form__text") Регистрация
             div#error
             div(class="signup-login-form__column")
-                input(class="signup-login-form__row" id="login" type="text" placeholder="Логин")
-                input(class="signup-login-form__row" id="password" type="text" placeholder="Пароль")
-                input(class="signup-login-form__btn" type="submit" name="auth" value="Продолжить")
+                if auth === 'login'
+                    input(class="signup-login-form__row" id="login" type="text" placeholder="Логин")
+                    input(class="signup-login-form__row" id="password" type="text" placeholder="Пароль")
+                    input(class="signup-login-form__btn" type="submit" name="auth" value="Продолжить")
+                else
+                    input(class="signup-login-form__row" id="name" type="text" placeholder="Ваше имя")
+                    input(class="signup-login-form__row" id="login" type="text" placeholder="Придумайте логин")
+                    input(class="signup-login-form__row" id="password" type="text" placeholder="Придумайте пароль")
+                    input(class="signup-login-form__row" id="passwordConfirm" type="text" placeholder="Повторите пароль")
+                    input(class="signup-login-form__btn" type="submit" name="auth" value="Зарегистрироваться")

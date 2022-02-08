@@ -1,5 +1,5 @@
 .form-block {
-  padding-top: 70px;
+  padding-top: 10%;
   background-color: #0A0A0A;
   height: 100vh;
   &__panel {
@@ -25,6 +25,8 @@
     padding: 0 10px;
   &__text {
     color: #fff;
+    font-size: 32px;
+    text-align: center;
     font-weight: 500;
     margin-bottom: 20px;
   }
@@ -40,7 +42,13 @@
     height: 45px;
     border-radius: 15px;
     border: 1px solid #D0CB8B;
-    //box-shadow: 0 0 1.2em #c5ccf1;
+    box-shadow: 0 0 1.2em #383838;
+    &:hover {
+      border: #fff;
+      background: #5B33AB;
+      color: #fff;
+      box-shadow: 0 0 1.2em rgba(255, 255, 255, 0.35);
+    }
   }
 
   &__row {

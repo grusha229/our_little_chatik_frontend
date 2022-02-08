@@ -2,8 +2,8 @@ div(class="header")
     div(class="header__container")
         div(class="header__logo")
             div(class="header__logo_icon")
-                img(src="https://sun1-57.userapi.com/5VAl6WouhFfVSChh8Xg1jnAky9rbfObHXyqKHw/2MkHp5bTtAk.png")
+                img(src=imageUrl alt="Логотип :)" id="logo")
         div(class="header__navbar")
-            div(class="navbar__element") About
-            div(class="navbar__element") LogIn
-            div(class="navbar__element") SignIn
+            each cont in menuContent
+                div(class="element-background")
+                    a(class="header__navbar_element" id=cont.link)= cont.title

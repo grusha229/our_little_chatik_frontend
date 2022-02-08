@@ -1,10 +1,14 @@
 import Router from "../router/router";
 import {createMenu} from "./components/headerMenu"
-import {createForm} from "./components/form";
+import {createMain} from "./components/main";
 
-// new Router();
+
 const root = document.getElementById('root');
+const stuff = document.createElement('div');
+stuff.setAttribute('id','stuff');
+root.innerHTML = '';
 createMenu();
-createForm();
+root.appendChild(stuff)
+createMain();
 Router.goTo(decodeURIComponent(window.location.pathname), document.title);
 console.log('test');
