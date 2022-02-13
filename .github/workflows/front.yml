@@ -1,4 +1,4 @@
-gname: front_chat
+name: front_chat
 
 # Controls when the workflow will run
 on:
