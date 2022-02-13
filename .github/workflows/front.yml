@@ -30,4 +30,4 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.VK_PRIVATE_KEY }}
-          script: cd frontend/our_little_chatik_frontend && npm run dev
+          script: cd frontend/our_little_chatik_frontend && git pull && npm run dev
