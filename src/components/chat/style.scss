@@ -1,0 +1,35 @@
+$block-adding-top: 100px;
+
+.block {
+  &__chatArea {
+    padding-top: $block-adding-top;
+    background-color: #0A0A0A;
+    height: 100vh;
+    &_container {
+      width: 100%;
+      height: 100%;
+      max-width: 1440px;
+      margin: 0px auto;
+    }
+  }
+}
+
+.chatArea {
+  &__row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - $block-adding-top);
+  }
+  &_list {
+    height: calc(100vh - 2*$block-adding-top);
+    flex-basis: 250px;
+    background-color: #5B33AB;
+  }
+
+  &_current {
+    height: calc(100vh - 2*$block-adding-top);
+    background-color: #c5ccf1;
+    flex-basis: 80%;
+  }
+}

@@ -17,6 +17,10 @@ export function createMenu () {
         {
             title:"Войти",
             link:"/login"
+        },
+        {
+            title:"Чаты",
+            link:"/messages"
         }
     ]
     const imageUrl = "https://vinyl-market.ru/images/shop_items/800.jpg";
