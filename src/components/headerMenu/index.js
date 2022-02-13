@@ -7,7 +7,7 @@ const application = document.getElementById('root');
 export function createMenu () {
     const menuContent = [
         {
-            title:"Че такое",
+            title:"ШО такое",
             link:"/about"
         },
         {
