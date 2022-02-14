@@ -1,5 +1,6 @@
 import chatArea from './index.pug';
 import './style.scss';
+import {chatList} from "./chatList";
 
 export function createChats () {
     const stuff = document.getElementById('stuff');
