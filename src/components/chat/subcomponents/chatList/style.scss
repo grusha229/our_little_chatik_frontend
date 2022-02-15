@@ -1,0 +1,46 @@
+.message-list {
+  &__item {
+    list-style-type: none;
+    border: 1px solid darkslateblue;
+    display: flex;
+    &_avatar {
+      flex-basis: 20%;
+      padding: 11px 15px 0 5px;
+    }
+
+    &_info {
+      height: 85px;
+      position: relative;
+      flex-basis: 80%;
+      padding: 10px 10px 10px 0;
+    }
+  }
+}
+
+.avatar {
+  margin-top: auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+}
+
+.username {
+  position: absolute;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.messagePreview {
+  top:35px;
+  position: absolute;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.messageTime {
+  right: 10px;
+  position: absolute;
+  font-size: 14px;
+  font-weight: 300;
+  text-align: end;
+}

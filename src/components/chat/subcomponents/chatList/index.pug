@@ -1,0 +1,9 @@
+each cont in chatList
+    li(class="message-list__item")
+        div(class="message-list__item_avatar")
+            img(src=cont.avatar class="avatar" alt="Avatar")
+        div(class="message-list__item_info")
+            div(class="username")=cont.firstName+' '+cont.secondName
+            div(class="messagePreview")
+                span()=cont.lastMessage
+            div(class="messageTime")=cont.time

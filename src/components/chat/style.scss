@@ -23,8 +23,9 @@ $block-adding-top: 100px;
   }
   &_list {
     height: calc(100vh - 2*$block-adding-top);
-    flex-basis: 250px;
+    flex-basis: 350px;
     background-color: #5B33AB;
+    overflow: auto;
   }
 
   &_current {
@@ -32,4 +33,9 @@ $block-adding-top: 100px;
     background-color: #c5ccf1;
     flex-basis: 80%;
   }
+}
+
+.messages-list {
+  width:300px;
+  height:200px;
 }
