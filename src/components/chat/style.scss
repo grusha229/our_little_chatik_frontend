@@ -16,10 +16,12 @@ $block-adding-top: 100px;
 
 .chatArea {
   &__row {
+    border-radius: 15px;
     display: flex;
     justify-content: center;
     align-items: normal;
-    height: calc(100vh - $block-adding-top);
+    height: calc(100vh - 2*$block-adding-top);
+    box-shadow: 0 0 1.0em #c5ccf1;
   }
   &_list {
     height: calc(100vh - 2*$block-adding-top);

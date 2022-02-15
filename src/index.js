@@ -11,5 +11,6 @@ root.innerHTML = '';
 createMenu();
 root.appendChild(stuff);
 createMain();
+
 Router.goTo(decodeURIComponent(window.location.pathname), document.title);
 console.log('test');
