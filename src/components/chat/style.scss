@@ -18,19 +18,22 @@ $block-adding-top: 100px;
   &__row {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: normal;
     height: calc(100vh - $block-adding-top);
   }
   &_list {
     height: calc(100vh - 2*$block-adding-top);
     flex-basis: 350px;
-    background-color: #5B33AB;
+    background-color: #000000;
     overflow: auto;
+    border: solid 2px #483D8BFF ;
+
+    border-radius: 15px 0 0 15px;
   }
 
   &_current {
     height: calc(100vh - 2*$block-adding-top);
-    background-color: #c5ccf1;
+    background-color: #211B41FF;
     flex-basis: 80%;
   }
 }

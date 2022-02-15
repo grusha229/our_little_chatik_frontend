@@ -3,6 +3,7 @@
     list-style-type: none;
     border: 1px solid darkslateblue;
     display: flex;
+    border-radius: 15px 0px 0px 15px;
     &_avatar {
       flex-basis: 20%;
       padding: 11px 15px 0 5px;
@@ -28,13 +29,16 @@
   position: absolute;
   font-size: 14px;
   font-weight: bold;
+  color: #a3A3A3;
 }
 
 .messagePreview {
   top:35px;
+  padding-right: 10px;
   position: absolute;
-  font-size: 14px;
-  font-weight: 300;
+  font-size: 12px;
+  font-weight: 200;
+  color: #ffffff;
 }
 
 .messageTime {
@@ -43,4 +47,5 @@
   font-size: 14px;
   font-weight: 300;
   text-align: end;
+  color: #483D8BFF;
 }
