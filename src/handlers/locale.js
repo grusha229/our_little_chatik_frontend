@@ -1,1 +1,1 @@
-export const serverLocate = 'http://89.208.86.252/api/v1';
+export const serverLocate = 'http://89.208.86.252:8080/api/v1';
