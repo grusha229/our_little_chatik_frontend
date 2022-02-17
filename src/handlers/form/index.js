@@ -6,8 +6,11 @@ import {Router} from "../../../router/router";
 const form = document.getElementById('form');
 form.addEventListener('submit', function(event) {
     event.preventDefault();
-    const name = document.getElementById('login').value;
-    const pwd = document.getElementById('password').value;
+    alert("gogogo")
+    const firstname = document.getElementById('firstname').value;
+    const lastname = document.getElementById('lastname').value;
+    const password = document.getElementById('password').value;
+    const username = document.getElementById('username').value;
     // let msg = '';
     // if (!validators.username(name)) {
     //     msg += 'Имя должно быть длиннее 3 символов. ';
@@ -18,10 +21,18 @@ form.addEventListener('submit', function(event) {
     // if (msg !== '') {
     //     showErrors(msg );
     // } else {
-        const user = {login: name, password: pwd};
-        const url = serverLocate+'/users/login';
+        const user = {
+            firstname: firstname,
+            lastname: lastname,
+            password: password,
+            username: username
+        };
+        alert(user);
+        const url = serverLocate+'/auth/signup';
         // 3.67.182.34
-        fetchRequest(url, 'POST', user).then((result)=>{
+        const data = JSON.stringify(user);
+        alert(data);
+        fetchRequest(url, 'POST', data).then((result)=>{
             if (!result.ok) {
                 alert('error - unlogined');
                 throw error;
