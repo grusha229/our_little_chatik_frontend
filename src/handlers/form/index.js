@@ -9,8 +9,6 @@ export function formHandler() {
 
     form.addEventListener('submit', function (event) {
         event.preventDefault();
-        console.log("gogogo");
-        debugger;
         const firstname = document.getElementById('firstname').value;
         const lastname = document.getElementById('lastname').value;
         const password = document.getElementById('password').value;
@@ -36,7 +34,6 @@ export function formHandler() {
         // 3.67.182.34
         const data = JSON.stringify(user);
         console.log(data);
-        debugger;
         fetchRequest(url, 'POST', data).then((result) => {
             console.log(result);
             if (!result.ok) {
