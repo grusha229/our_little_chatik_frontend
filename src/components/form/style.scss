@@ -57,5 +57,10 @@
     border-bottom: 1px solid #a3A3A3 !important;
     margin: 10px 0;
     width: 100%;
+
+    &:focus {
+      background: transparent;
+      border-bottom: 2px solid #ffffff !important;
+    }
   }
 }
