@@ -5,7 +5,7 @@ import Router from "../../../router/router";
 import {createMenu} from "../headerMenu";
 
 export function createFormLogin () {
-    const auth = "login";
+    const formType = "signIn";
     const stuff = document.getElementById('stuff');
     stuff.setAttribute('class', '');
     stuff.innerHTML = '';
@@ -15,12 +15,13 @@ export function createFormLogin () {
     const reg = document.createElement('div');
     stuff.appendChild(reg);
     reg.innerHTML = formPug({
-        auth: auth
+        auth: formType
     });
+    formHandler(formType);
 }
 
 export function createFormSignup () {
-    const auth = "signup"
+    const formType = "signUp"
     const stuff = document.getElementById('stuff');
     stuff.setAttribute('class', '');
     stuff.innerHTML = '';
@@ -30,10 +31,10 @@ export function createFormSignup () {
     const reg = document.createElement('div');
     stuff.appendChild(reg);
     reg.innerHTML = formPug({
-        auth: auth
+        auth: formType
     });
 
-    formHandler();
+    formHandler(formType);
 
 }
 

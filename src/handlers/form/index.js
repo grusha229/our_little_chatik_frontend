@@ -3,16 +3,39 @@ import {fetchRequest} from "../network/fetch";
 import {Router} from "../../../router/router";
 
 // обработка отправки формы
-export function formHandler() {
+// http://89.208.86.252:8080/documentation/index.html#/ - swagger
+
+export function formHandler(formType) {
+    let formLink = '';
+    let user = {};
 
     const form = document.getElementById('form');
 
     form.addEventListener('submit', function (event) {
         event.preventDefault();
-        const firstname = document.getElementById('firstname').value;
-        const lastname = document.getElementById('lastname').value;
-        const password = document.getElementById('password').value;
-        const username = document.getElementById('username').value;
+
+        if (formType === 'login') {
+            formLink = '/auth/signn';
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            user = {
+                password: password,
+                username: username
+            };
+        } else if (formType === 'signup') {
+            formLink = '/auth/signup';
+            const firstname = document.getElementById('firstname').value;
+            const lastname = document.getElementById('lastname').value;
+            const password = document.getElementById('password').value;
+            const username = document.getElementById('username').value;
+            user = {
+                firstname: firstname,
+                lastname: lastname,
+                password: password,
+                username: username
+            };
+        }
+
         // let msg = '';
         // if (!validators.username(name)) {
         //     msg += 'Имя должно быть длиннее 3 символов. ';
@@ -23,15 +46,10 @@ export function formHandler() {
         // if (msg !== '') {
         //     showErrors(msg );
         // } else {
-        const user = {
-            firstname: firstname,
-            lastname: lastname,
-            password: password,
-            username: username
-        };
+
         console.log(user);
-        const url = serverLocate + '/auth/signup';
-        // 3.67.182.34
+        const url = serverLocate + formLink;
+        // 89.208.86.252
         const data = JSON.stringify(user);
         console.log(data);
         fetchRequest(url, 'POST', data).then((result) => {
@@ -43,12 +61,13 @@ export function formHandler() {
         }).then(
             () => {
                 alert('Logined');
-                // Router.goTo('/', '', null, true, true);
+                Router.goTo('/', 'about');
             },
-        ).catch(function () {
-            alert('Неверный логин или пароль');
-            // showErrors('Неверный логин или пароль');
-        });
+        )
+        //     .catch(function () {
+        //     alert('Неверный логин или пароль');
+        //     // showErrors('Неверный логин или пароль');
+        // });
         // }
     });
 }
