@@ -55,11 +55,9 @@ export function formHandler(formType) {
         //     showErrors(msg );
         // } else {
 
-
-        //     .catch(function () {
-        //     alert('Неверный логин или пароль');
-        //     // showErrors('Неверный логин или пароль');
-        // });
-        // }
+            .catch(function () {
+            alert('Неверный логин или пароль');
+            // showErrors('Неверный логин или пароль');
+        });
     });
 }
