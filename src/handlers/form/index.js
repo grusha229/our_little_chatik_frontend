@@ -22,6 +22,25 @@ export function formHandler(formType) {
                 password: password,
                 username: username
             };
+
+            console.log(user);
+            const url = serverLocate + formLink;
+            // 89.208.86.252
+            const data = JSON.stringify(user);
+            console.log(data);
+            fetchRequest(url, 'POST', data).then((result) => {
+                console.log(result);
+                if (!result.ok) {
+                    alert('error - unlogined');
+                    throw error;
+                }
+            }).then(
+                () => {
+                    alert('Logined');
+                    Router.goTo('/', 'about');
+                },
+            )
+
         } else if (formType === 'signup') {
             formLink = '/auth/signup';
             const firstname = document.getElementById('firstname').value;
@@ -34,6 +53,23 @@ export function formHandler(formType) {
                 password: password,
                 username: username
             };
+            console.log(user);
+            const url = serverLocate + formLink;
+            // 89.208.86.252
+            const data = JSON.stringify(user);
+            console.log(data);
+            fetchRequest(url, 'POST', data).then((result) => {
+                console.log(result);
+                if (!result.ok) {
+                    alert('error - unlogined');
+                    throw error;
+                }
+            }).then(
+                () => {
+                    alert('Logined');
+                    Router.goTo('/', 'about');
+                },
+            )
         }
 
         // let msg = '';
@@ -47,23 +83,7 @@ export function formHandler(formType) {
         //     showErrors(msg );
         // } else {
 
-        console.log(user);
-        const url = serverLocate + formLink;
-        // 89.208.86.252
-        const data = JSON.stringify(user);
-        console.log(data);
-        fetchRequest(url, 'POST', data).then((result) => {
-            console.log(result);
-            if (!result.ok) {
-                alert('error - unlogined');
-                throw error;
-            }
-        }).then(
-            () => {
-                alert('Logined');
-                Router.goTo('/', 'about');
-            },
-        )
+
         //     .catch(function () {
         //     alert('Неверный логин или пароль');
         //     // showErrors('Неверный логин или пароль');
