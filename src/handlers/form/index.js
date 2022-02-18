@@ -23,8 +23,7 @@ export function formHandler(formType) {
                 firstname: firstname,
                 lastname: lastname,
                 password: password,
-                username: username,
-                id: "1234"
+                username: username
             };
             const url = serverLocate + formLink;
             // 89.208.86.252
