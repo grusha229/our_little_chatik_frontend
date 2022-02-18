@@ -31,7 +31,7 @@ export function formHandler(formType) {
             console.log(user);
             console.log(data);
             console.log(url);
-            fetchRequest(url, 'POST', data).then((result) => {
+            fetchRequest(url, 'POST', user).then((result) => {
                 console.log(result);
                 if (!result.ok) {
                     alert('error - unlogined');
