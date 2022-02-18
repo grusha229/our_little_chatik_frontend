@@ -14,34 +14,6 @@ export function formHandler(formType) {
     form.addEventListener('submit', function (event) {
         event.preventDefault();
 
-        if (formType === 'login') {
-            formLink = '/auth/signn';
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            user = {
-                password: password,
-                username: username
-            };
-
-            console.log(user);
-            const url = serverLocate + formLink;
-            // 89.208.86.252
-            const data = JSON.stringify(user);
-            console.log(data);
-            fetchRequest(url, 'POST', data).then((result) => {
-                console.log(result);
-                if (!result.ok) {
-                    alert('error - unlogined');
-                    throw error;
-                }
-            }).then(
-                () => {
-                    alert('Logined');
-                    Router.goTo('/', 'about');
-                },
-            )
-
-        } else if (formType === 'signup') {
             formLink = '/auth/signup';
             const firstname = document.getElementById('firstname').value;
             const lastname = document.getElementById('lastname').value;
@@ -53,11 +25,12 @@ export function formHandler(formType) {
                 password: password,
                 username: username
             };
-            console.log(user);
             const url = serverLocate + formLink;
             // 89.208.86.252
             const data = JSON.stringify(user);
+            console.log(user);
             console.log(data);
+            console.log(url);
             fetchRequest(url, 'POST', data).then((result) => {
                 console.log(result);
                 if (!result.ok) {
@@ -70,7 +43,6 @@ export function formHandler(formType) {
                     Router.goTo('/', 'about');
                 },
             )
-        }
 
         // let msg = '';
         // if (!validators.username(name)) {
