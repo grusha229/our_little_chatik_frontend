@@ -1,0 +1,24 @@
+.main {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+}
+
+.form input {
+    width: 100%;
+    margin: 0 0 15px;
+}
+
+.heading {
+    margin: 0 0 15px;
+}
+

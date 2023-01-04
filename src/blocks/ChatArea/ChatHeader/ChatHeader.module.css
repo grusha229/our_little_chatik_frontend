@@ -1,0 +1,22 @@
+.header {
+    width: 100%;
+    border-bottom: solid #333333;
+}
+
+.header .content {
+    display: flex;
+    justify-content: start;
+    margin: 10px;
+    align-items: center;
+}
+
+.header .info {
+    margin-left: 15px;
+    width: 150px;
+    height: 1em;
+}
+
+.avatar {
+    width: 55px;
+    height: 55px;
+}

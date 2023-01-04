@@ -1,0 +1,67 @@
+.messageLine {
+    padding: 5px 10px;
+    display: flex;
+    margin-top: 15px;
+}
+
+.messageText {
+    padding: 5px 10px;
+    border-radius: 4px;
+    max-width: 370px;
+}
+
+.messageDate {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+}
+
+.messageDate.loading {
+    width: 15px;
+    height: 1em;
+    margin: 0 1em !important;
+}
+
+.messageDate_time {
+    padding: 5px 10px;
+    max-width: 370px;
+}
+
+
+
+
+.mine {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.notMine.loading,
+.mine.loading {
+    width: 150px;
+    height: 1em;
+}
+
+.mine .messageText {
+    background-color: #fcc521;
+    border-radius: 8px 8px 0 8px;
+    color: #333333;
+}
+
+.notMine {
+    align-self: flex-start;
+}
+
+.notMine {
+    align-self: flex-start;
+}
+
+.notMine .messageText {
+    background-color: DodgerBlue;
+    border-radius: 8px 8px 8px 0;
+}
+
+.mine .messageText {
+    background-color: #fcc521;
+    border-radius: 8px 8px 0 8px;
+    color: #333333;
+}

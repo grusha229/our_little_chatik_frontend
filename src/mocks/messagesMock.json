@@ -1,0 +1,266 @@
+{
+  "1efeba24-9e0d-4698-95e1-5df061001c0b": [
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c0b",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a4",
+      "Payload": "Привет! 1",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c0b",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a5",
+      "Payload": "Как дела?",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c0b",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc838",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a6",
+      "Payload": "Хорошо, а как у тебя?",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c0b",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+      "Payload": "У меня все ок",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c0b",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc838",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+      "Payload": "Здорово",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c0b",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+      "Payload": "Ну как там с деньгами?",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c0b",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc838",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+      "Payload": "А?",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c0b",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+      "Payload": "Как с деньгами-то там?",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c0b",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc838",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+      "Payload": "Чё с деньгами?",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c0b",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+      "Payload": "Чё?",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c0b",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc838",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+      "Payload": "Куда ты звонишь?",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c0b",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+      "Payload": "Тебе звоню.",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c0b",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc838",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+      "Payload": "Кому?",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c0b",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+      "Payload": "Ну тебе",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c0b",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc838",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+      "Payload": "Кому тебе?",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c0b",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+      "Payload": "А вот тебе вот.",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c0b",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc838",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+      "Payload": "Ты кто такой?",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c0b",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+      "Payload": "Михал Палыч.",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c0b",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc838",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+      "Payload": "Какой Михал Палыч?",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    }
+  ],
+  "1efeba24-9e0d-4698-95e1-5df061001c1g": [
+    {
+    "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c1g",
+    "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+    "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a4",
+    "Payload": "привет!2",
+    "CreatedAt": 1666700712000,
+    "SessionStart": true
+    },
+    {
+    "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c1g",
+    "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+    "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a5",
+    "Payload": "Как дела?",
+    "CreatedAt": 1666700712000,
+    "SessionStart": true
+    },
+    {
+    "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c1g",
+    "SenderID": "337295eb-cbde-479c-a4ee-683019adc838",
+    "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a6",
+    "Payload": "Хорошо, а как у тебя?",
+    "CreatedAt": 1666700712000,
+    "SessionStart": true
+    },
+    {
+    "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c1g",
+    "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+    "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+    "Payload": "Я опять просрал ЧМ",
+    "CreatedAt": 1666700712000,
+    "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c1g",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+      "Payload": "Suuuiiii",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    }
+  ],
+  "1efeba24-9e0d-4698-95e1-5df061001c12": [
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c1g",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a4",
+      "Payload": "привет!2",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c1g",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a5",
+      "Payload": "Как дела?",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c1g",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc838",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a6",
+      "Payload": "Хорошо, а как у тебя?",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c1g",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+      "Payload": "У меня все ок",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    }
+  ],
+  "1efeba24-9e0d-4698-95e1-5df061001c9g": [
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c1g",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a4",
+      "Payload": "привет!2",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c1g",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a5",
+      "Payload": "Как дела?",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c1g",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc838",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a6",
+      "Payload": "Хорошо, а как у тебя?",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    },
+    {
+      "ChatID": "1efeba24-9e0d-4698-95e1-5df061001c1g",
+      "SenderID": "337295eb-cbde-479c-a4ee-683019adc839",
+      "MsgID": "b2ee083a-02c4-4469-8512-ef270dff61a7",
+      "Payload": "У меня все ок",
+      "CreatedAt": 1666700712000,
+      "SessionStart": true
+    }
+  ]
+}

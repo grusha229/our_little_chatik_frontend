@@ -1,0 +1,38 @@
+.main {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+}
+
+.form input {
+    width: 100%;
+    margin: 0 0 15px;
+}
+
+.alert {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: darkred;
+    color: #dadada;
+    margin: 0 0 15px;
+    text-align: center;
+}
+
+.heading {
+    margin: 0 0 15px;
+}
+
+.disabled {
+    display: none;
+    margin: 0 0 15px;
+}
+

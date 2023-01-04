@@ -1,0 +1,23 @@
+.button {
+  cursor: pointer;
+  box-sizing: border-box;
+  position: relative;
+  transition-property: background-color, border, box-shadow;
+  transition-duration: 0.25s;
+  transition-timing-function: ease;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 12px 20px;
+  background-color: #a2a2a2;
+  text-decoration: none;
+  margin-bottom: 7px;
+}
+
+.button:hover {
+  border-color: #fcc521;
+  background-color: #fcc521;
+}
+.text {
+  text-decoration: none;
+  color: #222222;
+}
