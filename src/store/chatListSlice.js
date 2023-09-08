@@ -68,6 +68,9 @@ const chatsSlice = createSlice({
             state.chats = action.payload
             state.searchChats.searchedChats = action.payload
         },
+        pushChat(state, action) {
+            state.chats.unshift(action.payload);
+        },
         setError(state, action) {
             state.error = action.payload
         },
@@ -77,6 +80,6 @@ const chatsSlice = createSlice({
     }
 })
 
-export const {searchChats, setChats, setError, setStatus} = chatsSlice.actions;
+export const {searchChats, setChats, setError, setStatus, pushChat} = chatsSlice.actions;
 
 export default chatsSlice.reducer

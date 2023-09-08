@@ -79,12 +79,10 @@ export default function ChatArea() {
     const gettingMessages = useCallback(() => {
         if (!socket.current) return;
         socket.current.onmessage = (e) => {
-            console.log(e.data.chat_id);
             console.log(CURRENT_CHAT_ID);
             console.log('WS message for you: ', e.data)
             console.log('WS message for you: ', JSON.parse(e.data))
             dispatch(pushMessage([JSON.parse(e.data)]))
-            console.log('WS message NOT for you: ', JSON.parse(e.data))
         }
     })
 

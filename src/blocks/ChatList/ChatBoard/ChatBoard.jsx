@@ -1,8 +1,9 @@
 import {ChatItem, LoadingChatItem} from "../ChatItem/ChatItem.jsx";
 import s from "./ChatBoard.module.css"
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
-import {getChats} from "../../../store/chatListSlice.js";
+import {useCallback, useEffect, useRef, useState} from "react";
+import {getChats, pushChat} from "../../../store/chatListSlice.js";
+import {pushMessage} from "../../../store/messagesSlice.js";
 
 const Loader = () => (
     <>
@@ -24,6 +25,58 @@ export default function ChatBoard () {
 
     const chatListStatus = useSelector((state) => state.chatList.status);
     const chatListError = useSelector((state) => state.chatList.error);
+
+    const CURRENT_USER_DATA = useSelector((state) => state.user.userInfo);
+
+    const [wsStatus, setwsStatus] = useState(false)
+    const socket = useRef(null)
+
+    const WS_URL = 'ws://'+ window.location.host +'/ws/diff?user_id='+CURRENT_USER_DATA.user_id;
+
+    socket.onmessage = function (e) {
+        console.log(e.data);
+        console.log(JSON.parse(e.data));
+    }
+
+    const wsConnect = () => {
+        console.log('Try to connect..')
+        socket.current = new WebSocket(WS_URL);
+
+        socket.current.onopen = () => {
+            console.log('WS connected');
+            setwsStatus(true);
+        }
+
+        socket.current.onclose = () => {
+            console.log('WS disconnected');
+            setwsStatus(false);
+
+            // console.log('Try to reconnect..')
+            // wsConnect();
+        }
+    }
+
+    useEffect(()=> {
+        wsConnect()
+        if (socket.current) {
+            gettingDiff()
+        }
+    },[socket,CURRENT_USER_DATA])
+
+    useEffect(()=>{
+        return () => {
+            socket.current.close()
+        }
+    },[CURRENT_USER_DATA])
+
+    const gettingDiff = useCallback(() => {
+        if (!socket.current) return;
+        socket.current.onmessage = (e) => {
+            console.log('WS message for you: ', e.data)
+            console.log('WS message for you: ', JSON.parse(e.data))
+            dispatch(pushChat([JSON.parse(e.data)]))
+        }
+    })
 
     useEffect(()=>{
         dispatch(getChats());
