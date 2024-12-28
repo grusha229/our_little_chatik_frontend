@@ -4,9 +4,11 @@ import { setTokens, deleteTokens } from '../store/features/auth';
 import { RootState } from '../store/store'; // Типизация корневого состояния
 import { authApi } from './auth';
 
+const TEST_URL = '/api';
+
 const createBaseQueryWithReauth = (prefix: string): BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> => {
   const baseQuery = fetchBaseQuery({
-    baseUrl: prefix, // Пустой базовый URL, он будет передаваться в query
+    baseUrl: TEST_URL + prefix, // Пустой базовый URL, он будет передаваться в query
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token; // Получаем accessToken из состояния

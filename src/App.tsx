@@ -1,27 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './AuthContext';
-import PrivateRoute from './PrivateRoute';
 import LoginPage from './views/LoginPage/LoginPage';
+import MessagesPage from './views/MessagesPage/MessagesPage';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
+import RegisterPage from './views/RegisterPage/RegisterPage';
 
 function App() {
   return (
     <Provider store={store}>
-      <AuthProvider>
         <Router>
           <Routes>
-            <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
 
-            {/* Защищённые маршруты */}
-            <Route element={<PrivateRoute />}>
-              <Route path="/messages" element={<Dashboard />} />
-            </Route>
+            <Route path="/messages" element={<MessagesPage />} />
           </Routes>
         </Router>
-      </AuthProvider>
     </Provider>
   );
 }

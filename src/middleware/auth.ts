@@ -11,6 +11,18 @@ const authMiddleware: Middleware = (store) => (next) => async (action) => {
     store.dispatch(setTokens({ token, refresh_token }));
   }
 
+  // If get tokens - save to store
+  if (authApi.endpoints.loginUser.matchFulfilled(action)) {
+    const { token, refresh_token } = action.payload;
+    store.dispatch(setTokens({ token, refresh_token }));
+  }
+
+    // If get tokens - save to store
+    if (authApi.endpoints.signupUser.matchFulfilled(action)) {
+      const { token, refresh_token } = action.payload;
+      store.dispatch(setTokens({ token, refresh_token }));
+    }
+
   // If there an error - delete tokens
   if (authApi.endpoints.refreshToken.matchRejected(action)) {
     store.dispatch(deleteTokens());
