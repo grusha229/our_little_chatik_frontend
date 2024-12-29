@@ -23,9 +23,13 @@ export const authSlice = createSlice({
       state.refresh_token = null;
       state.token = null;
     },
+    loadTokensFromStorage: (state) => {
+      state.token = localStorage.getItem('access_token');
+      state.refresh_token = localStorage.getItem('refresh_token');
+    },
   },
 });
 
-export const { setTokens, deleteTokens } = authSlice.actions;
+export const { setTokens, deleteTokens, loadTokensFromStorage } = authSlice.actions;
 
 export default authSlice.reducer;

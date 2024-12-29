@@ -3,11 +3,14 @@ import { useForm } from 'react-hook-form';
 import { useSignupUserMutation } from '../../../services/auth';
 import style from './RegisterForm.module.scss';
 import { ISignupPayload } from '../../../models/auth';
+import Button from '../../controls/button/Button';
 
 export default function LoginForm() {
 
     // Инициализация useForm
-    const { register, handleSubmit } = useForm<ISignupPayload>();
+    const { register, formState: { errors, isValid }, handleSubmit } = useForm<ISignupPayload>({
+      mode: 'onBlur',
+    });
 
       // Мутация для обновления пользователя
     const [ registerUser ] = useSignupUserMutation();
@@ -24,42 +27,67 @@ export default function LoginForm() {
 
     return (
         <div className={style['block']}>
-            <div>Register</div>
             <form
                 onSubmit={handleSubmit(handleSubmitLinkForm)}
                 className={style['form']}
             >
                     <input
                         className={style['form--input']}
-                        placeholder='name'
-                        {...register('name')}
+                        placeholder='Name'
+                        {...register("name", 
+                          { required: true }
+                        )}
                     />
+                    {errors.name && <div>{errors.name.message}</div>}
                     <input
                         className={style['form--input']}
-                        placeholder='surname'
-                        {...register('surname')}
+                        placeholder='Surname'
+                        {...register("surname", { 
+                          required: true,
+                        })}
                     />
+                     {errors.surname && <div>{errors.surname.message}</div>}
                     <input
                         className={style['form--input']}
-                        placeholder='nickname'
-                        {...register('nickname')}
+                        placeholder='Nickname'
+                        {...register("nickname", { 
+                          required: true,
+                        })}
                     />
+                    {errors.nickname && <div>{errors.nickname.message}</div>}
                     <input
                         className={style['form--input']}
-                        placeholder='email'
-                        {...register('email')}
+                        placeholder='Email'
+                        type='email'
+                        {...register("email", { 
+                          required: true,
+                          pattern: {
+                            value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                            message: "Invalid email address"
+                          },
+                        })}
                     />
+                    {errors.email && <div>{errors.email.message}</div>}
                     <input
                         className={style['form--input']}
-                        placeholder='password'
-                        {...register('password')}
+                        placeholder='Password'
+                        type='password'
+                        {...register("password", {
+                          required: "this is required",
+                          minLength: {
+                            value: 8,
+                            message: "Password min length is 8",
+                          },
+                        })}
                     />
-                <button
-                  className={style['form--button']} 
+                    {errors.password && <div>{errors.password.message}</div>}
+                <Button
                   type="submit"
+                  block
+                  disabled={!isValid}
                 >
                   Register
-                </button>
+                </Button>
             </form>
         </div>
       )

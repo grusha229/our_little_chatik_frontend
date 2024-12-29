@@ -1,9 +1,10 @@
 import React from 'react'
+import Layout from '../../features/Layout/Layout'
 
 export default function MessagesPage() {
   return (
-    <div>
-      
-    </div>
+    <Layout>
+      <div>MessagesPage</div>
+    </Layout>
   )
 }

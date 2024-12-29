@@ -3,11 +3,14 @@ import { useForm } from 'react-hook-form';
 import { useLoginUserMutation } from '../../../services/auth';
 import style from './LoginForm.module.scss';
 import { ILoginPayload } from '../../../models/auth';
+import Button from '../../controls/button/Button';
 
 export default function LoginForm() {
 
     // Инициализация useForm
-    const { register, handleSubmit } = useForm<ILoginPayload>();
+    const { register, handleSubmit, formState: { errors, isValid },} = useForm<ILoginPayload>({
+      mode: 'onBlur',
+    });
 
       // Мутация для обновления пользователя
     const [ loginUser ] = useLoginUserMutation();
@@ -23,8 +26,6 @@ export default function LoginForm() {
     };
 
     return (
-        <div className={style['block']}>
-            <div>Login</div>
             <form 
                 onSubmit={handleSubmit(handleSubmitLinkForm)}
                 className={style['form']}
@@ -32,21 +33,27 @@ export default function LoginForm() {
                     <input
                         className={style['form--input']}
                         placeholder='Nickname'
-                        {...register('nickname')}
+                        {...register("nickname", {
+                          required: true,
+                        })}
                     />
+                    {errors.nickname && <div>{errors.nickname.message}</div>}
                     <input
                         className={style['form--input']}
                         placeholder='password'
-                        security='q'
-                        {...register('password')}
+                        type='password'
+                        {...register("password", {
+                          required: true,
+                        })}
                     />
-                <button 
-                className={style['form--button']} 
-                type="submit"
-                >
-                Login
-                </button>
+                    {errors.nickname && <div>{errors.nickname.message}</div>}
+                    <Button
+                      type='submit'
+                      block
+                      disabled={!isValid}
+                    >
+                      Login
+                    </Button>
             </form>
-        </div>
       )
 }
