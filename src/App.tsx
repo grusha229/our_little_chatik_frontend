@@ -8,15 +8,17 @@ import RegisterPage from './views/RegisterPage/RegisterPage';
 import PrivateRoute from './views/PrivateRoute';
 import PublicRoute from './views/PublicRoute';
 import ErrorPage from './views/404/404';
+import ActivationPage from './views/ActivationPage/ActivationPage';
 
 function App() {
   return (
     <Provider store={store}>
         <Router>
           <Routes>
-            <Route path="/" element={<PublicRoute />} errorElement={<ErrorPage />}>
+            <Route path="/" element={<PublicRoute />} >
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
+              <Route path="/activation" element={<ActivationPage />} />
             </Route>
 
             <Route path="/" element={<PrivateRoute />} errorElement={<ErrorPage />}>

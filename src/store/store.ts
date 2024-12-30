@@ -6,13 +6,18 @@ import authMiddleware from '../middleware/auth';
 import { usersSlice } from './features/users';
 import { usersApi } from '../services/users';
 import usersMiddleware from '../middleware/users';
+import { chatsSlice } from './features/chats';
+import { chatApi } from '../services/chat';
+import chatsMiddleware from '../middleware/chats';
 
 // Объединение редукторов
 const rootReducer = combineReducers({
   auth: authSlice,
   [authApi.reducerPath]: authApi.reducer,
   users: usersSlice,
-  [usersApi.reducerPath]: usersApi.reducer
+  [usersApi.reducerPath]: usersApi.reducer,
+  chats: chatsSlice,
+  [chatApi.reducerPath]: chatApi.reducer
 });
 
 export const store = configureStore({
@@ -20,8 +25,8 @@ export const store = configureStore({
 
   middleware: (getDefaultMiddleware) => (
     getDefaultMiddleware()
-      .concat(authApi.middleware, usersApi.middleware)
-      .concat(authMiddleware, usersMiddleware)
+      .concat(authApi.middleware, usersApi.middleware, chatApi.middleware)
+      .concat(authMiddleware, usersMiddleware, chatsMiddleware)
   )
 });
 

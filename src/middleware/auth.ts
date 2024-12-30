@@ -55,6 +55,15 @@ const authMiddleware: Middleware = (store) => (next) => async (action) => {
     store.dispatch(deleteTokens());
   }
 
+  // If there an error - delete tokens
+  if (authApi.endpoints.activateUser.matchFulfilled(action)) {
+
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+
+    store.dispatch(deleteTokens());
+  }
+
   return result;
 };
 
