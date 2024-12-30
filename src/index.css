@@ -72,11 +72,15 @@ button:focus-visible {
 }
 
 .container {
-  padding: 0 120px;
-  width: 100%;
+  max-width: 1200px;
+  display: flex
+;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 auto;
 
   @media screen and (max-width: 1440px) {
-    padding: 0 80px;
+    max-width: 1024px;
   }
 }
 

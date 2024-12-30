@@ -9,10 +9,14 @@ const PrivateRoute = () => {
   if (!token) return <Navigate to="/login" replace />;
 
   return (
-    <>
+    <div style={{ 
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100vh'
+    }}>
       <Header/>
       <Outlet />
-    </>
+    </div>
   )
 };
 
