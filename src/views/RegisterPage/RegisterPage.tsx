@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './RegisterPage.module.scss';
 import RegisterForm from '../../features/Auth/RegisterForm/RegisterForm';
 import Layout from '../../features/Layout/Layout';
-import Button from '../../features/controls/button/Button';
+import Button from '../../features/controls/Button/Button';
 import Block from '../../features/Layout/Block/Block';
 import { Navigate } from 'react-router-dom';
 import { useAppSelector } from '../../store/store';

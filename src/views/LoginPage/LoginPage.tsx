@@ -3,7 +3,7 @@ import styles from './LoginPage.module.scss';
 import LoginForm from '../../features/Auth/LoginForm/LoginForm';
 import Layout from '../../features/Layout/Layout';
 import Block from '../../features/Layout/Block/Block';
-import Button from '../../features/controls/button/Button';
+import Button from '../../features/controls/Button/Button';
 
 export default function LoginPage() {
   return (

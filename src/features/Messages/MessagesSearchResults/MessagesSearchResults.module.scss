@@ -1,4 +1,4 @@
-.list-empty {
+.search-empty {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,7 +6,7 @@
     flex: 1;
 }
 
-.list-results {
+.search-results {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

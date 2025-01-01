@@ -1,6 +1,6 @@
 import { Middleware } from '@reduxjs/toolkit';
 import { authApi } from '../services/auth';
-import { setTokens, deleteTokens } from '../store/features/auth';
+import { setTokens, deleteTokens, setActivatedEmail, deleteActivatedEmail } from '../store/features/auth';
 
 const authMiddleware: Middleware = (store) => (next) => async (action) => {
   const result = next(action);
@@ -39,10 +39,13 @@ const authMiddleware: Middleware = (store) => (next) => async (action) => {
   // If get tokens - save to store
   if (authApi.endpoints.signupUser.matchFulfilled(action)) {
     const { token, refresh_token } = action.payload;
+    const params = action.meta.arg.originalArgs
 
     localStorage.setItem('access_token', token);
     localStorage.setItem('refresh_token', refresh_token);
+    localStorage.setItem('activated_email', params.email);
 
+    store.dispatch(setActivatedEmail(params.email));
     store.dispatch(setTokens({ token, refresh_token }));
   }
 
@@ -52,6 +55,7 @@ const authMiddleware: Middleware = (store) => (next) => async (action) => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
 
+    store.dispatch(deleteActivatedEmail());
     store.dispatch(deleteTokens());
   }
 
@@ -60,6 +64,7 @@ const authMiddleware: Middleware = (store) => (next) => async (action) => {
 
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
+    localStorage.removeItem('activated_email');
 
     store.dispatch(deleteTokens());
   }

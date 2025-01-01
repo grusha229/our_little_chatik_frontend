@@ -3,10 +3,10 @@ import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
 import authSlice, { loadTokensFromStorage } from './features/auth';
 import { authApi } from '../services/auth';
 import authMiddleware from '../middleware/auth';
-import { usersSlice } from './features/users';
+import usersSlice from './features/users';
 import { usersApi } from '../services/users';
 import usersMiddleware from '../middleware/users';
-import { chatsSlice } from './features/chats';
+import chatsSlice from './features/chats';
 import { chatApi } from '../services/chat';
 import chatsMiddleware from '../middleware/chats';
 

@@ -1,4 +1,4 @@
-import Button from '../../features/controls/button/Button';
+import Button from '../../features/controls/Button/Button';
 import styles from './404.module.scss'
 import {useRouteError} from "react-router-dom";
 

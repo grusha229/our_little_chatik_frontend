@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useSignupUserMutation } from '../../../services/auth';
 import style from './RegisterForm.module.scss';
 import { ISignupPayload } from '../../../models/auth';
-import Button from '../../controls/button/Button';
+import Button from '../../controls/Button/Button';
+import Input from '../../controls/Input/Input';
 
 export default function LoginForm() {
 
@@ -13,7 +14,8 @@ export default function LoginForm() {
     });
 
       // Мутация для обновления пользователя
-    const [ registerUser ] = useSignupUserMutation();
+    const [ registerUser, error ] = useSignupUserMutation();
+    const apiError = error?.error;
 
     const handleSubmitLinkForm = async (formData: ISignupPayload) => {
       console.log(formData);
@@ -31,56 +33,61 @@ export default function LoginForm() {
                 onSubmit={handleSubmit(handleSubmitLinkForm)}
                 className={style['form']}
             >
-                    <input
-                        className={style['form--input']}
-                        placeholder='Name'
-                        {...register("name", 
-                          { required: true }
-                        )}
+                    <Input
+                      name="name"
+                      placeholder="Name"
+                      register={register}
+                      rules={{ required: 'Enter your name' }}
+                      error={errors.name}
                     />
-                    {errors.name && <div>{errors.name.message}</div>}
-                    <input
-                        className={style['form--input']}
+                    <Input
+                        name="surname"
                         placeholder='Surname'
-                        {...register("surname", { 
-                          required: true,
-                        })}
+                        register={register}
+                        rules={{ required: 'Enter your surname' }}
+                        error={errors.surname}
                     />
-                     {errors.surname && <div>{errors.surname.message}</div>}
-                    <input
-                        className={style['form--input']}
+                    <Input
+                        name="nickname"
                         placeholder='Nickname'
-                        {...register("nickname", { 
-                          required: true,
-                        })}
+                        register={register}
+                        rules={{ 
+                          required: 'Enter your nickname',
+                          minLength: {
+                            value: 3,
+                            message: "Nickname min length is 3",
+                          },
+                         }}
+                        error={errors.nickname}
                     />
-                    {errors.nickname && <div>{errors.nickname.message}</div>}
-                    <input
-                        className={style['form--input']}
+                    <Input
+                        name="email"
                         placeholder='Email'
                         type='email'
-                        {...register("email", { 
-                          required: true,
+                        register={register}
+                        rules={{ 
+                          required: "Email is required",
                           pattern: {
                             value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                             message: "Invalid email address"
                           },
-                        })}
+                        }}
+                        error={errors.email}
                     />
-                    {errors.email && <div>{errors.email.message}</div>}
-                    <input
-                        className={style['form--input']}
+                    <Input
+                        name="password"
                         placeholder='Password'
                         type='password'
-                        {...register("password", {
-                          required: "this is required",
+                        register={register}
+                        rules={{
+                          required: "Password is required",
                           minLength: {
                             value: 8,
                             message: "Password min length is 8",
                           },
-                        })}
+                        }}
+                        error={errors.password}
                     />
-                    {errors.password && <div>{errors.password.message}</div>}
                 <Button
                   type="submit"
                   block
@@ -88,6 +95,11 @@ export default function LoginForm() {
                 >
                   Register
                 </Button>
+                 {apiError && (
+                    <div className='error'>
+                      {apiError?.data?.message}
+                    </div>
+                 )}
             </form>
         </div>
       )

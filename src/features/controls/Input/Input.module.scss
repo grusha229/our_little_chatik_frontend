@@ -1,0 +1,29 @@
+@import "../../../helpers/styles/_colors.scss";
+
+.input {
+    font-size: 18px;
+    border: none;
+    color: $color-text-primary;
+    border-radius: px;
+    padding: 12px 20px;
+    transition: filter 400ms;
+    background-color: transparent;
+    border: 0px solid $color-yellow-primary;
+
+    &-wrapper {
+        flex: 1;
+        z-index: 1;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    &--error {
+        border-bottom: 1px solid red;
+    }
+}
+
+.error {
+    color: $color-text-error;
+}

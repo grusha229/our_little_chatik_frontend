@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useActivateUserMutation } from '../../../services/auth';
 import style from './ActivationForm.module.scss';
 import { IActivationPayload } from '../../../models/auth';
-import Button from '../../controls/button/Button';
+import Button from '../../controls/Button/Button';
+import Input from '../../controls/Input/Input';
 export default function ActivationForm() {
 
     // Инициализация useForm
@@ -29,15 +30,13 @@ export default function ActivationForm() {
                 onSubmit={handleSubmit(handleSubmitActivationUserForm)}
                 className={style['form']}
             >
-                    <input
-                        className={style['form--input']}
-                        placeholder='activation code'
-                        {...register("code", {
-                          required: 'enter the code'
-                        })}
+                    <Input
+                      name="code"
+                      placeholder="Activation code"
+                      register={register}
+                      rules={{ required: 'Enter the code' }}
+                      error={errors.code}
                     />
-                    {apiError && <div>{apiError?.data?.message}</div>}
-                    {(errors.code && !apiError) && <div>{errors.code.message}</div>}
                     <Button
                       type='submit'
                       block
@@ -45,6 +44,11 @@ export default function ActivationForm() {
                     >
                       Activate
                     </Button>
+                    {apiError && (
+                        <div className='error'>
+                          {apiError?.data?.message}
+                        </div>
+                    )}
             </form>
       )
 }

@@ -1,12 +1,18 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IChatsChat, IChatsChatListResponse } from "../../models/chats";
+import { IChatsChat, IChatsChatListResponse, IChatsSearchMessagesResponse } from "../../models/chats";
 
 export interface IAuthState {
   chats: Array<IChatsChat>;
+  search_results: IChatsSearchMessagesResponse;
 }
 
 const initialState: IAuthState  = {
   chats: [],
+  search_results: {
+    chats: [],
+    messages: [],
+    users: [],
+  }
 }
 
 export const chatsSlice = createSlice({
@@ -16,9 +22,15 @@ export const chatsSlice = createSlice({
     setChats: (state, action: PayloadAction<IChatsChatListResponse>) => {
       state.chats = action.payload;
     },
+    setSearchResults: (state, action: PayloadAction<IChatsSearchMessagesResponse>) => {
+      state.search_results = action.payload;
+    },
+    deleteSearchResults: (state) => {
+      state.search_results = initialState.search_results;
+    },
   },
 });
 
-export const { setChats } = chatsSlice.actions;
+export const { setChats, setSearchResults, deleteSearchResults } = chatsSlice.actions;
 
 export default chatsSlice.reducer;

@@ -4,6 +4,7 @@ import { useChatsSearchMutation } from '../../../services/chat';
 import { IChatsSearchMessagesPayload } from '../../../models/chats';
 import { useForm } from 'react-hook-form';
 import debounce from '../../../utils/debounce';
+import Input from '../../controls/Input/Input';
 
 export interface IProps {
     onFocus: () => void;
@@ -40,14 +41,15 @@ export default function MessagesSearchForm({
           onChange={handleSubmit(debounce(handleSubmitSearchForm, 500))}
           className={style['form']}
       >
-              <input
-                  className={style['form--input']}
+              <Input
+                  name="text"
                   placeholder='Search'
+                  register={register}
                   onFocus={onFocus}
-                  {...register("text", {
+                  rules={{
                     required: true,
                     onBlur: handleInputBlur,
-                  })}
+                  }}
               />
       </form>
     )

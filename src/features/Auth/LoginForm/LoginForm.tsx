@@ -3,7 +3,9 @@ import { useForm } from 'react-hook-form';
 import { useLoginUserMutation } from '../../../services/auth';
 import style from './LoginForm.module.scss';
 import { ILoginPayload } from '../../../models/auth';
-import Button from '../../controls/button/Button';
+import Button from '../../controls/Button/Button';
+import InputComponent from '../../controls/Input/Input';
+import Input from '../../controls/Input/Input';
 
 export default function LoginForm() {
 
@@ -13,7 +15,8 @@ export default function LoginForm() {
     });
 
       // Мутация для обновления пользователя
-    const [ loginUser ] = useLoginUserMutation();
+    const [ loginUser, error ] = useLoginUserMutation();
+    const apiError = error?.error
 
     const handleSubmitLinkForm = async (formData: ILoginPayload) => {
       console.log(formData);
@@ -30,23 +33,21 @@ export default function LoginForm() {
                 onSubmit={handleSubmit(handleSubmitLinkForm)}
                 className={style['form']}
             >
-                    <input
-                        className={style['form--input']}
-                        placeholder='Nickname'
-                        {...register("nickname", {
-                          required: true,
-                        })}
+                    <Input
+                      name="nickname"
+                      placeholder="Nickname"
+                      register={register}
+                      rules={{ required: 'Enter your nickname' }}
+                      error={errors.nickname}
                     />
-                    {errors.nickname && <div>{errors.nickname.message}</div>}
-                    <input
-                        className={style['form--input']}
-                        placeholder='password'
-                        type='password'
-                        {...register("password", {
-                          required: true,
-                        })}
+                    <Input
+                      name="password"
+                      placeholder="Password"
+                      register={register}
+                      rules={{ required: 'Enter the password' }}
+                      error={errors.password}
+                      type='password'
                     />
-                    {errors.nickname && <div>{errors.nickname.message}</div>}
                     <Button
                       type='submit'
                       block
@@ -54,6 +55,11 @@ export default function LoginForm() {
                     >
                       Login
                     </Button>
+                    {apiError && (
+                        <div className='error'>
+                          {apiError?.data?.message}
+                        </div>
+                    )}
             </form>
       )
 }

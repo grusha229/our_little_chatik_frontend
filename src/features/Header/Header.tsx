@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import styles from './Header.module.scss'
 import { useGetUserInfoQuery } from '../../services/users';
-import Button from '../controls/button/Button';
+import Button from '../controls/Button/Button';
 import { useLogoutUserMutation } from '../../services/auth';
 
 export default function Header() {

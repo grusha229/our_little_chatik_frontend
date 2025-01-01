@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import MessagesSearchForm from '../MessagesSearchForm/MessagesSearchForm'
 import MessagesChatList from '../MessagesChatList/MessagesChatList';
+import MessagesSearchResults from '../MessagesSearchResults/MessagesSearchResults';
 
 export default function MessagesSideBar() {
 
@@ -15,14 +16,14 @@ export default function MessagesSideBar() {
   }, [])
 
   return (
-    <div>
+    <>
       <MessagesSearchForm
         onBlur={didSearchBlurred}
         onFocus={didSearchFocused}
       />
-      {isSearchActive && <>results</>}
+      {isSearchActive && <MessagesSearchResults />}
       {!isSearchActive && <MessagesChatList />}
 
-    </div>
+    </>
   )
 }
