@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import style from './MessagesSearchForm.module.scss';
-import { useChatsSearchMutation } from '../../../services/chat';
-import { IChatsSearchMessagesPayload } from '../../../models/chats';
+import { useSearchMutation } from '../../../services/search';
+import { ISearchPayload } from '../../../models/search';
 import { useForm } from 'react-hook-form';
 import debounce from '../../../utils/debounce';
 import Input from '../../controls/Input/Input';
@@ -16,11 +16,11 @@ export default function MessagesSearchForm({
   onFocus
 }: IProps) {
 
-    const { register, handleSubmit, getValues} = useForm<IChatsSearchMessagesPayload>({
+    const { register, handleSubmit, getValues} = useForm<ISearchPayload>({
       mode: 'onChange',
     });
 
-    const [ searchMessages ] = useChatsSearchMutation();
+    const [ search ] = useSearchMutation();
 
     const handleInputBlur = useCallback(() => {
       if (getValues().text.length > 0) return
@@ -28,9 +28,9 @@ export default function MessagesSearchForm({
       onBlur();
     }, [getValues, onBlur])
 
-    const handleSubmitSearchForm = async (formData: IChatsSearchMessagesPayload) => {
+    const handleSubmitSearchForm = async (formData: ISearchPayload) => {
       try {
-        await searchMessages(formData).unwrap();
+        await search(formData).unwrap();
       } catch (error) {
         console.error("Failed to update user:", error);
       }
@@ -42,6 +42,7 @@ export default function MessagesSearchForm({
           className={style['form']}
       >
               <Input
+                  className={style['input']}
                   name="text"
                   placeholder='Search'
                   register={register}

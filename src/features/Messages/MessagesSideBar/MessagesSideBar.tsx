@@ -23,11 +23,9 @@ export default function MessagesSideBar() {
         onFocus={didSearchFocused}
       />
       <div className={styles['sidebar-content']}>
-        <MessagesSearchResults />
+        {isSearchActive && <MessagesSearchResults />}
+        {!isSearchActive && <MessagesChatList />}
       </div>
-      {/* {isSearchActive && <MessagesSearchResults />}
-      {!isSearchActive && <MessagesChatList />} */}
-
     </>
   )
 }

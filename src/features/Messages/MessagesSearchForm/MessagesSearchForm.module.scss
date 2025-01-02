@@ -2,4 +2,11 @@
 
 .form {
     border-bottom: 1px solid $color-yellow-primary;
+    padding: 8px;
+    background-color: $color-background-light;
+}
+
+.input {
+    background-color: $color-background;
+    border-radius: 4px;
 }

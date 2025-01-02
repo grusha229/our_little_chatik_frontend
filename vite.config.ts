@@ -9,7 +9,7 @@ export default defineConfig({
         '/api': {
             target: 'http://localhost:80', // URL бэкенда
             changeOrigin: true, // Изменяет заголовок Origin в запросе
-            rewrite: (path) => path.replace(/^\/api/, '') // Удаление /api из пути
+            rewrite: (path) => path.replace(/^\/api^\/v1/, '') // Удаление /api из пути
         }
     }
 }

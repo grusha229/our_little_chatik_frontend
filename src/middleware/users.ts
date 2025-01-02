@@ -3,8 +3,6 @@ import { usersApi } from '../services/users';
 
 const usersMiddleware: Middleware = (store) => (next) => async (action) => {
 
-  console.info('Users Middleware triggered:', action);
-
   // If there an error - delete tokens
   if (usersApi.endpoints.getUserInfo.matchRejected(action)) {
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IChatsUser {
     avatar: string,
     email: string,
@@ -18,7 +19,7 @@ export interface IChatsMessage {
     id: number;
     is_edited: boolean;
     is_read: boolean;
-    media: any;
+    media: unknown;
     payload: string;
     reactions: any;
     sender_id: string;
@@ -43,15 +44,3 @@ export interface IChatsChat {
 }
 
 export type IChatsChatListResponse = Array<IChatsChat>
-
-export interface IChatsSearchMessagesResponse {
-    chats: Array<IChatsChat>,
-    messages: Array<IChatsMessage>,
-    users: Array<IChatsUser>
-}
-
-export interface IChatsSearchMessagesPayload {
-    text: string,
-    limit?: number,
-    page?: number,
-}

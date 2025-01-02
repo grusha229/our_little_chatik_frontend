@@ -9,13 +9,21 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   rules?: Record<string, any>; // Валидационные правила
   error?: FieldError | undefined; // Ошибка валидации
   type?: string;
+  className?: string;
 }
 
-export default function Input ({ name, placeholder, register, rules, error, ...props }: IProps) {
+export default function Input ({ name, placeholder, register, rules, error, className, ...props }: IProps) {
+  
+  const inputClassName = [
+    style['input'],
+    error ? style['input--error'] : '',
+    className ? className : '',
+  ].join(' ');
+
   return (
     <div className={style['input-wrapper']}>
       <input
-        className={`${style['input']} ${error ? style['input--error'] : ''}`}
+        className={inputClassName}
         placeholder={placeholder}
         {...register(name, rules)}
         {...props}

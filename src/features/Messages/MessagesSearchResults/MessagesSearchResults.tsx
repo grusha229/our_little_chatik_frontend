@@ -3,6 +3,7 @@ import { useAppSelector } from '../../../store/store';
 import styles from './MessagesSearchResults.module.scss';
 import MessagesChatItem from '../MessagesChatItem/MessagesChatItem';
 import { IChatsMessage } from '../../../models/chats';
+import { useSearchMutation } from '../../../services/search';
 
 
 const MOCK_MESSAGE: IChatsMessage = {
@@ -53,34 +54,26 @@ const MOCK_CHAT = {
 };
 
 export default function MessagesSearchResults() {
-    const searchResults = useAppSelector((state) => state.chats.search_results);
+    const searchResults = useAppSelector((state) => state.search.search_results);
+    const [ _, { isLoading: isSearchLoading } ] = useSearchMutation();
 
-    let chatsResults = searchResults.chats;
-    let messagesResults = searchResults.messages;
-    let usersResults = searchResults.users;
+    const chatsResults = searchResults.chats;
+    const messagesResults = searchResults.messages;
+    const usersResults = searchResults.users;
 
-    chatsResults = [
-      MOCK_CHAT,
-      MOCK_CHAT,
-      MOCK_CHAT,
-      MOCK_CHAT,
-    ];
+    const chatsResultsExists = (chatsResults && chatsResults.length > 0)
+    const usersResultsExists = (usersResults && usersResults.length > 0)
+    const messagesResultsExists = (messagesResults && messagesResults.length > 0)
 
-    messagesResults = [
-      MOCK_MESSAGE,
-      MOCK_MESSAGE,
-      MOCK_MESSAGE,
-      MOCK_MESSAGE,
-    ];
+    if (isSearchLoading) {
+         return (
+        <div className={styles['search-empty']}>
+          <div>No results</div>
+        </div>
+      )
+    }
 
-    usersResults = [
-      MOCK_USER,
-      MOCK_USER,
-      MOCK_USER,
-      MOCK_USER,
-    ]
-
-    if (!chatsResults && !messagesResults && !usersResults) {
+    if (!chatsResultsExists && !usersResultsExists && !messagesResultsExists) {
       return (
         <div className={styles['search-empty']}>
           <div>No results</div>
@@ -90,7 +83,7 @@ export default function MessagesSearchResults() {
 
     return (
       <div className={styles['search-results']}>
-        {(chatsResults && chatsResults.length > 0) && (
+        {chatsResultsExists && (
           <div className={styles['search-results--block']}>
             <div className={styles['search-results--header']}>
               Founded chats:
@@ -106,7 +99,7 @@ export default function MessagesSearchResults() {
           </div>
         )}
 
-        {(messagesResults && messagesResults.length > 0) && (
+        {messagesResultsExists && (
           <div className={styles['search-results--block']}>
             <div className={styles['search-results--header']}>
               Founded messages:
@@ -123,7 +116,7 @@ export default function MessagesSearchResults() {
           </div>
         )}
 
-        {(usersResults && usersResults.length > 0) && (
+        {usersResultsExists && (
           <div className={styles['search-results--block']}>
             <div className={styles['search-results--header']}>
               Founded users:
