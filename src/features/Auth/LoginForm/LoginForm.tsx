@@ -17,6 +17,11 @@ export default function LoginForm() {
       // Мутация для обновления пользователя
     const [ loginUser, error ] = useLoginUserMutation();
     const apiError = error?.error
+    let apiErrorText = apiError?.data?.message;
+
+    if (apiError?.status === 403) {
+      apiErrorText = apiError?.data?.properties?.description
+    }
 
     const handleSubmitLinkForm = async (formData: ILoginPayload) => {
       console.log(formData);
@@ -57,7 +62,7 @@ export default function LoginForm() {
                     </Button>
                     {apiError && (
                         <div className='error'>
-                          {apiError?.data?.message}
+                          {apiErrorText}
                         </div>
                     )}
             </form>

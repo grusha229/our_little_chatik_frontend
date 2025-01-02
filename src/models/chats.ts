@@ -1,14 +1,33 @@
 export interface IChatsUser {
-    created_at: string,
+    avatar: string,
+    email: string,
+    name: string,
+    nickname: string,
+    surname: string,
+    user_id: string,
 }
 
 export interface IChatsMessage {
-    created_at: string,
+    chat: {
+        id: string,
+        name: string,
+        type: string;
+        photo: IChatsPhoto;
+    }
+    created_at: string;
+    id: number;
+    is_edited: boolean;
+    is_read: boolean;
+    media: any;
+    payload: string;
+    reactions: any;
+    sender_id: string;
+    updated_at: string;
 }
 
 export interface IChatsPhoto {
-    path: string,
-    url: string,
+    path?: string,
+    url?: string,
 }
 
 export interface IChatsChat {
@@ -18,7 +37,7 @@ export interface IChatsChat {
     last_message: IChatsMessage,
     last_read_msg_id: number,
     name: string,
-    participants: Array<IChatsUser>,
+    participants?: Array<IChatsUser>,
     photo: IChatsPhoto,
     updated_at: string
 }

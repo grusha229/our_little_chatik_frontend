@@ -1,10 +1,20 @@
 import { Middleware } from '@reduxjs/toolkit';
+import { usersApi } from '../services/users';
 
 const usersMiddleware: Middleware = (store) => (next) => async (action) => {
 
-  console.log('Users Middleware triggered:', action);
-  return next(action);
+  console.info('Users Middleware triggered:', action);
 
+  // If there an error - delete tokens
+  if (usersApi.endpoints.getUserInfo.matchRejected(action)) {
+
+    if (action?.payload?.status === 404) {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+    }
+  }
+
+  return next(action);
 };
 
 export default usersMiddleware;

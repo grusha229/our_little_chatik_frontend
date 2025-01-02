@@ -1,13 +1,84 @@
 import React from 'react'
 import { useAppSelector } from '../../../store/store';
 import styles from './MessagesSearchResults.module.scss';
+import MessagesChatItem from '../MessagesChatItem/MessagesChatItem';
+import { IChatsMessage } from '../../../models/chats';
+
+
+const MOCK_MESSAGE: IChatsMessage = {
+    created_at: 'Message 1',
+    id: 124,
+    chat: {
+        id: '124124',
+        name: 'Suii chat',
+        type: 'private',
+        photo: {
+            path: 'https://ss.sport-express.ru/userfiles/materials/207/2075330/volga.jpg',
+            url: 'https://ss.sport-express.ru/userfiles/materials/207/2075330/volga.jpg'
+        }
+    },
+    is_edited: false,
+    is_read: false,
+    media: null,
+    payload: 'SUUUIIII 1f sd fsf sdf sdf sffsdfdsfdsfdf sdfsdfdsfdsfsd',
+    reactions: null,
+    sender_id: '124124',
+    updated_at: 'fasfas'
+}
+
+const MOCK_PHOTO = {
+  path: 'https://ss.sport-express.ru/userfiles/materials/207/2075330/volga.jpg',
+  url: 'https://ss.sport-express.ru/userfiles/materials/207/2075330/volga.jpg'
+}
+
+const MOCK_USER = {
+  user_id: '124124',
+  surname: 'Suii',
+  name: 'Suii',
+  nickname: 'Suii007',
+  email: 'Suii@su.i',
+  avatar: '',
+}
+
+const MOCK_CHAT = {
+  chat_id: '124124',
+  chat_type: 'private',
+  created_at: 'Chat 1',
+  last_read_msg_id: 124,
+  name: 'Suii chat',
+  participants: [],
+  updated_at: 'Chat 1',
+  last_message: MOCK_MESSAGE,
+  photo: MOCK_PHOTO,
+};
 
 export default function MessagesSearchResults() {
     const searchResults = useAppSelector((state) => state.chats.search_results);
 
-    const chatsResults = searchResults.chats;
-    const messagesResults = searchResults.messages;
-    const usersResults = searchResults.users;
+    let chatsResults = searchResults.chats;
+    let messagesResults = searchResults.messages;
+    let usersResults = searchResults.users;
+
+    chatsResults = [
+      MOCK_CHAT,
+      MOCK_CHAT,
+      MOCK_CHAT,
+      MOCK_CHAT,
+    ];
+
+    messagesResults = [
+      MOCK_MESSAGE,
+      MOCK_MESSAGE,
+      MOCK_MESSAGE,
+      MOCK_MESSAGE,
+    ];
+
+    usersResults = [
+      MOCK_USER,
+      MOCK_USER,
+      MOCK_USER,
+      MOCK_USER,
+    ]
 
     if (!chatsResults && !messagesResults && !usersResults) {
       return (
@@ -20,28 +91,50 @@ export default function MessagesSearchResults() {
     return (
       <div className={styles['search-results']}>
         {(chatsResults && chatsResults.length > 0) && (
-          <div>
-            <div>Chats:</div>
+          <div className={styles['search-results--block']}>
+            <div className={styles['search-results--header']}>
+              Founded chats:
+            </div>
             {chatsResults.map((chat) => (
-              <div key={chat.chat_id}>{chat.name}</div>
+              <MessagesChatItem 
+                key={chat.chat_id}
+                heading={chat.name}
+                img_src={chat.photo?.path}
+                link={`/messages/${chat.chat_id}`} 
+              />
             ))}
           </div>
         )}
 
         {(messagesResults && messagesResults.length > 0) && (
-          <div>
-            <div>Messages:</div>
+          <div className={styles['search-results--block']}>
+            <div className={styles['search-results--header']}>
+              Founded messages:
+            </div>
             {messagesResults.map((message) => (
-              <div key={message.created_at}>{message.created_at}</div>
+              <MessagesChatItem
+                key={message.id}
+                heading={message.chat.name}
+                last_message={message.payload}
+                img_src={message.chat.photo.url}
+                link={`/messages/${message.chat.id}?message_id=${message.id}`} 
+              />
             ))}
           </div>
         )}
 
         {(usersResults && usersResults.length > 0) && (
-          <div>
-            <div>Users:</div>
+          <div className={styles['search-results--block']}>
+            <div className={styles['search-results--header']}>
+              Founded users:
+            </div>
             {usersResults.map((user) => (
-              <div key={user.created_at}>{user.created_at}</div>
+              <MessagesChatItem
+                key={user.user_id}
+                heading={`${user.name} ${user.surname}`}
+                img_src={user.avatar}
+                link={`#user_id=${user.user_id}`} 
+              />
             ))}
           </div>
         )}

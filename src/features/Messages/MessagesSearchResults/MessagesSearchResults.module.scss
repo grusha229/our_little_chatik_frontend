@@ -1,3 +1,5 @@
+@import "../../../helpers/styles/colors.scss";
+
 .search-empty {
     display: flex;
     flex-direction: column;
@@ -11,4 +13,24 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+
+    &--block {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    &--header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        border-bottom: $color-text-primary solid 1px;
+
+        padding: 5px 10px;
+        background-color: $color-background-light;
+    }
 }

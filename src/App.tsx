@@ -23,6 +23,7 @@ function App() {
 
             <Route path="/" element={<PrivateRoute />} errorElement={<ErrorPage />}>
               <Route path="/messages" element={<MessagesPage />} errorElement={<ErrorPage />} />
+              <Route path="/messages/:id" element={<MessagesPage />} errorElement={<ErrorPage />} />
             </Route>
           </Routes>
         </Router>

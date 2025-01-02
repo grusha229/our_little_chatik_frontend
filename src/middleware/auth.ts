@@ -19,7 +19,7 @@ const authMiddleware: Middleware = (store) => (next) => async (action) => {
 
   // If there an error - delete tokens
   if (authApi.endpoints.refreshToken.matchRejected(action)) {
-  
+
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
 

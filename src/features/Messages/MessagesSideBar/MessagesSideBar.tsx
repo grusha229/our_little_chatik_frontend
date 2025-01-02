@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react'
 import MessagesSearchForm from '../MessagesSearchForm/MessagesSearchForm'
 import MessagesChatList from '../MessagesChatList/MessagesChatList';
 import MessagesSearchResults from '../MessagesSearchResults/MessagesSearchResults';
+import styles from './MessagesSideBar.module.scss'
 
 export default function MessagesSideBar() {
 
@@ -21,8 +22,11 @@ export default function MessagesSideBar() {
         onBlur={didSearchBlurred}
         onFocus={didSearchFocused}
       />
-      {isSearchActive && <MessagesSearchResults />}
-      {!isSearchActive && <MessagesChatList />}
+      <div className={styles['sidebar-content']}>
+        <MessagesSearchResults />
+      </div>
+      {/* {isSearchActive && <MessagesSearchResults />}
+      {!isSearchActive && <MessagesChatList />} */}
 
     </>
   )

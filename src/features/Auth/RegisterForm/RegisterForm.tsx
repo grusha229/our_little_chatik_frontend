@@ -17,6 +17,12 @@ export default function LoginForm() {
     const [ registerUser, error ] = useSignupUserMutation();
     const apiError = error?.error;
 
+    let apiErrorText = apiError?.data?.message;
+
+    if (apiError?.status === 409) {
+      apiErrorText = apiError?.data?.properties?.description
+    }
+
     const handleSubmitLinkForm = async (formData: ISignupPayload) => {
       console.log(formData);
       try {
@@ -97,7 +103,7 @@ export default function LoginForm() {
                 </Button>
                  {apiError && (
                     <div className='error'>
-                      {apiError?.data?.message}
+                      {apiErrorText}
                     </div>
                  )}
             </form>
