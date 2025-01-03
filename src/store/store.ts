@@ -12,6 +12,7 @@ import chatsMiddleware from '../middleware/chats';
 import searchMiddleware from '../middleware/search';
 import searchSlice from './features/search';
 import { searchApi } from '../services/search';
+import modalsSlice from './features/modals';
 
 // Объединение редукторов
 const rootReducer = combineReducers({
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   chats: chatsSlice,
   [chatApi.reducerPath]: chatApi.reducer,
   search: searchSlice,
-  [searchApi.reducerPath]: searchApi.reducer
+  [searchApi.reducerPath]: searchApi.reducer,
+  modals: modalsSlice,
 });
 
 export const store = configureStore({
