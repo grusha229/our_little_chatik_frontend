@@ -11,6 +11,7 @@ import styles from "./CreateChatForm.module.scss";
 import { useCreateMutation } from "../../../services/chat";
 import { closeModal } from "../../../store/features/modals";
 import { useAppDispatch } from "../../../store/store";
+import { muiInputStyles } from "./CreateChatForm.utils";
 
 export interface IUsersOption {
     id: string;
@@ -78,6 +79,7 @@ export default function CreateChatForm() {
               setSelectedUsers(filteredTags);
               setValue("participants_ids", filteredTags.map((user) => user.user_id));
               setValue("participants", filteredTags);
+
               if (filteredTags.length < 1) {
                 setValue('chat_type', ChatType.PRIVATE);
               }
@@ -96,15 +98,7 @@ export default function CreateChatForm() {
         render={({ field }) => (
           <Autocomplete
             {...field}
-            sx={{
-                "& .MuiAutocomplete-popper": {
-                    backgroundColor: '#222',
-                },
-                "& .MuiAutocomplete-input": {
-                  color: "#fff",
-                  borderColor: "#fff",
-                },
-            }}
+            sx={muiInputStyles}
             multiple
             loading={isLoading || isFetching}
             options={data || []}
@@ -121,29 +115,10 @@ export default function CreateChatForm() {
             onInputChange={debounce(handleInputChange, 500)}
             renderInput={(params) => (
               <TextField
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    "& fieldset": {
-                      borderColor: "#303030",
-                      color: "#fff",
-                    },
-                    "&:hover fieldset": {
-                      borderColor: "#fcc521", // Цвет рамки при наведении
-                    },
-                    "&.Mui-focused fieldset": {
-                      borderColor: "#fcc521",
-                      color: "#fff",
-                    },
-                  },
-                }}
+                sx={muiInputStyles}
                 slotProps={{
                   inputLabel: {
-                    sx: {
-                      color: "#fff",
-                      '&.Mui-focused': {
-                        color: '#fcc521', // Цвет при фокусе
-                      },
-                    }
+                    sx: muiInputStyles,
                   }
                 }}
                 {...params}
@@ -176,21 +151,7 @@ export default function CreateChatForm() {
               error={!!errors.participants}
               helperText={errors.participants?.message}
               color="primary"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#303030",
-                    color: "#fff",
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "#fcc521", // Цвет рамки при наведении
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "#fcc521",
-                    color: "#fff",
-                  },
-                },
-              }}
+              sx={muiInputStyles}
               slotProps={{
                 inputLabel: {
                   sx: {
