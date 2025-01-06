@@ -92,3 +92,11 @@ button:focus-visible {
 * {
   box-sizing: border-box;
 }
+
+.MuiAutocomplete-paper	{
+  background-color: #242424 !important;
+}
+
+.MuiOutlinedInput-input	{
+  color: #ffffff !important;
+}

@@ -45,7 +45,7 @@ export default function Header() {
               <Button
                 onClick={handleOpenModalClicked}
               >
-                open modal
+                Create chat
               </Button>
               <Button
                 onClick={handleLogoutClicked}

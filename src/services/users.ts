@@ -18,6 +18,7 @@ export const usersApi = createApi({
         url: `/search`,
         method: 'GET',
         params: payload,
+        keepUnusedDataFor: 0,
       }),
     }),
   }),

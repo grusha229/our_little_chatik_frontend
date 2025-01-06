@@ -1,3 +1,6 @@
+import { Field } from "react-hook-form";
+import { ICurrentUserInfoResponse, IUsersSearchResponse } from "./users";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IChatsUser {
     avatar: string,
@@ -44,3 +47,16 @@ export interface IChatsChat {
 }
 
 export type IChatsChatListResponse = Array<IChatsChat>
+
+export enum ChatType {
+    PRIVATE = 'private',
+    GROUP = 'group',
+}
+
+export interface IChatsCreateChatPayload {
+    participants_ids: Array<ICurrentUserInfoResponse["user_id"]>,
+    participants: Array<ICurrentUserInfoResponse>,
+    chat_type: ChatType,
+    name: string,
+    photo_upload_id?: string,
+}
