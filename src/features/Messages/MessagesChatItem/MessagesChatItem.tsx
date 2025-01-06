@@ -9,12 +9,28 @@ export interface IProps {
 	heading: string;
 	last_message?: string;
 	img_src?: string;
-	link: string;
+	link?: string;
 }
 
 export default function MessagesChatItem({ heading, last_message, img_src, link } : IProps) {
+	if (link) {
+		return (
+			<Link to={`${link}`} className={styles['chat']}>
+					<Avatar src={img_src || `https://ui-avatars.com/api/?name=${heading}`} />
+					<div className={styles['chat-details']} >
+						<div className={styles['name']}>
+							{heading}
+						</div>
+						<div className={styles['message']}>
+							{last_message}
+						</div>
+					</div>
+			</Link>
+		);
+	}
+
 	return (
-		<Link to={`${link}`} className={styles['chat']}>
+		<div className={styles['chat']}>
 				<Avatar src={img_src || `https://ui-avatars.com/api/?name=${heading}`} />
 				<div className={styles['chat-details']} >
 					<div className={styles['name']}>
@@ -24,6 +40,6 @@ export default function MessagesChatItem({ heading, last_message, img_src, link 
 						{last_message}
 					</div>
 				</div>
-		</Link>
+		</div>
 	);
 };

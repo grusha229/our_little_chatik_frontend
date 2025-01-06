@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import createBaseQueryWithReauth from './baseQuery'
-import { ICurrentUserInfoResponse } from '../models/users'
+import { ICurrentUserInfoResponse, IUsersSearchPayload, IUsersSearchResponse } from '../models/users'
 
 export const usersApi = createApi({
   reducerPath: 'users_api',
@@ -13,9 +13,17 @@ export const usersApi = createApi({
           method: 'GET',
         }),
       }),
+    search: builder.query<IUsersSearchResponse, IUsersSearchPayload>({
+      query: (payload) => ({
+        url: `/search`,
+        method: 'GET',
+        params: payload,
+      }),
+    }),
   }),
 })
 
 export const { 
   useGetUserInfoQuery,
+  useSearchQuery,
 } = usersApi
