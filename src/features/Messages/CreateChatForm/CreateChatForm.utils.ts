@@ -6,6 +6,9 @@ export const muiInputStyles = {
       color: "#fff",
       borderColor: "#fff",
     },
+    "& .MuiAutocomplete-noOptions": {
+      color: "#fff",
+    },
     "& .MuiOutlinedInput-root": {
         "& fieldset": {
             borderColor: "#303030",

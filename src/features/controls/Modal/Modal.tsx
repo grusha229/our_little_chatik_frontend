@@ -11,6 +11,7 @@ export interface IProps {
     footer?: React.ReactNode,
     name: keyof IModalsState,
     size?: TModalSize,
+    onClose?: () => void
 }
 
 const Modal = ({ 
@@ -19,12 +20,14 @@ const Modal = ({
     header,
     footer,
     size = 'medium',
+    onClose,
 } : IProps) => {
 
     const isModalVisible = useAppSelector(state => state.modals[name]);
     const dispatch = useAppDispatch();
 
     const toggleModalVisibility = useCallback(()=> {
+            onClose && onClose();
             dispatch(closeModal(name))
         },[dispatch, name])
 

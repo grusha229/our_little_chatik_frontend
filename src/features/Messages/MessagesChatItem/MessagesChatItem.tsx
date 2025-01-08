@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {Link} from "react-router-dom";
 
 import styles from './MessagesChatItem.module.scss';
@@ -10,12 +10,17 @@ export interface IProps {
 	last_message?: string;
 	img_src?: string;
 	link?: string;
+	onClick?: () => void;
 }
 
-export default function MessagesChatItem({ heading, last_message, img_src, link } : IProps) {
+export default function MessagesChatItem({ heading, last_message, img_src, link, onClick } : IProps) {
+	const didItemClicked = useCallback(() => {
+		return onClick && onClick()
+	}, [onClick])
+
 	if (link) {
 		return (
-			<Link to={`${link}`} className={styles['chat']}>
+			<Link to={`${link}`} className={styles['chat']} onClick={didItemClicked}>
 					<Avatar src={img_src || `https://ui-avatars.com/api/?name=${heading}`} />
 					<div className={styles['chat-details']} >
 						<div className={styles['name']}>
@@ -30,7 +35,7 @@ export default function MessagesChatItem({ heading, last_message, img_src, link 
 	}
 
 	return (
-		<div className={styles['chat']}>
+		<div className={styles['chat']} onClick={didItemClicked}>
 				<Avatar src={img_src || `https://ui-avatars.com/api/?name=${heading}`} />
 				<div className={styles['chat-details']} >
 					<div className={styles['name']}>

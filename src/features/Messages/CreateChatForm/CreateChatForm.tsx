@@ -69,27 +69,29 @@ export default function CreateChatForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className={styles['form']}>
-      <Box mb={2}>
-        {selectedUsers.map((user) => (
-          <Chip
-            key={user.user_id}
-            label={`${user.name} ${user.surname}`}
-            onDelete={() => {
-              const filteredTags = selectedUsers.filter((selectedUser) => selectedUser.user_id !== user.user_id) || [];
-              setSelectedUsers(filteredTags);
-              setValue("participants_ids", filteredTags.map((user) => user.user_id));
-              setValue("participants", filteredTags);
+      {selectedUsers.length > 0 && (
+        <Box mb={2}>
+          {selectedUsers.map((user) => (
+            <Chip
+              key={user.user_id}
+              label={`${user.name} ${user.surname}`}
+              onDelete={() => {
+                const filteredTags = selectedUsers.filter((selectedUser) => selectedUser.user_id !== user.user_id) || [];
+                setSelectedUsers(filteredTags);
+                setValue("participants_ids", filteredTags.map((user) => user.user_id));
+                setValue("participants", filteredTags);
 
-              if (filteredTags.length < 1) {
-                setValue('chat_type', ChatType.PRIVATE);
+                if (filteredTags.length < 1) {
+                  setValue('chat_type', ChatType.PRIVATE);
+                }
               }
-            }
-            }
-            sx={{ margin: 0.5 }}
-            color="primary"
-          />
-        ))}
-      </Box>
+              }
+              sx={{ margin: 0.5 }}
+              color="primary"
+            />
+          ))}
+        </Box>
+      )}
 
       <Controller
         name="participants"
@@ -122,7 +124,7 @@ export default function CreateChatForm() {
                   }
                 }}
                 {...params}
-                label="Choose participants"
+                label="Find participants"
                 error={!!errors.participants}
                 helperText={errors.participants?.message}
                 color="primary"

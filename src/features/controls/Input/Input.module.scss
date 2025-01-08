@@ -4,11 +4,12 @@
     font-size: 18px;
     border: none;
     color: $color-text-primary;
-    border-radius: px;
+    border-radius: 1px;
     padding: 12px 20px;
     transition: filter 400ms;
     background-color: transparent;
     border: 0px solid $color-yellow-primary;
+    height: 45px;
 
     &-wrapper {
         flex: 1;

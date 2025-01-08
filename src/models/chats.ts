@@ -1,5 +1,4 @@
-import { Field } from "react-hook-form";
-import { ICurrentUserInfoResponse, IUsersSearchResponse } from "./users";
+import { ICurrentUserInfoResponse } from "./users";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IChatsUser {
@@ -60,3 +59,18 @@ export interface IChatsCreateChatPayload {
     name: string,
     photo_upload_id?: string,
 }
+
+export interface IChatsGetChatInfoPayload {
+    id: string
+}
+
+export interface IChatsGetChatInfoResponse extends IChatsChat {}
+
+export interface IChatsGetChatMessagesPayload {
+    id: string,
+    limit?: number,
+    start_with_id?: number,
+    finish_with_id?: number,
+}
+
+export type IChatsGetChatMessagesResponse = Array<IChatsMessage> 

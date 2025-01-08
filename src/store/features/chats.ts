@@ -1,12 +1,14 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IChatsChat, IChatsChatListResponse } from "../../models/chats";
+import { IChatsChat, IChatsChatListResponse, IChatsGetChatInfoResponse } from "../../models/chats";
 
-export interface IAuthState {
+export interface IChatsState {
   chats: Array<IChatsChat>;
+  currentChat: IChatsGetChatInfoResponse | null
 }
 
-const initialState: IAuthState  = {
+const initialState: IChatsState  = {
   chats: [],
+  currentChat: null,
 }
 
 export const chatsSlice = createSlice({
@@ -16,9 +18,12 @@ export const chatsSlice = createSlice({
     setChats: (state, action: PayloadAction<IChatsChatListResponse>) => {
       state.chats = action.payload;
     },
+    setCurrentChat: (state, action: PayloadAction<IChatsGetChatInfoResponse>) => {
+      state.currentChat = action.payload;
+    },
   },
 });
 
-export const { setChats } = chatsSlice.actions;
+export const { setChats, setCurrentChat } = chatsSlice.actions;
 
 export default chatsSlice.reducer;

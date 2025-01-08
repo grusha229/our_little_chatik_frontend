@@ -4,7 +4,7 @@ import styles from './MessagesChatList.module.scss'
 import MessagesChatItem from '../MessagesChatItem/MessagesChatItem';
 
 export function MessagesChatList() {
-     const { data, refetch } = useChatsListQuery();
+    const { data, refetch } = useChatsListQuery();
 
     useEffect(() => {
         refetch();
@@ -25,7 +25,7 @@ export function MessagesChatList() {
                     key={chat.chat_id}
                     heading={chat.name}
                     img_src={chat.photo?.path}
-                    link={`/messages/${chat.chat_id}`} 
+                    link={`/messages/${chat.chat_id}`}
                 />
             ))}
         </div>

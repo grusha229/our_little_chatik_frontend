@@ -97,6 +97,6 @@ button:focus-visible {
   background-color: #242424 !important;
 }
 
-.MuiOutlinedInput-input	{
+.MuiAutocomplete-noOptions, .MuiOutlinedInput-input {
   color: #ffffff !important;
 }

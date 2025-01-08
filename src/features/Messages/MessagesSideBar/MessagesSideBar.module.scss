@@ -1,7 +1,20 @@
+@import "../../../helpers/styles/_colors.scss";
+
 .sidebar-content {
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
 
     padding-bottom: 24px;
+}
+
+.form {
+    border-bottom: 1px solid $color-yellow-primary;
+    padding: 8px;
+    background-color: $color-background-light;
+
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+
 }

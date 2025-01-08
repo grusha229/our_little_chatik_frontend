@@ -1,0 +1,13 @@
+.error {
+    font-weight: bold;
+    margin: auto;
+}
+
+.messages {
+    width: 100%;
+    height: calc(100vh - 90px);
+    overflow: scroll;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
