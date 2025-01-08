@@ -1,12 +1,12 @@
 import { Middleware } from '@reduxjs/toolkit';
 import { chatApi } from '../services/chat';
-import { setChats, setCurrentChat } from '../store/features/chats';
+import { setChatMessages, setChats, setCurrentChat } from '../store/features/chats';
 import { AppDispatch } from '../store/store';
 
 const chatsMiddleware: Middleware = (store) => (next) => async (action) => {
   const result = next(action);
-  // Выполнение дополнительного вызова API
-  const dispatch: AppDispatch = store.dispatch; // Явное приведение для TypeScript
+
+  const dispatch: AppDispatch = store.dispatch;
 
   if (chatApi.endpoints.create.matchFulfilled(action)) {
     console.log('created:')
@@ -27,6 +27,13 @@ const chatsMiddleware: Middleware = (store) => (next) => async (action) => {
 
   if (chatApi.endpoints.getChatInfo.matchFulfilled(action)) {
     store.dispatch(setCurrentChat(action.payload));
+  }
+
+  if (chatApi.endpoints.getChatMessages.matchFulfilled(action)) {
+    store.dispatch(setChatMessages({
+      chat_id: action.meta.arg.originalArgs.id,
+      messages: action.payload
+    }));
   }
 
   return result;

@@ -5,9 +5,9 @@
 
 .messages {
     width: 100%;
-    height: calc(100vh - 90px);
+    flex: 1;
     overflow: scroll;
     display: flex;
     align-items: flex-end;
-    flex-direction: column;
+    flex-direction: column-reverse;
 }

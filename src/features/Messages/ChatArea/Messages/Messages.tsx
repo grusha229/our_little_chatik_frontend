@@ -1,27 +1,37 @@
-import s from "./Messages.module.scss"
+import styles from "./Messages.module.scss"
 import {Message, MessageSkeleton} from "./Message";
 import {useEffect, useRef} from "react";
 import {scrollToBottom} from "../../../../utils/scrollToBottom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchMessages} from "../../../store/messagesSlice.js";
-import { useGetChatMessagesMutation } from "../../../../services/chat.js";
+import { useGetChatMessagesQuery } from "../../../../services/chat.js";
 import { Skeleton } from "@mui/material";
-
-const YOUR_ID = "337295eb-cbde-479c-a4ee-683019adc838"
+import { useAppSelector } from "../../../../store/store.js";
+import { addMessage } from "../../../../store/features/chats.js";
 
 export interface IProps {
     chat_id: string
 }
 
 export default function Messages ({ chat_id }: IProps) {
+    const dispatch = useDispatch();
+    const { data: messages, isLoading, error } = useGetChatMessagesQuery({ id: chat_id });
 
-    const [ getMessages, { isLoading, data: currentMessages } ] = useGetChatMessagesMutation();
+    const chatMessages = useAppSelector((state) => state.chats.messages[chat_id]);
+    const YOUR_ID = useAppSelector((state) => state.users.current_user?.user_id) || '0';
+
+    console.log()
+
     const containerRef = useRef(null);
 
-    useEffect(()=>{
-        getMessages({id: chat_id})
-    },[chat_id])
-
+    // useEffect(() => {
+    //     if (currentMessages) {
+    //         currentMessages.forEach((message) => dispatch(addMessage({
+    //             chat_id,
+    //             message
+    //         })));
+    //     }
+    //   }, [currentMessages, dispatch]);
 
     useEffect(() => {
         scrollToBottom(containerRef)
@@ -29,7 +39,7 @@ export default function Messages ({ chat_id }: IProps) {
 
     if (isLoading) {
         return (
-            <div className={s.messages} ref={containerRef}>
+            <div className={styles['messages']} ref={containerRef}>
                 <MessageSkeleton isMine />
                 <MessageSkeleton />
                 <MessageSkeleton isMine />
@@ -37,18 +47,9 @@ export default function Messages ({ chat_id }: IProps) {
         )
     }
 
-    // {(chatListError !== null) && (
-    //     <div className={s.error}>
-    //         Возникла ошибка загрузки сообщений
-    //     </div>
-    // )}
-    // {(chatListStatus === "pending") && (
-    //     <Loader/>
-    // )}
-
     return (
-        <div className={s.messages} ref={containerRef}>
-            {currentMessages?.map((message, index) => {
+        <div className={styles['messages']} ref={containerRef}>
+            {chatMessages?.map((message, index) => {
                 return <Message key={index} text={message.payload} isMine={(message.sender_id === YOUR_ID)} date={message.created_at}/>
             })}
         </div>

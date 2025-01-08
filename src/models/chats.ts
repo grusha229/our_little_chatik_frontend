@@ -11,21 +11,17 @@ export interface IChatsUser {
 }
 
 export interface IChatsMessage {
-    chat: {
-        id: string,
-        name: string,
-        type: string;
-        photo: IChatsPhoto;
-    }
+    chat_id: string;
     created_at: string;
-    id: number;
-    is_edited: boolean;
-    is_read: boolean;
-    media: unknown;
+    id: string;
+    is_edited?: boolean;
+    is_read?: boolean;
+    media?: unknown;
     payload: string;
-    reactions: any;
+    reactions?: any;
     sender_id: string;
-    updated_at: string;
+    updated_at?: string;
+    status?: 'pending' | 'sent' | 'failed';
 }
 
 export interface IChatsPhoto {
@@ -74,3 +70,12 @@ export interface IChatsGetChatMessagesPayload {
 }
 
 export type IChatsGetChatMessagesResponse = Array<IChatsMessage> 
+
+export interface IChatsSendMessagePayload {
+    /** Chat id */
+    id: string,
+    payload: string,
+    upload_ids?: Array<string>,
+}
+
+export interface IChatsSendMessageResponse extends IChatsMessage {}

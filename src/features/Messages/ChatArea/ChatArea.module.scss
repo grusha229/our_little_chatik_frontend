@@ -1,63 +1,8 @@
-.main {
+.block {
     display: flex;
-    height: 100vh;
+    flex: 1;
     width: 100%;
     align-items: center;
     flex-direction: column;
-}
-
-
-/*messageArea {*/
-/*    display: flex;*/
-/*    background-color: #222222;*/
-/*    border-top: 1px solid #a2a2a2;*/
-/*    width: 100%;*/
-/*    height: calc(100% - 90px);*/
-
-/*    flex-direction: column-reverse;*/
-/*    overflow-y: auto;*/
-/*}*/
-
-.inputs {
-    padding: 12px;
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-}
-
-.messageInput {
-    padding: 12px 20px;
-    border-radius: 8px;
-    border: none;
-    flex-grow: 6;
-
-    margin: 0 5px 0 10px;
-}
-
-.button {
-    border-radius: 8px;
-    border: none;
-    background-color: #00796b;
-    color: white;
-    flex-grow: 1;
-    margin: 0 10px 0 5px;
-}
-
-.error {
-    margin: auto;
-}
-
-/*.chat {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    justify-content: flex-end;*/
-/*}*/
-
-.messages {
-    width: 100%;
-    height: calc(100vh - 90px);
-    overflow: scroll;
-    display: flex;
-    align-items: flex-end;
-    flex-direction: column;
+    overflow: hidden;
 }
