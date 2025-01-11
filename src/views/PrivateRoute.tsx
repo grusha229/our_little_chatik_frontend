@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAppSelector } from '../store/store';
+import { useAppDispatch, useAppSelector } from '../store/store';
 import Header from '../features/Header/Header';
 
 const PrivateRoute = () => {
-  const token = useAppSelector((state) => state.auth.token); // Получаем токен из authSlice
+  const token = useAppSelector((state) => state.auth.token);
+  const connected = useAppSelector((state) => state.websocket.connected);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!connected) {
+      dispatch({ type: 'websocket/connect', payload: 'ws://localhost/ws/events' });
+    }
+
+    return () => {
+      dispatch({ type: 'websocket/disconnect' });
+    };
+  }, [connected, dispatch]);
 
   if (!token) return <Navigate to="/login" replace />;
 

@@ -10,7 +10,7 @@ const chatsMiddleware: Middleware = (store) => (next) => async (action) => {
 
   if (chatApi.endpoints.create.matchFulfilled(action)) {
     console.log('created:')
-    dispatch(chatApi.endpoints.chatsList.initiate({}, { forceRefetch: true }))
+    dispatch(chatApi.endpoints.chatsList.initiate({} as any, { forceRefetch: true }))
     .unwrap()
     .then((response) => {
       console.log('Список чатов обновлён:', response);

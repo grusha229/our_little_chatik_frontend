@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './Avatar.module.scss'
+import Skeleton from '@mui/material/Skeleton';
 
 export type TAvatarSize = 'small' | 'medium' | 'large' | 'xlarge'
 
@@ -19,7 +20,10 @@ export default function Avatar({
     return (
         <div className={avatarClassName}>
         <div className={styles['avatar-container']}>
-            <img className={styles['avatar-image']} alt={alt} src={src} />
+            {(!src) ?
+                <Skeleton variant="circular" animation="pulse" width={40} height={40} />
+                : <img className={styles['avatar-image']} alt={alt} src={src} />
+            }
         </div>
         </div>
     )

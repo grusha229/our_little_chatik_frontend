@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import {Link} from "react-router-dom";
 
 import styles from './MessagesChatItem.module.scss';
-import { IChatsChat } from '../../../models/chats';
 import Avatar from '../../Users/Avatar/Avatar';
 
 export interface IProps {

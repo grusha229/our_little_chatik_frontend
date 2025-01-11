@@ -1,27 +1,33 @@
 import styles from "./ChatArea.module.scss"
 import { useParams } from "react-router-dom";
-import {useCallback, useEffect, useRef, useState} from "react";
-import { v4 as createId } from "uuid"
+import { useEffect } from "react";
 import Messages from "./Messages/Messages.js";
 import ChatHeader from "./ChatHeader/ChatHeader.js";
-// import {addMessage} from "../../store/messagesSlice.js";
-import {useDispatch} from "react-redux";
-import Modal from "../../components/modal/Modal.jsx";
 import ChatSendForm from "./ChatSendForm/ChatSendForm.js";
-
-const YOUR_ID = "337295eb-cbde-479c-a4ee-683019adc838";
+import { useGetChatInfoMutation } from "../../../services/chat.js";
 
 export default function ChatArea() {
 
     const params = useParams();
     const chat_id = params.id || '';
+    const [ getChatInfo, { isLoading, data: currentChat } ] = useGetChatInfoMutation();
+
+    const chatParticipants = currentChat?.participants || [];
+
+    useEffect(() => {
+        getChatInfo({ id: chat_id})
+    }, [ chat_id, getChatInfo ])
 
     return (
         <>
             <div className={styles['block']}>
-                <ChatHeader chat_id={chat_id}/>
+                <ChatHeader
+                    current_chat={currentChat}
+                    isLoading={isLoading}
+                />
                 <Messages
                     chat_id={chat_id}
+                    participants={chatParticipants}
                 />
                 <ChatSendForm chat_id={chat_id} />
             </div>

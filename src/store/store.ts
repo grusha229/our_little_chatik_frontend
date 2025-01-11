@@ -13,6 +13,9 @@ import searchMiddleware from '../middleware/search';
 import searchSlice from './features/search';
 import { searchApi } from '../services/search';
 import modalsSlice from './features/modals';
+import websocketMiddleware from '../middleware/websocket';
+
+import websocketSlice from './features/websocket';
 
 // Объединение редукторов
 const rootReducer = combineReducers({
@@ -25,6 +28,7 @@ const rootReducer = combineReducers({
   search: searchSlice,
   [searchApi.reducerPath]: searchApi.reducer,
   modals: modalsSlice,
+  websocket: websocketSlice,
 });
 
 export const store = configureStore({
@@ -33,7 +37,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => (
     getDefaultMiddleware()
       .concat(authApi.middleware, usersApi.middleware, chatApi.middleware)
-      .concat(authMiddleware, usersMiddleware, chatsMiddleware, searchMiddleware)
+      .concat(authMiddleware, usersMiddleware, chatsMiddleware, searchMiddleware, websocketMiddleware)
   )
 });
 

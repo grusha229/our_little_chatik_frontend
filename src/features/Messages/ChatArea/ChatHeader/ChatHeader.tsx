@@ -1,23 +1,16 @@
 import styles from "./ChatHeader.module.scss"
-import {useSelector} from "react-redux";
-import {useEffect} from "react";
-import { useGetChatInfoMutation } from "../../../../services/chat";
 import Avatar from "../../../Users/Avatar/Avatar";
 import { Skeleton } from "@mui/material";
+import { IChatsGetChatInfoResponse } from "../../../../models/chats";
 
 export interface IProps {
-    chat_id: string
+    current_chat: IChatsGetChatInfoResponse | undefined,
+    isLoading?: boolean
 }
 
-export default function ChatHeader ({ chat_id, ...props }: IProps) {
+export default function ChatHeader ({current_chat, isLoading }: IProps) {
 
-    const [ getChatInfo, { isLoading, data: currentChat } ] = useGetChatInfoMutation();
-
-    useEffect(() => {
-        getChatInfo({ id: chat_id})
-    }, [chat_id])
-
-    const avatarSrc = currentChat?.photo?.path || `https://ui-avatars.com/api/?name=${currentChat?.name}`;
+    const avatarSrc = current_chat?.photo?.path || `https://ui-avatars.com/api/?name=${current_chat?.name}`;
 
     return (
         <div className={styles['header']}>
@@ -29,7 +22,7 @@ export default function ChatHeader ({ chat_id, ...props }: IProps) {
                 <div className={styles['info']}>
                     {isLoading ?
                         <Skeleton variant="text" animation="pulse" width={120} />
-                        : <>{currentChat?.name}</>
+                        : <>{current_chat?.name}</>
                     }
                 </div>
             </div>

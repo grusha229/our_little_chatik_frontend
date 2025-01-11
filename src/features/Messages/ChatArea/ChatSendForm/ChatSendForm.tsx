@@ -4,7 +4,6 @@ import Button from '../../../controls/Button/Button';
 import Input from '../../../controls/Input/Input';
 import { useForm } from 'react-hook-form';
 import { IChatsSendMessagePayload } from '../../../../models/chats';
-import { IProps } from '../Messages/Messages';
 import { useSendChatMessageMutation } from '../../../../services/chat';
 import { generateNewMessage } from './ChatSendForm.utils';
 import { useAppSelector } from '../../../../store/store';
@@ -12,7 +11,7 @@ import { addMessage, updateMessageStatus } from '../../../../store/features/chat
 import { useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 
-export interface IChatSendFormProps {
+export interface IProps {
     chat_id: string;
 }
 
