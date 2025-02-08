@@ -3,7 +3,7 @@ import { AppDispatch, store } from './../store/store';
 import { Action, Middleware } from '@reduxjs/toolkit';
 import { RootState } from '../store/store';
 import { websocketService } from '../services/websocket';
-import { addMessage } from '../store/features/chats';
+import { addChat, addMessage } from '../store/features/chats';
 import { WsMessageType } from '../models/websocket';
 const websocketMiddleware: Middleware = (state) => (next) => async (action) => {
   let token;
@@ -32,6 +32,17 @@ const websocketMiddleware: Middleware = (state) => (next) => async (action) => {
             message: message.data
           }));
         }
+      }
+
+      if (message.type === WsMessageType.CHAT_CREATED) {
+        console.log('создан чат', message.data)
+        store.dispatch(addChat(message.data));
+        // if (message.data.sender_id !== state.getState().users.current_user?.user_id) {
+        //   store.dispatch(addMessage({
+        //     chat_id: message.data.chat_id,
+        //     message: message.data
+        //   }));
+        // }
       }
 
       break;

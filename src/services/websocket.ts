@@ -3,6 +3,7 @@ import { store } from "../store/store";
 // services/websocketService.ts
 class WebSocketService {
   private socket: WebSocket | null = null;
+  private pingInterval: NodeJS.Timeout | null = null;
 
   // Подключение к WebSocket
   connect(url: string, token: string) {
@@ -16,6 +17,7 @@ class WebSocketService {
     this.socket.onopen = () => {
       console.log('WebSocket connected');
       this.send({ token }); // Отправляем токен при установке соединения
+      this.startPing();
     };
 
     this.socket.onmessage = (event) => {
@@ -36,8 +38,24 @@ class WebSocketService {
 
     this.socket.onclose = () => {
       console.log('WebSocket closed');
+      this.stopPing();
     };
   }
+
+    private startPing() {
+      this.stopPing();
+      this.pingInterval = setInterval(() => {
+        this.send({ type: "ping", message: "check" });
+        console.log('Sent ping to WebSocket');
+      }, 25000); 
+    }
+  
+    private stopPing() {
+      if (this.pingInterval) {
+        clearInterval(this.pingInterval);
+        this.pingInterval = null;
+      }
+    }
 
   // Отправка сообщения через WebSocket
   send(message: object) {
@@ -50,6 +68,7 @@ class WebSocketService {
 
   // Отключение WebSocket
   disconnect() {
+    this.stopPing();
     if (this.socket) {
       this.socket.close();
       this.socket = null;

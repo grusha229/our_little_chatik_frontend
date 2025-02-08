@@ -5,11 +5,13 @@ import Messages from "./Messages/Messages.js";
 import ChatHeader from "./ChatHeader/ChatHeader.js";
 import ChatSendForm from "./ChatSendForm/ChatSendForm.js";
 import { useGetChatInfoMutation } from "../../../services/chat.js";
+import { useAppSelector } from "../../../store/store.js";
 
 export default function ChatArea() {
 
     const params = useParams();
     const chat_id = params.id || '';
+    console.log(chat_id);
     const [ getChatInfo, { isLoading, data: currentChat } ] = useGetChatInfoMutation();
 
     const chatParticipants = currentChat?.participants || [];

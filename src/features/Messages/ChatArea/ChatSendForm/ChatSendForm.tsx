@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import styles from './ChatSendForm.module.scss'
 import Button from '../../../controls/Button/Button';
 import Input from '../../../controls/Input/Input';
@@ -23,6 +23,14 @@ export default function ChatSendForm({ chat_id }: IProps) {
             id: chat_id,
         },
     });
+
+    useEffect(() => {
+        reset({
+            payload: '',
+            id: chat_id,
+        });
+    }, [chat_id, reset]); 
+
     const current_user = useAppSelector((state) => state.users.current_user);
     const current_id = current_user?.user_id || '';
 
@@ -35,7 +43,7 @@ export default function ChatSendForm({ chat_id }: IProps) {
         const newMessage = generateNewMessage(tempId, formData.payload, current_id );
 
         dispatch(addMessage({ chat_id, message: newMessage }));
-        console.log('добавляем сообщение в стор', newMessage)
+        console.log('добавляем сообщение в стор', chat_id,  newMessage)
 
         try {
           await sendMessage(formData).unwrap()

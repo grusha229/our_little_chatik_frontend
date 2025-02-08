@@ -14,11 +14,14 @@ export const chatApi = createApi({
         }),
       }),
       create: builder.mutation<void, IChatsCreateChatPayload>({
-        query: (payload) => ({
-          url: `/`,
-          method: 'POST',
-          body: payload,
-        }),
+        query: (payload) => {
+          const { participants, ...rest } = payload
+          return {
+            url: `/`,
+            method: 'POST',
+            body: rest,
+          }
+        },
       }),
       getChatInfo: builder.mutation<IChatsGetChatInfoResponse, IChatsGetChatInfoPayload>({
         query: (payload) => ({

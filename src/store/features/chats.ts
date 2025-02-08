@@ -29,6 +29,9 @@ export const chatsSlice = createSlice({
     addMessage: (state, action: PayloadAction<{ chat_id: string; message: IChatsMessage }>) => {
       state.messages[action.payload.chat_id].unshift(action.payload.message);
     },
+    addChat: (state, action: PayloadAction<IChatsGetChatInfoResponse>) => {
+      state.chats.unshift(action.payload);
+    },
     updateMessageStatus: (
       state,
       action: PayloadAction<{
@@ -51,6 +54,6 @@ export const chatsSlice = createSlice({
   },
 );
 
-export const { setChats, setCurrentChat, addMessage, updateMessageStatus, setChatMessages } = chatsSlice.actions;
+export const { setChats, setCurrentChat, addMessage, updateMessageStatus, setChatMessages, addChat } = chatsSlice.actions;
 
 export default chatsSlice.reducer;

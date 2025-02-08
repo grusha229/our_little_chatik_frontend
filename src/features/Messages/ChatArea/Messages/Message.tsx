@@ -31,7 +31,6 @@ import styles from "./Message.module.scss"
 }
 
 export const Message = ({ date, isMine, text, sender }: IProps) => {
-    console.log(sender)
 
     const messageTime = new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const avatarSrc = sender?.avatar ? sender.avatar : `https://ui-avatars.com/api/?name=${sender?.participant_nickname}`;
