@@ -27,10 +27,27 @@ export const chatsSlice = createSlice({
       state.messages[action.payload.chat_id] = action.payload.messages
     },
     addMessage: (state, action: PayloadAction<{ chat_id: string; message: IChatsMessage }>) => {
-      state.messages[action.payload.chat_id].unshift(action.payload.message);
+      state.messages[action.payload.chat_id]?.unshift(action.payload.message);
+    },
+    addMoreMessages: (state, action: PayloadAction<{ chat_id: string; messages: IChatsGetChatMessagesResponse }>) => {
+      state.messages[action.payload.chat_id] = [...state.messages[action.payload.chat_id], ...action.payload.messages];
     },
     addChat: (state, action: PayloadAction<IChatsGetChatInfoResponse>) => {
       state.chats.unshift(action.payload);
+    },
+    updateChatLastMessage: (state, action: PayloadAction<IChatsChat>) => {
+      const current_chat_id = action.payload.chat_id;
+
+      state.chats = state.chats.map((chat) => {
+        if (chat.chat_id === current_chat_id) {
+          return {
+            ...chat,
+            last_message: action?.payload,
+            updated_at: action?.payload.created_at
+          };
+        }
+        return chat;
+      })
     },
     updateMessageStatus: (
       state,
@@ -49,11 +66,21 @@ export const chatsSlice = createSlice({
         state.messages[action.payload.chat_id][targetMessageIndex].id = action.payload.id
       }
 
-    }
+    },
+    
     },
   },
 );
 
-export const { setChats, setCurrentChat, addMessage, updateMessageStatus, setChatMessages, addChat } = chatsSlice.actions;
+export const {
+  setChats,
+  setCurrentChat,
+  addMessage,
+  addMoreMessages,
+  updateMessageStatus,
+  setChatMessages,
+  addChat,
+  updateChatLastMessage,
+} = chatsSlice.actions;
 
 export default chatsSlice.reducer;

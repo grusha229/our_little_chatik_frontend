@@ -24,6 +24,10 @@
     margin: 0;
     font-size: 12px;
 }
+.mine {
+    flex-direction: row-reverse;
+    align-self: flex-end;
+}
 
 .notMine.loading, .mine.loading {
     width: 150px;
@@ -33,6 +37,7 @@
 .mine .messageText {
     background-color: #fcc521;
     color: #333333;
+    border-radius: 10px 10px 1px 10px;
 }
 .notMine .messageText {
     background-color: DodgerBlue;

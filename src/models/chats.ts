@@ -13,14 +13,14 @@ export interface IChatsUser {
 export interface IChatsMessage {
     chat_id: string;
     created_at: string;
-    id: string;
+    id: number;
     is_edited?: boolean;
     is_read?: boolean;
     media?: unknown;
     payload: string;
     reactions?: any;
     sender_id: string;
-    updated_at?: string;
+    updated_at: string;
     status?: 'pending' | 'sent' | 'failed';
 }
 
@@ -67,6 +67,7 @@ export interface IChatsGetChatMessagesPayload {
     limit?: number,
     start_with_id?: number,
     finish_with_id?: number,
+    isFirstMessagesFetching?: boolean
 }
 
 export type IChatsGetChatMessagesResponse = Array<IChatsMessage> 

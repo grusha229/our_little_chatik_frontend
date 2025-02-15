@@ -11,14 +11,15 @@ export default function ChatArea() {
 
     const params = useParams();
     const chat_id = params.id || '';
-    console.log(chat_id);
     const [ getChatInfo, { isLoading, data: currentChat } ] = useGetChatInfoMutation();
-
-    const chatParticipants = currentChat?.participants || [];
 
     useEffect(() => {
         getChatInfo({ id: chat_id})
     }, [ chat_id, getChatInfo ])
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <>
@@ -26,11 +27,8 @@ export default function ChatArea() {
                 <ChatHeader
                     current_chat={currentChat}
                     isLoading={isLoading}
-                />
-                <Messages
-                    chat_id={chat_id}
-                    participants={chatParticipants}
-                />
+                /> 
+                <Messages current_chat={currentChat} />
                 <ChatSendForm chat_id={chat_id} />
             </div>
         </>

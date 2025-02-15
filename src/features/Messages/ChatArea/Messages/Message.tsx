@@ -30,18 +30,19 @@ import styles from "./Message.module.scss"
     )
 }
 
-export const Message = ({ date, isMine, text, sender }: IProps) => {
+export const Message = ({ date, isMine, text, sender, ...props }: IProps) => {
 
     const messageTime = new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const avatarSrc = sender?.avatar ? sender.avatar : `https://ui-avatars.com/api/?name=${sender?.participant_nickname}`;
 
     return (
-        <>
-            <div className={`${styles['messageLine']} ${ isMine ? styles['mine'] : styles['notMine']}`}>
-                <Avatar size="small" src={avatarSrc} />
-                <p className={styles['messageText']}>{text}</p>
-                <p className={styles['messageTime']} >{messageTime}</p>
-            </div>
-        </>
+        <div
+            className={`${styles['messageLine']} ${ isMine ? styles['mine'] : styles['notMine']}`}
+            {...props}
+        >
+            <Avatar size="small" src={avatarSrc} />
+            <p className={styles['messageText']}>{text}</p>
+            <p className={styles['messageTime']} >{messageTime}</p>
+        </div>
     )
 };

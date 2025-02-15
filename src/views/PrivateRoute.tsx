@@ -10,18 +10,12 @@ const PrivateRoute = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!connected) {
       dispatch({ type: 'websocket/connect', payload: 'ws://localhost/ws/events' });
-    }
-
-    return () => {
-      dispatch({ type: 'websocket/disconnect' });
-    };
-  }, [connected, dispatch]);
+  }, []);
 
   if (!token) return <Navigate to="/login" replace />;
 
-  return (
+  return (  
     <div style={{ 
         display: 'flex',
         flexDirection: 'column',

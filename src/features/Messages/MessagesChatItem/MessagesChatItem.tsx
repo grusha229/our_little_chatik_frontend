@@ -10,16 +10,17 @@ export interface IProps {
 	img_src?: string;
 	link?: string;
 	onClick?: () => void;
+	ref?: React.MutableRefObject<any>;
 }
 
-export default function MessagesChatItem({ heading, last_message, img_src, link, onClick } : IProps) {
+export default function MessagesChatItem({ heading, last_message, img_src, link, onClick, ref } : IProps) {
 	const didItemClicked = useCallback(() => {
 		return onClick && onClick()
 	}, [onClick])
 
 	if (link) {
 		return (
-			<Link to={`${link}`} className={styles['chat']} onClick={didItemClicked}>
+			<Link to={`${link}`} className={styles['chat']} onClick={didItemClicked} ref={ref} >
 					<Avatar src={img_src || `https://ui-avatars.com/api/?name=${heading}`} />
 					<div className={styles['chat-details']} >
 						<div className={styles['name']}>
@@ -34,7 +35,7 @@ export default function MessagesChatItem({ heading, last_message, img_src, link,
 	}
 
 	return (
-		<div className={styles['chat']} onClick={didItemClicked}>
+		<div className={styles['chat']} onClick={didItemClicked} ref={ref} >
 				<Avatar src={img_src || `https://ui-avatars.com/api/?name=${heading}`} />
 				<div className={styles['chat-details']} >
 					<div className={styles['name']}>

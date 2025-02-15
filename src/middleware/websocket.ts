@@ -1,50 +1,56 @@
-import { AppDispatch, store } from './../store/store';
-// middleware/websocketMiddleware.ts
-import { Action, Middleware } from '@reduxjs/toolkit';
-import { RootState } from '../store/store';
+import { Middleware } from '@reduxjs/toolkit';
 import { websocketService } from '../services/websocket';
-import { addChat, addMessage } from '../store/features/chats';
+import { addChat, addMessage, updateChatLastMessage } from '../store/features/chats';
 import { WsMessageType } from '../models/websocket';
+import { setConnectionStatus } from '../store/features/websocket';
+import { store } from '../store/store';
+
 const websocketMiddleware: Middleware = (state) => (next) => async (action) => {
   let token;
   switch (action.type) {
-    case 'websocket/connect':
+    case 'websocket/connect': {
       token = state.getState().auth.token;
       websocketService.connect(action.payload, token);
       break;
+    }
 
-    case 'websocket/sendMessage':
+    case 'websocket/sendMessage': {
       websocketService.send(action.payload);
       break;
+    }
 
-    case 'websocket/disconnect':
+    case 'websocket/disconnect': {
       websocketService.disconnect();
+      store.dispatch(setConnectionStatus(false));
       break;
+    }
 
     case 'websocket/receiveMessage': {
       const message = action.payload;
 
-      // Проверяем описание сообщения
-      if (message.type === WsMessageType.MESSAGE_CREATED) {
-        if (message.data.sender_id !== state.getState().users.current_user?.user_id) {
-          store.dispatch(addMessage({
-            chat_id: message.data.chat_id,
-            message: message.data
-          }));
-        }
-      }
+      switch (message.type) {
+        case WsMessageType.MESSAGE_CREATED:
+          if (message.data.sender_id !== state.getState().users.current_user?.user_id) {
+            store.dispatch(addMessage({ chat_id: message.data.chat_id, message: message.data }));
+          }
+          store.dispatch(updateChatLastMessage(message.data));
+          break;
 
-      if (message.type === WsMessageType.CHAT_CREATED) {
-        console.log('создан чат', message.data)
-        store.dispatch(addChat(message.data));
-        // if (message.data.sender_id !== state.getState().users.current_user?.user_id) {
-        //   store.dispatch(addMessage({
-        //     chat_id: message.data.chat_id,
-        //     message: message.data
-        //   }));
-        // }
-      }
+        case WsMessageType.CHAT_CREATED:
+          store.dispatch(addChat(message.data));
+          break;
 
+        case WsMessageType.MESSAGE_READ:
+          console.log('Message read', message.data);
+          break;
+
+        case WsMessageType.CHAT_UPDATED:
+          console.log('Chat updated', message.data);
+          break;
+
+        default:
+          console.warn('Unknown message type:', message.type);
+      }
       break;
     }
 

@@ -1,6 +1,6 @@
-export const scrollToBottom = (container: HTMLElement | null) => {
-    if (!container) {
+export const scrollToBottom = (container: React.RefObject<HTMLElement> | null) => {
+    if (!container?.current) {
         return;
     }
-    container.scrollTop = container.scrollHeight - container.clientHeight;
+    container.current.scrollTop = container.current.scrollHeight - container.current.clientHeight;
 };

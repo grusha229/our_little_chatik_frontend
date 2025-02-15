@@ -1,6 +1,6 @@
 import { Middleware } from '@reduxjs/toolkit';
 import { chatApi } from '../services/chat';
-import { setChatMessages, setChats, setCurrentChat } from '../store/features/chats';
+import { addMoreMessages, setChatMessages, setChats, setCurrentChat } from '../store/features/chats';
 import { AppDispatch } from '../store/store';
 
 const chatsMiddleware: Middleware = (store) => (next) => async (action) => {
@@ -30,10 +30,17 @@ const chatsMiddleware: Middleware = (store) => (next) => async (action) => {
   }
 
   if (chatApi.endpoints.getChatMessages.matchFulfilled(action)) {
-    store.dispatch(setChatMessages({
-      chat_id: action.meta.arg.originalArgs.id,
-      messages: action.payload
-    }));
+    if (action.meta.arg.originalArgs.isFirstMessagesFetching === true) {
+      store.dispatch(setChatMessages({
+        chat_id: action.meta.arg.originalArgs.id,
+        messages: action.payload
+      }));
+    } else {
+      store.dispatch(addMoreMessages({
+        chat_id: action.meta.arg.originalArgs.id,
+        messages: action.payload
+      }));
+    }
   }
 
   return result;

@@ -1,58 +1,146 @@
-import styles from "./Messages.module.scss"
-import {Message, MessageSkeleton} from "./Message";
-import {useEffect, useRef} from "react";
-import {scrollToBottom} from "../../../../utils/scrollToBottom";
+import styles from "./Messages.module.scss";
+import { Message, MessageSkeleton } from "./Message";
+import { useEffect, useRef, useCallback, useState, useMemo } from "react";
+import { useInView } from "react-intersection-observer";
 import { useGetChatMessagesQuery } from "../../../../services/chat.js";
 import { useAppSelector } from "../../../../store/store.js";
-import { IChatsUser } from "../../../../models/chats.js";
+import { IChatsGetChatInfoResponse } from "../../../../models/chats.js";
 import { getSenderById } from "./Messages.utils.js";
+import throttle from "../../../../utils/throttle.js";
+import { scrollToBottom } from "../../../../utils/scrollToBottom.js";
 
 export interface IProps {
-    chat_id: string,
-    participants: IChatsUser[],
+    current_chat: IChatsGetChatInfoResponse | undefined;
+    isLoading?: boolean;
 }
 
-export default function Messages ({ chat_id, participants }: IProps) {
-    const { isLoading, error }  = useGetChatMessagesQuery({ id: chat_id });
+const MESSAGES_AMOUNT = 15;
 
-    const chatMessages = useAppSelector((state) => state.chats.messages[chat_id]);
-    const YOUR_ID = useAppSelector((state) => state.users.current_user?.user_id) || '0';
+export default function Messages({ 
+    current_chat,
+}: IProps) {
+    const [messagesCounter, setMessagesCounter] = useState<number>(0);
+    const [isFirstMessagesFetching, setIsFirstMessagesFetching] = useState<boolean>(true);
+    const hasMore = messagesCounter - MESSAGES_AMOUNT - 1 >= 0;
 
-    const containerRef = useRef(null);
+    const { ref, inView } = useInView({
+        threshold: .5,
+    });
+
+    const chat_id = current_chat?.chat_id || '';
+    const total_messages = current_chat?.last_message?.id;
+    const participants = current_chat?.participants || [];
+
+    const { isLoading, error, isFetching } = useGetChatMessagesQuery({ 
+        id: chat_id,
+        isFirstMessagesFetching: isFirstMessagesFetching,
+        finish_with_id: Math.max(0, messagesCounter),
+        // start_with_id: Math.max(0, messagesCounter - MESSAGES_AMOUNT + 1),
+        limit: MESSAGES_AMOUNT,
+    }, {
+        skip: (isFirstMessagesFetching && messagesCounter === 0),
+        refetchOnMountOrArgChange: true
+    });
 
     useEffect(() => {
-        scrollToBottom(containerRef)
-    }, [containerRef, chatMessages?.length]);
+        if (total_messages) {
+            setMessagesCounter(total_messages);
+        }
+
+        return () => {
+            setMessagesCounter(0);
+        }
+    }, [total_messages])
+
+    const chatMessages = useAppSelector((state) => state.chats.messages[chat_id]);
+    const YOUR_ID = useAppSelector((state) => state.users.current_user?.user_id) || "0";
+
+    const sortedMessages = useMemo(() => {
+        return chatMessages?.slice().sort((a, b) => {
+            return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        })
+    }, [chatMessages])
+
+    const containerRef = useRef<HTMLDivElement>(null);
+    
+    useEffect(() => {
+        const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
+
+        const distanceFromBottom = scrollHeight - (scrollTop + clientHeight);
+
+        if (distanceFromBottom < 100) {
+            scrollToBottom(containerRef);
+        }
+    }, [chatMessages?.length]);
+
+    // Функция для подгрузки сообщений при скролле вверх
+    const handleScroll = useCallback(() => {
+        if (!inView || isFetching) return;
+
+        setIsFirstMessagesFetching(false);
+
+        if (inView && hasMore) {
+            setMessagesCounter((prev) => {
+                return prev - MESSAGES_AMOUNT
+            });
+        }
+    }, [hasMore, inView, isFetching]);
+
+    const throttledScrollHandler = throttle(handleScroll, 500);
+
+    useEffect(() => {
+        if (containerRef.current) {
+            containerRef.current.addEventListener("scroll", throttledScrollHandler);
+        }
+
+        return () => {
+            containerRef.current?.removeEventListener("scroll", throttledScrollHandler);
+        };
+    }, [throttledScrollHandler]);
 
     if (isLoading) {
         return (
-            <div className={styles['messages']} ref={containerRef}>
-                <MessageSkeleton isMine /> 
+            <div className={styles["messages"]} ref={containerRef}>
+                <MessageSkeleton isMine />
                 <MessageSkeleton />
                 <MessageSkeleton isMine />
             </div>
-        )
+        );
     }
 
     if (error) {
-        <div className={styles['messages']} ref={containerRef}>
-            <div className='error'>Error</div>
-        </div>
+        return (
+            <div className={styles["messages"]} ref={containerRef}>
+                <div className={styles["system_message"]}>Error</div>
+            </div>
+        );
     }
 
+    if (sortedMessages?.length === 0) {
+        return (
+            <div className={styles["messages"]} ref={containerRef}>
+                <div className={styles["system_message"]}>No messages</div>
+            </div>
+        );
+    }
+
+    console.log(sortedMessages?.filter((el) => (el.id === 34 || el.id === 35 || el.id === 39) ))
+ 
     return (
-        <div className={styles['messages']} ref={containerRef}>
-            {chatMessages?.map((message) => {
-                return (
-                    <Message
-                        key={message.id}
-                        text={message.payload}
-                        isMine={(message.sender_id === YOUR_ID)}
-                        date={message.created_at}
-                        sender={getSenderById(message.sender_id, participants)}
-                    />
-                )
-            })}
+        <div className={styles["messages"]} ref={containerRef}>
+            {isFetching && <div className={styles["loading"]}>Loading...</div>}
+
+            {sortedMessages?.map((message, index) => (
+                <Message
+                    data-index={index}
+                    key={message.id}
+                    text={message.payload}
+                    isMine={message.sender_id === YOUR_ID}
+                    date={message.created_at}
+                    sender={getSenderById(message.sender_id, participants)}
+                />
+            ))}
+            {hasMore && <div ref={ref} className={styles["system_message"]}>Loading...</div>}
         </div>
-    )
+    );
 }

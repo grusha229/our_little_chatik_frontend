@@ -1,3 +1,4 @@
+import { setConnectionStatus } from "../store/features/websocket";
 import { store } from "../store/store";
 
 // services/websocketService.ts
@@ -7,25 +8,27 @@ class WebSocketService {
 
   // Подключение к WebSocket
   connect(url: string, token: string) {
+    console.log('connecting WebSocket ...', this.socket)
     if (this.socket && this.socket.readyState === WebSocket.OPEN) {
       console.log('WebSocket is already connected');
-      return;
+      this.socket.close();
     }
 
     this.socket = new WebSocket(url);
 
     this.socket.onopen = () => {
-      console.log('WebSocket connected');
+      const date = new Date()
+      console.log('WebSocket connected',date.toLocaleString('ru-RU'));
       this.send({ token }); // Отправляем токен при установке соединения
       this.startPing();
+
+      store.dispatch(setConnectionStatus(true));
     };
 
     this.socket.onmessage = (event) => {
       console.log('Message from server:', event.data);
 
       const message = JSON.parse(event.data);
-
-      // Диспатчим сообщение в store, чтобы обработать его в middleware
       store.dispatch({
         type: 'websocket/receiveMessage',
         payload: message,
@@ -34,28 +37,34 @@ class WebSocketService {
 
     this.socket.onerror = (error) => {
       console.error('WebSocket error:', error);
+
+      console.log('try to reconnect WebSocket ...')
+      this.connect(url, token);
     };
 
     this.socket.onclose = () => {
-      console.log('WebSocket closed');
+      const date = new Date()
+      console.log('WebSocket closed', date.toLocaleString('ru-RU'));
+
       this.stopPing();
+      store.dispatch(setConnectionStatus(false));
     };
   }
 
-    private startPing() {
-      this.stopPing();
-      this.pingInterval = setInterval(() => {
-        this.send({ type: "ping", message: "check" });
-        console.log('Sent ping to WebSocket');
-      }, 25000); 
-    }
+  private startPing() {
+    this.stopPing();
+    this.pingInterval = setInterval(() => {
+      this.send({ type: "ping", message: "check" });
+      console.log('Sent ping to WebSocket');
+    }, 10000);
+  }
   
-    private stopPing() {
-      if (this.pingInterval) {
-        clearInterval(this.pingInterval);
-        this.pingInterval = null;
-      }
+  private stopPing() {
+    if (this.pingInterval) {
+      clearInterval(this.pingInterval);
+      this.pingInterval = null;
     }
+  }
 
   // Отправка сообщения через WebSocket
   send(message: object) {
