@@ -4,8 +4,7 @@ import { useEffect } from "react";
 import Messages from "./Messages/Messages.js";
 import ChatHeader from "./ChatHeader/ChatHeader.js";
 import ChatSendForm from "./ChatSendForm/ChatSendForm.js";
-import { useGetChatInfoMutation } from "../../../services/chat.js";
-import { useAppSelector } from "../../../store/store.js";
+import { useGetChatInfoMutation, useGetAttachmentsUploadUrlsMutation } from "../../../services/chat.js";
 
 export default function ChatArea() {
 
@@ -15,7 +14,11 @@ export default function ChatArea() {
 
     useEffect(() => {
         getChatInfo({ id: chat_id})
-    }, [ chat_id, getChatInfo ])
+        // getInfo({ id: chat_id, links: [{
+        //     content_type: 'photo',
+        //     name: 'image.png'
+        // }] })
+    }, [chat_id, getChatInfo])
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -27,7 +30,7 @@ export default function ChatArea() {
                 <ChatHeader
                     current_chat={currentChat}
                     isLoading={isLoading}
-                /> 
+                />
                 <Messages current_chat={currentChat} />
                 <ChatSendForm chat_id={chat_id} />
             </div>

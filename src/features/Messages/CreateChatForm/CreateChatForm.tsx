@@ -46,7 +46,7 @@ export default function CreateChatForm() {
 
   const isGroup = getValues('participants_ids').length > 1
 
-  const { data, isLoading, isFetching, isError } = useSearchQuery({ nickname: searchTerm }, {
+  const { data, isLoading, isFetching } = useSearchQuery({ nickname: searchTerm }, {
     skip: !searchTerm,
     refetchOnMountOrArgChange: true,
   });

@@ -1,7 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { IChatsChatListResponse, IChatsCreateChatPayload, IChatsGetChatInfoPayload, IChatsGetChatInfoResponse, IChatsGetChatMessagesPayload, IChatsGetChatMessagesResponse, IChatsSendMessagePayload, IChatsSendMessageResponse } from '../models/chats'
+import { IChatsAttachmentUploadPayload, IChatsChatListResponse, IChatsCreateChatPayload, IChatsGetChatInfoPayload, IChatsGetChatInfoResponse, IChatsGetChatMessagesPayload, IChatsGetChatMessagesResponse, IChatsSendMessagePayload, IChatsSendMessageResponse, IChatsUploadFileLinkResponse, IChatsUploadFilePayload } from '../models/chats'
 import createBaseQueryWithReauth from './baseQuery'
-import { skipToken } from '@reduxjs/toolkit/query'
 
 export const chatApi = createApi({
   reducerPath: 'chats_api',
@@ -16,6 +15,7 @@ export const chatApi = createApi({
       }),
       create: builder.mutation<void, IChatsCreateChatPayload>({
         query: (payload) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { participants, ...rest } = payload
           return {
             url: `/`,
@@ -32,13 +32,6 @@ export const chatApi = createApi({
       }),
       getChatMessages: builder.query<IChatsGetChatMessagesResponse, IChatsGetChatMessagesPayload>({
         query: (payload) => {
-          const { 
-            isFirstMessagesFetching,
-            ...apiPayload } = payload;
-
-          // if (isFirstMessagesFetching  && payload.start_with_id === 0 && payload.finish_with_id === 0) {
-          //   return skipToken
-          // }
 
           return {
             url: `/${payload.id}/messages`,
@@ -53,6 +46,25 @@ export const chatApi = createApi({
           method: 'POST',
           body: payload,
         }),
+      }),
+      getAttachmentsUploadUrls: builder.mutation<IChatsUploadFileLinkResponse, IChatsUploadFilePayload>({
+        query: (payload) => {
+          const {id, links} = payload
+          return {
+          url: `/${id}/messages/files/link`,
+          method: 'POST',
+          body: links,
+        }},
+      }),
+      uploadAttachment: builder.mutation<IChatsUploadFileLinkResponse, IChatsAttachmentUploadPayload>({
+        query: (payload) => {
+          const {url, file} = payload
+          return {
+            url,
+            method: 'POST',
+            body: file,
+          }
+        },
       })
   }),
 })
@@ -61,5 +73,7 @@ export const {
   useCreateMutation,
   useGetChatInfoMutation,
   useGetChatMessagesQuery,
-  useSendChatMessageMutation
+  useSendChatMessageMutation,
+  useGetAttachmentsUploadUrlsMutation,
+  useUploadAttachmentMutation
 } = chatApi

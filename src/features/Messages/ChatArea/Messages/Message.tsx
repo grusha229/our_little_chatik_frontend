@@ -13,7 +13,6 @@ export interface IProps {
 export const MessageSkeleton = ( { isMine } : { isMine?: boolean} ) => {
     return (
         <>
-import styles from "./Message.module.scss"
             <div className={`${styles['messageLine']} ${ isMine ? styles['mine'] : styles['notMine']}`}>
                 <div>
                     <p className={styles['messageText']}>

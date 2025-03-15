@@ -79,4 +79,26 @@ export interface IChatsSendMessagePayload {
     upload_ids?: Array<string>,
 }
 
+export interface IChatsFilesLink {
+    content_type: string,
+    name: string
+}
+
+export interface IChatsUploadFilePayload {
+    id: string;
+    links: IChatsFilesLink[];
+}
+
+export interface IChatsUploadFileLink {
+    upload_id: string,
+    upload_link: string
+}
+
+export interface IChatsAttachmentUploadPayload {
+    url: string;
+    file: FormData,
+}
+
+export type IChatsUploadFileLinkResponse = IChatsUploadFileLink[];
+
 export interface IChatsSendMessageResponse extends IChatsMessage {}
