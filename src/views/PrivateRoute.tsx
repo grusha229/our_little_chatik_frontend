@@ -5,7 +5,6 @@ import Header from '../features/Header/Header';
 
 const PrivateRoute = () => {
   const token = useAppSelector((state) => state.auth.token);
-  const connected = useAppSelector((state) => state.websocket.connected);
 
   const dispatch = useAppDispatch();
 

@@ -1,3 +1,6 @@
+@import "../../../../helpers/styles/colors.scss";
+@import "../../../../helpers/styles/responsives.scss";
+
 .header {
     width: 100%;
     border-bottom: solid #333333;
@@ -8,15 +11,30 @@
     justify-content: start;
     margin: 10px;
     align-items: center;
+    
+    @include media-tablet {
+        justify-content: space-between;
+    }
 }
 
 .header .info {
     margin-left: 15px;
     width: 150px;
-    height: 1em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    @include media-tablet {
+        flex-direction: row-reverse;
+    }
 }
 
 .avatar {
     width: 55px;
     height: 55px;
+}
+
+.back {
+    color: $color-text-primary;
+    cursor: pointer;
 }

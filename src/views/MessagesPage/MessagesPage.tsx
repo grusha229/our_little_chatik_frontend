@@ -4,23 +4,32 @@ import MessagesSideBar from '../../features/Messages/MessagesSideBar/MessagesSid
 import { useParams } from 'react-router-dom';
 import CreateChatModal from '../../features/Messages/CreateChatModal/CreateChatModal';
 import ChatArea from '../../features/Messages/ChatArea/ChatArea';
+import { isDesktop, isMobile, useWindowSize } from '../../utils/responsives';
+
 
 export default function MessagesPage() {
 
   const params = useParams();
+  const { width: windowWidth } = useWindowSize();
+  const isDesktopView = isDesktop(windowWidth);
 
   return (
       <>
         <div className={styles['page']}>
-          <div className={styles['page--sidebar']}>
-            <MessagesSideBar />
-          </div>
-          <div className={styles['page--content']}>
-            {params.id 
-              ? <ChatArea/>
-              : <div> No chat selected </div>
+            {(isDesktopView || !params.id) && (
+                <div className={styles['page--sidebar']}>
+                  <MessagesSideBar />
+                </div>
+              )
             }
-          </div>
+            {(isDesktopView || params.id) && (
+              <div className={styles['page--content']}>
+                {params.id
+                  ? <ChatArea/>
+                  : <div> No chat selected </div>
+                }
+              </div>
+            )}
         </div>
         <CreateChatModal />
       </>

@@ -141,20 +141,20 @@ export default function ChatSendForm({ chat_id }: IProps) {
               fontSize: "16px",
             }}
           >
-            Выбрать файл
+            File
           </label>
         </div>
 
         <Button type="submit" disabled={!isValid || isSubmitting}>
-          Отправить
+          Send
         </Button>
       </div>
-      
+    
       <div>
       {/* Вывод загруженных файлов */}
       {fileNames.length > 0 && (
         <div>
-          <strong>Выбранные файлы:</strong>
+          <strong>Selected files:</strong>
           <ul>
             {fileNames.map((file, index) => (
               <li key={index}>{file.name}</li>
