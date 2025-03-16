@@ -13,7 +13,7 @@ export interface IChatsUser {
 export interface IChatsMessage {
     chat_id: string;
     created_at: string;
-    id: number;
+    id: string;
     is_edited?: boolean;
     is_read?: boolean;
     media?: unknown;

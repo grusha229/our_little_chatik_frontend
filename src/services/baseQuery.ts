@@ -6,7 +6,7 @@ import { authApi } from './auth';
 
 const TEST_URL = '/api/v1';
 
-const createBaseQueryWithReauth = (prefix: string): BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> => {
+export const createBaseQueryWithReauth = (prefix: string): BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> => {
   const baseQuery = fetchBaseQuery({
     baseUrl: TEST_URL + prefix, // Пустой базовый URL, он будет передаваться в query
     credentials: 'include',
@@ -25,10 +25,9 @@ const createBaseQueryWithReauth = (prefix: string): BaseQueryFn<string | FetchAr
     extraOptions
   ) => {
     let result = await baseQuery(args, api, extraOptions);
-    
     // Если получили ошибку 401 (неавторизован)
     if (result.error?.status === 401) {
-        
+
       const { refresh_token } = (api.getState() as RootState).auth;
 
       if (refresh_token) {
@@ -57,4 +56,19 @@ const createBaseQueryWithReauth = (prefix: string): BaseQueryFn<string | FetchAr
   return baseQueryWithReauth;
 };
 
-export default createBaseQueryWithReauth;
+export const createBaseQuery = (prefix: string): BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> => {
+  const baseQuery = fetchBaseQuery({
+    baseUrl: TEST_URL + prefix, // Пустой базовый URL, он будет передаваться в query
+    credentials: 'include',
+  });
+
+  const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
+    args,
+    api,
+    extraOptions
+  ) => {
+    return await baseQuery(args, api, extraOptions);
+  };
+
+  return baseQueryWithReauth;
+};

@@ -4,19 +4,20 @@ import Button from "../../../controls/Button/Button";
 import Input from "../../../controls/Input/Input";
 import { useForm } from "react-hook-form";
 import { IChatsFilesLink, IChatsSendMessagePayload } from "../../../../models/chats";
-import { useGetAttachmentsUploadUrlsMutation, useSendChatMessageMutation, useUploadAttachmentMutation } from "../../../../services/chat";
+import { useGetAttachmentsUploadUrlsMutation, useSendChatMessageMutation } from "../../../../services/chat";
 import { generateNewMessage } from "./ChatSendForm.utils";
 import { useAppSelector } from "../../../../store/store";
 import { addMessage, updateMessageStatus } from "../../../../store/features/chats";
 import { useDispatch } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
+import { useUploadAttachmentMutation } from "../../../../services/files";
 
 export interface IProps {
   chat_id: string;
 }
 
 export default function ChatSendForm({ chat_id }: IProps) {
-  const [ filesToUpload, setFilesToUpload ] = useState<FileList>(null)
+  const [ filesToUpload, setFilesToUpload ] = useState<FileList>()
   const [ fileNames, setFileNames] = useState<IChatsFilesLink[]>([]);
 
   const { register, handleSubmit, formState: { isValid, isSubmitting }, reset, setValue } = useForm<IChatsSendMessagePayload>({
@@ -29,7 +30,7 @@ export default function ChatSendForm({ chat_id }: IProps) {
   const dispatch = useDispatch();
   const [ sendMessage ] = useSendChatMessageMutation();
   const [ getAttachmentsUploadLinks, { isSuccess: isLinksSuccessfullyGet, data: linksToUpload }] = useGetAttachmentsUploadUrlsMutation();
-  const [ uploadAttachment, { isSuccess: isFilesUploaded }  ] = useUploadAttachmentMutation();
+  const [ uploadAttachment ] = useUploadAttachmentMutation();
 
   const current_user = useAppSelector((state) => state.users.current_user);
   const current_id = current_user?.user_id || "";
@@ -55,6 +56,9 @@ export default function ChatSendForm({ chat_id }: IProps) {
       getAttachmentsUploadLinks({
         id: chat_id,
         links: filesArray,
+      }).then((res) => {
+        console.log('ссылки на загрузку', res.data)
+        setValue('upload_ids', res?.data?.map((file) => file.upload_id || ''));
       })
     }
   };
@@ -66,7 +70,7 @@ export default function ChatSendForm({ chat_id }: IProps) {
   
     linksToUpload?.forEach((link, index) => {
       const formData = new FormData();
-      formData.append('file', filesToUpload[index] )
+      formData.append('file', filesToUpload?.[index] as Blob);
 
       uploadAttachment({
         url: link.upload_link,
@@ -76,32 +80,42 @@ export default function ChatSendForm({ chat_id }: IProps) {
   }, [isLinksSuccessfullyGet])
 
 
-  const onSubmit = async (formData: IChatsSendMessagePayload) => {
-    const tempId = nanoid();
-    const newMessage = generateNewMessage(tempId, formData.payload, current_id);
-    dispatch(addMessage({ chat_id, message: newMessage }));
+    const onSubmit = async (formData: IChatsSendMessagePayload) => {
+      console.log(formData)
+      const tempId = nanoid();
+      const newMessage = generateNewMessage(tempId, formData.payload, current_id );
 
-    // Создаем FormData для передачи файлов
-    const formDataToSend = new FormData();
-    formDataToSend.append("payload", formData.payload);
-    formDataToSend.append("id", formData.id);
-    
-    // if (formData.files && formData.files.length > 0) {
-    //   Array.from(formData.files).forEach((file) => {
-    //     formDataToSend.append("files", file);
-    //   });
-    // }
+      dispatch(addMessage({ chat_id, message: newMessage }));
+      console.log('добавляем сообщение в стор', chat_id,  newMessage)
 
-    // try {
-    //   const response = await sendMessage(formDataToSend).unwrap();
-    //   dispatch(updateMessageStatus({ tempId, id: response.id, status: "sent", chat_id: response.chat_id }));
-    // } catch (error) {
-    //   dispatch(updateMessageStatus({ tempId, id: newMessage.id, status: "failed", chat_id }));
-    //   console.error("Ошибка отправки сообщения:", error);
-    // }
+      try {
+        await sendMessage(formData).unwrap()
+          .then((response) => {
+              console.log('Пришёл ответ', response)
+              // Обновляем статус на "sent" и ID на настоящий
+              dispatch(
+                  updateMessageStatus({
+                      tempId,
+                      id: response.id,
+                      status: 'sent',
+                      chat_id: response.chat_id
+                  })
+              );
+          });
+      } catch (error) {
+        // В случае ошибки обновляем статус на "failed"
+        dispatch(
+          updateMessageStatus({
+              tempId,
+              id: newMessage.id,
+              status: 'failed',
+              chat_id
+          })
+        );
+        console.error('Ошибка отправки сообщения:', error);
+      }
 
-    reset(); // Очистка формы
-    // setFileNames([]); // Очистка списка файлов
+      reset(); // Очистка формы
   };
 
   return (

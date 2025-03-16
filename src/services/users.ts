@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import createBaseQueryWithReauth from './baseQuery'
+import { createBaseQueryWithReauth } from './baseQuery'
 import { ICurrentUserInfoResponse, IUsersSearchPayload, IUsersSearchResponse } from '../models/users'
 
 export const usersApi = createApi({

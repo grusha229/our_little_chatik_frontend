@@ -16,6 +16,7 @@ import modalsSlice from './features/modals';
 import websocketMiddleware from '../middleware/websocket';
 
 import websocketSlice from './features/websocket';
+import { filesApi } from '../services/files';
 
 // Объединение редукторов
 const rootReducer = combineReducers({
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   [chatApi.reducerPath]: chatApi.reducer,
   search: searchSlice,
   [searchApi.reducerPath]: searchApi.reducer,
+  [filesApi.reducerPath]: filesApi.reducer,
   modals: modalsSlice,
   websocket: websocketSlice,
 });

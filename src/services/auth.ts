@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { IActivationPayload, IRefreshTokenResponse, ILoginPayload, IRefreshTokenPayload, IRenewPasswordPayload, ISignupPayload } from '../models/auth'
-import createBaseQueryWithReauth from './baseQuery'
+import { createBaseQueryWithReauth } from './baseQuery'
 
 export const authApi = createApi({
   reducerPath: 'auth_api',

@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { IChatsAttachmentUploadPayload, IChatsChatListResponse, IChatsCreateChatPayload, IChatsGetChatInfoPayload, IChatsGetChatInfoResponse, IChatsGetChatMessagesPayload, IChatsGetChatMessagesResponse, IChatsSendMessagePayload, IChatsSendMessageResponse, IChatsUploadFileLinkResponse, IChatsUploadFilePayload } from '../models/chats'
-import createBaseQueryWithReauth from './baseQuery'
+import { IChatsChatListResponse, IChatsCreateChatPayload, IChatsGetChatInfoPayload, IChatsGetChatInfoResponse, IChatsGetChatMessagesPayload, IChatsGetChatMessagesResponse, IChatsSendMessagePayload, IChatsSendMessageResponse, IChatsUploadFileLinkResponse, IChatsUploadFilePayload } from '../models/chats'
+import { createBaseQueryWithReauth } from './baseQuery'
 
 export const chatApi = createApi({
   reducerPath: 'chats_api',
@@ -56,16 +56,6 @@ export const chatApi = createApi({
           body: links,
         }},
       }),
-      uploadAttachment: builder.mutation<IChatsUploadFileLinkResponse, IChatsAttachmentUploadPayload>({
-        query: (payload) => {
-          const {url, file} = payload
-          return {
-            url,
-            method: 'POST',
-            body: file,
-          }
-        },
-      })
   }),
 })
 export const {
@@ -75,5 +65,4 @@ export const {
   useGetChatMessagesQuery,
   useSendChatMessageMutation,
   useGetAttachmentsUploadUrlsMutation,
-  useUploadAttachmentMutation
 } = chatApi
