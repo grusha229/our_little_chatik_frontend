@@ -124,19 +124,16 @@ export default function Messages({
         );
     }
 
-    console.log(sortedMessages?.filter((el) => (el.id === 34 || el.id === 35 || el.id === 39) ))
- 
     return (
         <div className={styles["messages"]} ref={containerRef}>
             {isFetching && <div className={styles["loading"]}>Loading...</div>}
 
             {sortedMessages?.map((message, index) => (
                 <Message
+                    data={message}
                     data-index={index}
                     key={message.id}
-                    text={message.payload}
                     isMine={message.sender_id === YOUR_ID}
-                    date={message.created_at}
                     sender={getSenderById(message.sender_id, participants)}
                 />
             ))}

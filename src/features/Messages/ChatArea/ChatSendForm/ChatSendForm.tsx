@@ -11,6 +11,7 @@ import { addMessage, updateMessageStatus } from "../../../../store/features/chat
 import { useDispatch } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
 import { useUploadAttachmentMutation } from "../../../../services/files";
+import UploadFileButton from "../../../controls/UploadFileButton/UploadFileButton";
 
 export interface IProps {
   chat_id: string;
@@ -20,7 +21,7 @@ export default function ChatSendForm({ chat_id }: IProps) {
   const [ filesToUpload, setFilesToUpload ] = useState<FileList>()
   const [ fileNames, setFileNames] = useState<IChatsFilesLink[]>([]);
 
-  const { register, handleSubmit, formState: { isValid, isSubmitting }, reset, setValue } = useForm<IChatsSendMessagePayload>({
+  const { register, handleSubmit, formState: { isSubmitting }, reset, setValue, watch } = useForm<IChatsSendMessagePayload>({
     defaultValues: {
       payload: "",
       id: chat_id,
@@ -29,11 +30,18 @@ export default function ChatSendForm({ chat_id }: IProps) {
   });
   const dispatch = useDispatch();
   const [ sendMessage ] = useSendChatMessageMutation();
-  const [ getAttachmentsUploadLinks, { isSuccess: isLinksSuccessfullyGet, data: linksToUpload }] = useGetAttachmentsUploadUrlsMutation();
+  const [ getAttachmentsUploadLinks, { isSuccess: isLinksSuccessfullyGet, data: linksToUpload, reset: resetUploadLinks }] = useGetAttachmentsUploadUrlsMutation();
   const [ uploadAttachment ] = useUploadAttachmentMutation();
 
   const current_user = useAppSelector((state) => state.users.current_user);
   const current_id = current_user?.user_id || "";
+
+  const watchPayload = watch("payload");
+  const watchUploadIds = watch("upload_ids");
+  const isMessageValid = watchPayload.trim().length > 0 || (watchUploadIds && watchUploadIds.length > 0);
+
+
+  const isSendButtonDisabled = !isMessageValid || isSubmitting;
 
   useEffect(() => {
     reset({ payload: "", id: chat_id, upload_ids: [] });
@@ -64,10 +72,6 @@ export default function ChatSendForm({ chat_id }: IProps) {
   };
 
   useEffect(() => {
-    console.log('исходники:', filesToUpload);
-    console.log('имена файлов:', fileNames);
-    console.log('ссылки:', linksToUpload);
-  
     linksToUpload?.forEach((link, index) => {
       const formData = new FormData();
       formData.append('file', filesToUpload?.[index] as Blob);
@@ -114,7 +118,7 @@ export default function ChatSendForm({ chat_id }: IProps) {
         );
         console.error('Ошибка отправки сообщения:', error);
       }
-
+      resetUploadLinks();
       reset(); // Очистка формы
   };
 
@@ -127,51 +131,28 @@ export default function ChatSendForm({ chat_id }: IProps) {
         <Input
           name="payload"
           register={register}
-          rules={{ required: true }}
           className={styles["input"]}
           placeholder="Enter a message..."
         />
+        <UploadFileButton
+          name="upload_ids"
+          handleChange={handleFileChange}
+          register={register}
+        >File</UploadFileButton>
 
-        {/* Кастомная кнопка загрузки файла */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-          <input
-            type="file"
-            id="fileInput"
-            style={{ display: "none" }}
-            multiple
-            onChange={handleFileChange}
-            // {...register("files")} // Регистрируем файлы
-          />
-          <label
-            htmlFor="fileInput"
-            style={{
-              display: "inline-block",
-              padding: "10px 20px",
-              backgroundColor: "#4CAF50",
-              color: "white",
-              borderRadius: "5px",
-              cursor: "pointer",
-              textAlign: "center",
-              fontSize: "16px",
-            }}
-          >
-            File
-          </label>
-        </div>
-
-        <Button type="submit" disabled={!isValid || isSubmitting}>
+        <Button type="submit" disabled={isSendButtonDisabled}>
           Send
         </Button>
       </div>
     
       <div>
       {/* Вывод загруженных файлов */}
-      {fileNames.length > 0 && (
+      {linksToUpload && linksToUpload?.length > 0 && (
         <div>
           <strong>Selected files:</strong>
           <ul>
-            {fileNames.map((file, index) => (
-              <li key={index}>{file.name}</li>
+            {linksToUpload.map((file, index) => (
+              <li key={index}>{file.upload_id}</li>
             ))}
           </ul>
         </div>

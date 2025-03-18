@@ -42,7 +42,7 @@ export const chatsSlice = createSlice({
         if (chat.chat_id === current_chat_id) {
           return {
             ...chat,
-            last_message: action?.payload,
+            last_message: action?.payload || null,
             updated_at: action?.payload.created_at
           };
         }
@@ -55,20 +55,18 @@ export const chatsSlice = createSlice({
         /** Temporary ID */
         tempId: string;
         chat_id: string;
-        id: string;
+        id: number;
         status: IChatsMessage['status'] 
       }>
     ) => {
-      const targetMessageIndex = state.messages[action.payload.chat_id].findIndex((message) => message.id === action.payload.tempId);
+      const targetMessageIndex = state.messages[action.payload.chat_id].findIndex((message) => message.id.toString() === action.payload.tempId);
 
       if (targetMessageIndex !== -1) {
         state.messages[action.payload.chat_id][targetMessageIndex].status = action.payload.status;
         state.messages[action.payload.chat_id][targetMessageIndex].id = action.payload.id
       }
 
-    },
-    
-    },
+    }},
   },
 );
 

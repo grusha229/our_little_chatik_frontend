@@ -1,11 +1,11 @@
 import { Skeleton } from "@mui/material";
 import styles from "./Message.module.scss"
-import { IChatsUser } from "../../../../models/chats";
+import { IChatsMessage, IChatsUser } from "../../../../models/chats";
 import Avatar from "../../../Users/Avatar/Avatar";
+import MediaPhotoAttachments from "../../../controls/MediaAttachments/MediaPhotoAttachments";
 
 export interface IProps {
-    text: string;
-    date: string;
+    data: IChatsMessage;
     isMine?: boolean;
     sender: IChatsUser | null;
 };
@@ -29,10 +29,16 @@ export const MessageSkeleton = ( { isMine } : { isMine?: boolean} ) => {
     )
 }
 
-export const Message = ({ date, isMine, text, sender, ...props }: IProps) => {
+export const Message = ({
+    data,
+    sender,
+    isMine,
+    ...props
+}: IProps) => {
 
-    const messageTime = new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const messageTime = new Date(data?.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const avatarSrc = sender?.avatar ? sender.avatar : `https://ui-avatars.com/api/?name=${sender?.participant_nickname}`;
+    const isMediaExists = data.media?.refs && data.media?.refs?.length > 0
 
     return (
         <div
@@ -40,7 +46,12 @@ export const Message = ({ date, isMine, text, sender, ...props }: IProps) => {
             {...props}
         >
             <Avatar size="small" src={avatarSrc} />
-            <p className={styles['messageText']}>{text}</p>
+            <div className={styles['messageText']}>
+                {isMediaExists && (
+                    <MediaPhotoAttachments media={data.media?.refs || []}/>
+                )}
+                <div>{data.payload}</div>
+            </div>
             <p className={styles['messageTime']} >{messageTime}</p>
         </div>
     )

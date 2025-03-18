@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Messages from "./Messages/Messages.js";
 import ChatHeader from "./ChatHeader/ChatHeader.js";
 import ChatSendForm from "./ChatSendForm/ChatSendForm.js";
-import { useGetChatInfoMutation, useGetAttachmentsUploadUrlsMutation } from "../../../services/chat.js";
+import { useGetChatInfoMutation } from "../../../services/chat.js";
 
 export default function ChatArea() {
 

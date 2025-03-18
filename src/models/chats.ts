@@ -5,18 +5,27 @@ export interface IChatsUser {
     avatar: string,
     email: string,
     name: string,
-    nickname: string,
     surname: string,
     user_id: string,
+    participant_nickname: string
+}
+
+export interface IMediaRefItem {
+    path: string;
+    url: string;
+}
+
+export interface IMediaResponse {
+    refs: IMediaRefItem[];
 }
 
 export interface IChatsMessage {
     chat_id: string;
     created_at: string;
-    id: string;
+    id: number;
     is_edited?: boolean;
     is_read?: boolean;
-    media?: unknown;
+    media?: IMediaResponse;
     payload: string;
     reactions?: any;
     sender_id: string;
