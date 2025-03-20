@@ -11,7 +11,7 @@ export interface IChatsUser {
 }
 
 export interface IMediaRefItem {
-    path: string;
+    path?: string;
     url: string;
 }
 
@@ -100,12 +100,16 @@ export interface IChatsUploadFilePayload {
 
 export interface IChatsUploadFileLink {
     upload_id: string,
-    upload_link: string
+    upload_link: string,
+    upload_file_name: string,
+    preview_link: string,
+    content_type: string
 }
 
 export interface IChatsAttachmentUploadPayload {
     url: string;
-    file: FormData,
+    file: any,
+    content_type: string,
 }
 
 export type IChatsUploadFileLinkResponse = IChatsUploadFileLink[];

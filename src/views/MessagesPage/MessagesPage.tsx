@@ -4,7 +4,8 @@ import MessagesSideBar from '../../features/Messages/MessagesSideBar/MessagesSid
 import { useParams } from 'react-router-dom';
 import CreateChatModal from '../../features/Messages/CreateChatModal/CreateChatModal';
 import ChatArea from '../../features/Messages/ChatArea/ChatArea';
-import { isDesktop, isMobile, useWindowSize } from '../../utils/responsives';
+import { isDesktop, useWindowSize } from '../../utils/responsives';
+import PersonalInfoModal from '../../features/Users/PersonalInfoModal/PersonalInfoModal';
 
 
 export default function MessagesPage() {
@@ -32,6 +33,7 @@ export default function MessagesPage() {
             )}
         </div>
         <CreateChatModal />
+        <PersonalInfoModal />
       </>
   )
 }

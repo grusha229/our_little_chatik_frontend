@@ -1,0 +1,16 @@
+@import "../../../../../helpers/styles/colors";
+
+.block {
+    padding: 8px 8px 2px;
+    width: 100%;
+    overflow: hidden;
+    background-color: $color-background-light;
+}
+
+.slider {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    padding-top: 8px;
+    overflow-y: auto;
+}

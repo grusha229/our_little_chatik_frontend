@@ -23,13 +23,13 @@ const Modal = ({
     onClose,
 } : IProps) => {
 
-    const isModalVisible = useAppSelector(state => state.modals[name]);
+    const isModalVisible = useAppSelector(state => state.modals[name].isVisible);
     const dispatch = useAppDispatch();
 
     const toggleModalVisibility = useCallback(()=> {
             onClose && onClose();
             dispatch(closeModal(name))
-        },[dispatch, name])
+    },[dispatch, name])
 
     const modalClassName = [
         styles['modal'],

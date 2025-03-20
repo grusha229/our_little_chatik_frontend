@@ -42,17 +42,17 @@ export const Message = ({
 
     return (
         <div
-            className={`${styles['messageLine']} ${ isMine ? styles['mine'] : styles['notMine']}`}
+            className={`${styles['message']} ${ isMine ? styles['mine'] : styles['notMine']}`}
             {...props}
         >
             <Avatar size="small" src={avatarSrc} />
-            <div className={styles['messageText']}>
+            <div className={styles['message-content']}>
                 {isMediaExists && (
                     <MediaPhotoAttachments media={data.media?.refs || []}/>
                 )}
-                <div>{data.payload}</div>
+                <div className={styles['message--text']}>{data.payload}</div>
             </div>
-            <p className={styles['messageTime']} >{messageTime}</p>
+            <p className={styles['message--time']} >{messageTime}</p>
         </div>
     )
 };

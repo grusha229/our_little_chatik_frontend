@@ -8,10 +8,16 @@ export const filesApi = createApi({
   endpoints: (builder) => ({
       uploadAttachment: builder.mutation<IChatsUploadFileLinkResponse, IChatsAttachmentUploadPayload>({
         query: (payload) => {
-          const {url, file} = payload
+          const {url, file, content_type} = payload;
+          
+          // const {...fileData} = file;
+          console.log(file, content_type);
           return {
             url,
             method: 'PUT',
+            headers: {
+              'Content-Type': content_type || file.type || 'application/octet-stream',
+            },
             body: file,
           }
         },

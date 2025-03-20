@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./ChatSendForm.module.scss";
 import Button from "../../../controls/Button/Button";
 import Input from "../../../controls/Input/Input";
 import { useForm } from "react-hook-form";
-import { IChatsFilesLink, IChatsSendMessagePayload } from "../../../../models/chats";
+import { IChatsFilesLink, IChatsSendMessagePayload, IChatsUploadFileLinkResponse, IMediaRefItem } from "../../../../models/chats";
 import { useGetAttachmentsUploadUrlsMutation, useSendChatMessageMutation } from "../../../../services/chat";
 import { generateNewMessage } from "./ChatSendForm.utils";
 import { useAppSelector } from "../../../../store/store";
@@ -12,14 +12,15 @@ import { useDispatch } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
 import { useUploadAttachmentMutation } from "../../../../services/files";
 import UploadFileButton from "../../../controls/UploadFileButton/UploadFileButton";
+import MessageFormAttachments from "./MessageFormAttachments/MessageFormAttachments";
 
 export interface IProps {
   chat_id: string;
 }
 
 export default function ChatSendForm({ chat_id }: IProps) {
-  const [ filesToUpload, setFilesToUpload ] = useState<FileList>()
-  const [ fileNames, setFileNames] = useState<IChatsFilesLink[]>([]);
+  const [ filesToUpload, setFilesToUpload ] = useState<File[]>([])
+  const [ linksToUpload, setLinksToUpload ] = useState<IChatsUploadFileLinkResponse>([])
 
   const { register, handleSubmit, formState: { isSubmitting }, reset, setValue, watch } = useForm<IChatsSendMessagePayload>({
     defaultValues: {
@@ -30,8 +31,9 @@ export default function ChatSendForm({ chat_id }: IProps) {
   });
   const dispatch = useDispatch();
   const [ sendMessage ] = useSendChatMessageMutation();
-  const [ getAttachmentsUploadLinks, { isSuccess: isLinksSuccessfullyGet, data: linksToUpload, reset: resetUploadLinks }] = useGetAttachmentsUploadUrlsMutation();
-  const [ uploadAttachment ] = useUploadAttachmentMutation();
+  const [ getAttachmentsUploadLinks, { isSuccess: isLinksSuccessfullyGet, data: fetchedLinksToUpload, reset: resetUploadLinks, isUninitialized }] = useGetAttachmentsUploadUrlsMutation();
+  const [ uploadAttachment, { isLoading: isFilesUploading, isUninitialized: isFilesUploadingUninitialized } ] = useUploadAttachmentMutation();
+  const isFileUploaded = !isFilesUploadingUninitialized && !isFilesUploading
 
   const current_user = useAppSelector((state) => state.users.current_user);
   const current_id = current_user?.user_id || "";
@@ -47,11 +49,34 @@ export default function ChatSendForm({ chat_id }: IProps) {
     reset({ payload: "", id: chat_id, upload_ids: [] });
   }, [chat_id, reset]);
 
+  useEffect(() => {
+    if (fetchedLinksToUpload && !isUninitialized && isLinksSuccessfullyGet) {
+      setLinksToUpload(fetchedLinksToUpload)
+    }
+  }, [chat_id, fetchedLinksToUpload, isLinksSuccessfullyGet, isUninitialized, reset]);
+
+  useEffect(() => {
+    if (isLinksSuccessfullyGet && !isUninitialized && filesToUpload?.length > 0) {
+      linksToUpload?.forEach((link, index) => {
+        const current_file = filesToUpload[index];
+  
+        uploadAttachment({
+          url: link.upload_link,
+          file: current_file,
+          content_type: current_file.type,
+        });
+      });
+    }
+  }, [filesToUpload, isUninitialized, isLinksSuccessfullyGet, linksToUpload, uploadAttachment]);
+
+
   // Обработчик загрузки файлов
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
+
     if (files && files?.length > 0) {
-      setFilesToUpload(files)
+      setFilesToUpload(Array.from(files));
+
       const filesArray: IChatsFilesLink[] = Array.from(files).map((file) => {
 
         return {
@@ -59,35 +84,40 @@ export default function ChatSendForm({ chat_id }: IProps) {
           name: file.name,
         }
       });
-      setFileNames(filesArray)
 
       getAttachmentsUploadLinks({
         id: chat_id,
         links: filesArray,
       }).then((res) => {
-        console.log('ссылки на загрузку', res.data)
         setValue('upload_ids', res?.data?.map((file) => file.upload_id || ''));
       })
     }
-  };
+  }, [chat_id, getAttachmentsUploadLinks, setValue]);
 
-  useEffect(() => {
-    linksToUpload?.forEach((link, index) => {
-      const formData = new FormData();
-      formData.append('file', filesToUpload?.[index] as Blob);
+  const handleDeleteFile = useCallback((upload_id: string) => {
 
-      uploadAttachment({
-        url: link.upload_link,
-        file: formData
-      })
-    })
-  }, [isLinksSuccessfullyGet])
+    const filetedLinksToUpload = linksToUpload?.filter((value) => value.upload_id !== upload_id)
+    const filteredUploadIds = filetedLinksToUpload.map((value) => value.upload_id);
 
+    setValue('upload_ids', filteredUploadIds);
+    setLinksToUpload(filetedLinksToUpload)
+  }, [linksToUpload, setValue])
 
     const onSubmit = async (formData: IChatsSendMessagePayload) => {
-      console.log(formData)
+      const mediaRefs: IMediaRefItem[] = linksToUpload?.map((link) => (
+        {
+          url: link.preview_link,
+          path: link.upload_file_name,
+        }
+      )) || [];
+
       const tempId = nanoid();
-      const newMessage = generateNewMessage(tempId, formData.payload, current_id );
+      const newMessage = generateNewMessage(
+        tempId,
+        formData.payload,
+        current_id,
+        mediaRefs
+      );
 
       dispatch(addMessage({ chat_id, message: newMessage }));
       console.log('добавляем сообщение в стор', chat_id,  newMessage)
@@ -102,7 +132,7 @@ export default function ChatSendForm({ chat_id }: IProps) {
                       tempId,
                       id: response.id,
                       status: 'sent',
-                      chat_id: response.chat_id
+                      chat_id: response.chat_id,
                   })
               );
           });
@@ -119,6 +149,7 @@ export default function ChatSendForm({ chat_id }: IProps) {
         console.error('Ошибка отправки сообщения:', error);
       }
       resetUploadLinks();
+      setLinksToUpload([]);
       reset(); // Очистка формы
   };
 
@@ -127,6 +158,11 @@ export default function ChatSendForm({ chat_id }: IProps) {
       onSubmit={handleSubmit(onSubmit)}
       className={styles["form--container"]}
     >
+      <MessageFormAttachments
+        linksToUpload={linksToUpload}
+        onDelete={handleDeleteFile}
+        isFileUploaded={isFileUploaded}
+      />
       <div className={styles["form"]}>
         <Input
           name="payload"
@@ -143,20 +179,6 @@ export default function ChatSendForm({ chat_id }: IProps) {
         <Button type="submit" disabled={isSendButtonDisabled}>
           Send
         </Button>
-      </div>
-    
-      <div>
-      {/* Вывод загруженных файлов */}
-      {linksToUpload && linksToUpload?.length > 0 && (
-        <div>
-          <strong>Selected files:</strong>
-          <ul>
-            {linksToUpload.map((file, index) => (
-              <li key={index}>{file.upload_id}</li>
-            ))}
-          </ul>
-        </div>
-      )}
       </div>
     </form>
   );

@@ -7,12 +7,12 @@ const usersMiddleware: Middleware = (store) => (next) => async (action) => {
 
   const dispatch: AppDispatch = store.dispatch;
 
-  if (usersApi.endpoints.getUserInfo.matchFulfilled(action)) {
+  if (usersApi.endpoints.getCurrentUserInfo.matchFulfilled(action)) {
     dispatch(setCurrentUser(action.payload));
   }
 
   // If there an error - delete tokens
-  if (usersApi.endpoints.getUserInfo.matchRejected(action)) {
+  if (usersApi.endpoints.getCurrentUserInfo.matchRejected(action)) {
 
     if (action?.payload?.status === 404) {
       localStorage.removeItem('access_token');

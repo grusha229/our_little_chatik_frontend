@@ -1,0 +1,22 @@
+.block {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    width: 100px;
+    max-width: 100px;
+    box-sizing: content-box;
+}
+
+.button-delete {
+    position: absolute;
+    right: -8px;
+    top: -8px;
+}
+
+.file-name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100px;
+}

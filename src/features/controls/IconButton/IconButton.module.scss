@@ -6,8 +6,7 @@
   transition-duration: 0.25s;
   transition-timing-function: ease;
   border: 1px solid transparent;
-  border-radius: 4px;
-  padding: 12px;
+  
   background-color: #a2a2a2;
   text-decoration: none;
   text-decoration: none;
@@ -15,7 +14,19 @@
   text-align: center;
 
   line-height: 1.2;
-  height: 45px;
+
+  &--default {
+    height: 45px;
+    padding: 12px;
+    border-radius: 4px;
+  }
+
+  &--xsmall {
+    height: 30px;
+    padding: 0;
+    border-radius: 50%;
+    padding: 2px;
+  }
 
   img {
     width: 100%;

@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './MediaPhotoAttachments.module.scss'
 import { IMediaRefItem } from '../../../models/chats'
-import MediaPhotoAttachmentsItem from './MediaPhotoAttachmentsItem';
+import MediaPhotoAttachmentsItem from './MediaPhotoAttachmentsItem/MediaPhotoAttachmentsItem';
 export type TAttachmentsSize = 'small' | 'large';
 
 export interface IProps {

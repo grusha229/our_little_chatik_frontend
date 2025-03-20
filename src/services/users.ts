@@ -7,12 +7,18 @@ export const usersApi = createApi({
   baseQuery: createBaseQueryWithReauth('/users/'),
   endpoints: (builder) => ({
     /** Get current user info */
-    getUserInfo: builder.query<ICurrentUserInfoResponse, void>({
+    getCurrentUserInfo: builder.query<ICurrentUserInfoResponse, void>({
         query: () => ({
           url: `/me`,
           method: 'GET',
         }),
-      }),
+    }),
+    getUserInfoById: builder.query<ICurrentUserInfoResponse, { user_id: string }>({
+        query: (payload) => ({
+          url: `/${payload.user_id}`,
+          method: 'GET',
+        }),
+    }),
     search: builder.query<IUsersSearchResponse, IUsersSearchPayload>({
       query: (payload) => ({
         url: `/search`,
@@ -25,6 +31,7 @@ export const usersApi = createApi({
 })
 
 export const { 
-  useGetUserInfoQuery,
+  useGetCurrentUserInfoQuery,
+  useGetUserInfoByIdQuery,
   useSearchQuery,
 } = usersApi
