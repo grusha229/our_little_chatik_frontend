@@ -6,6 +6,7 @@ import CreateChatModal from '../../features/Messages/CreateChatModal/CreateChatM
 import ChatArea from '../../features/Messages/ChatArea/ChatArea';
 import { isDesktop, useWindowSize } from '../../utils/responsives';
 import PersonalInfoModal from '../../features/Users/PersonalInfoModal/PersonalInfoModal';
+import ImagesGalleryModal from '../../features/Images/ImagesGalleryModal/ImagesGalleryModal';
 
 
 export default function MessagesPage() {
@@ -34,6 +35,7 @@ export default function MessagesPage() {
         </div>
         <CreateChatModal />
         <PersonalInfoModal />
+        <ImagesGalleryModal />
       </>
   )
 }

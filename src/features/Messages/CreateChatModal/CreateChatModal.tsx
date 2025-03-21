@@ -1,5 +1,5 @@
 import React from 'react'
-import Modal from '../../controls/Modal/Modal'
+import Modal from '../../../ui/Modal/Modal'
 import CreateChatForm from '../CreateChatForm/CreateChatForm'
 
 export default function CreateChatModal() {

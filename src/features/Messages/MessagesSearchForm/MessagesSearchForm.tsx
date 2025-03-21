@@ -4,7 +4,7 @@ import { useSearchMutation } from '../../../services/search';
 import { ISearchPayload } from '../../../models/search';
 import { useForm } from 'react-hook-form';
 import debounce from '../../../utils/debounce';
-import Input from '../../controls/Input/Input';
+import Input from '../../../ui/Input/Input';
 
 export interface IProps {
     onFocus: () => void;

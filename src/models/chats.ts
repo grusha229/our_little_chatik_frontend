@@ -13,6 +13,7 @@ export interface IChatsUser {
 export interface IMediaRefItem {
     path?: string;
     url: string;
+    content_type: string;
 }
 
 export interface IMediaResponse {

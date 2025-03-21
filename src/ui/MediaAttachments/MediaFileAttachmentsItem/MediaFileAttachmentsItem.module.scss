@@ -1,9 +1,10 @@
-@import "../../../../helpers/styles/colors";
+@import "../../../helpers/styles/colors";
 
 .image-wrapper {
     overflow: hidden;
     display: flex;
-    background-color: $color-background;
+    background-color: $color-grey-light;
+    cursor: pointer;
 
     &--large {
         min-height: 90px;
@@ -20,6 +21,7 @@
         max-width: 100px;
         min-width: 100px;
         border-radius: 8px;
+        padding: 8px;
     }
 }
 

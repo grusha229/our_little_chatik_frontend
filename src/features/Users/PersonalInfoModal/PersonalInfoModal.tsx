@@ -1,5 +1,5 @@
 import React from 'react'
-import Modal from '../../controls/Modal/Modal'
+import Modal from '../../../ui/Modal/Modal'
 import styles from './PersonalInfoModal.module.scss'
 import { useAppSelector } from '../../../store/store';
 import { useGetUserInfoByIdQuery } from '../../../services/users';

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './IconButton.module.scss';
 import {Link} from "react-router-dom";
-import plusIcon from './../../../img/icons/icon--plus.svg';
+import plusIcon from './../../img/icons/icon--plus.svg';
 
 export interface IProps {
     type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];

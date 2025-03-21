@@ -1,7 +1,7 @@
 import styles from "./Modal.module.scss"
 import {useCallback} from "react";
-import { closeModal, IModalsState } from "../../../store/features/modals";
-import { useAppSelector, useAppDispatch } from "../../../store/store";
+import { closeModal, IModalsState } from "../../store/features/modals";
+import { useAppSelector, useAppDispatch } from "../../store/store";
 
 export type TModalSize = 'small' | 'medium' | 'large' | 'xlarge'
 

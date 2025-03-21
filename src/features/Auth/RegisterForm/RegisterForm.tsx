@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useSignupUserMutation } from '../../../services/auth';
 import style from './RegisterForm.module.scss';
 import { ISignupPayload } from '../../../models/auth';
-import Button from '../../controls/Button/Button';
-import Input from '../../controls/Input/Input';
+import Button from '../../../ui/Button/Button';
+import Input from '../../../ui/Input/Input';
 
 export default function LoginForm() {
 

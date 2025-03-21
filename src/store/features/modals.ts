@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { IMediaRefItem } from "../../models/chats";
 
 export interface IBaseModalState {
   isVisible: boolean;
@@ -7,9 +8,16 @@ export interface IBaseModalState {
 export interface IPersonalInfo extends IBaseModalState {
   current_id: string
 }
+
+export interface IImageViewer extends IBaseModalState {
+  images: IMediaRefItem[],
+  start_image: IMediaRefItem | null,
+}
+
 export interface IModalsState {
   create_chat: IBaseModalState;
   user_info: IPersonalInfo;
+  image_viewer: IImageViewer;
 }
 
 const initialState: IModalsState  = {
@@ -19,6 +27,11 @@ const initialState: IModalsState  = {
   user_info: {
     isVisible: false,
     current_id: '',
+  },
+  image_viewer: {
+    isVisible: false,
+    images: [],
+    start_image: null,
   }
 }
 

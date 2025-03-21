@@ -5,7 +5,7 @@ import MessagesSearchResults from '../MessagesSearchResults/MessagesSearchResult
 import styles from './MessagesSideBar.module.scss'
 import { useAppDispatch } from '../../../store/store';
 import { openModal } from '../../../store/features/modals';
-import IconButton from '../../controls/IconButton/IconButton';
+import IconButton from '../../../ui/IconButton/IconButton';
 
 export default function MessagesSideBar() {
 

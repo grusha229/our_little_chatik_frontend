@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import styles from "./ChatSendForm.module.scss";
-import Button from "../../../controls/Button/Button";
-import Input from "../../../controls/Input/Input";
+import Button from "../../../../ui/Button/Button";
+import Input from "../../../../ui/Input/Input";
 import { useForm } from "react-hook-form";
 import { IChatsFilesLink, IChatsSendMessagePayload, IChatsUploadFileLinkResponse, IMediaRefItem } from "../../../../models/chats";
 import { useGetAttachmentsUploadUrlsMutation, useSendChatMessageMutation } from "../../../../services/chat";
@@ -11,7 +11,7 @@ import { addMessage, updateMessageStatus } from "../../../../store/features/chat
 import { useDispatch } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
 import { useUploadAttachmentMutation } from "../../../../services/files";
-import UploadFileButton from "../../../controls/UploadFileButton/UploadFileButton";
+import UploadFileButton from "../../../../ui/UploadFileButton/UploadFileButton";
 import MessageFormAttachments from "./MessageFormAttachments/MessageFormAttachments";
 
 export interface IProps {
@@ -61,9 +61,9 @@ export default function ChatSendForm({ chat_id }: IProps) {
         const current_file = filesToUpload[index];
   
         uploadAttachment({
-          url: link.upload_link,
+          url: link?.upload_link,
           file: current_file,
-          content_type: current_file.type,
+          content_type: current_file?.type,
         });
       });
     }

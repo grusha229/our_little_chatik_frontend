@@ -1,5 +1,5 @@
-import React from 'react'
-import styles from './MediaPhotoAttachmentsItem.module.scss'
+import React, { useCallback } from 'react'
+import styles from './MediaFileAttachmentsItem.module.scss'
 export type TAttachmentsSize = 'small' | 'large';
 
 export interface IProps {
@@ -9,9 +9,10 @@ export interface IProps {
     onDelete?: () => void;
 }
 
-export default function MediaPhotoAttachmentsItem({
+export default function MediaFileAttachmentsItem({
   src,
   size = "large",
+  onClick
 }: IProps) {
 
   const wrapperClassName = [
@@ -19,8 +20,12 @@ export default function MediaPhotoAttachmentsItem({
     styles[`image-wrapper--${size}`]
   ].join(' ');
 
+  const handleClick = useCallback(() => {
+    onClick && onClick()
+  }, [onClick])
+
   return (
-    <div className={wrapperClassName}>
+    <div className={wrapperClassName} onClick={handleClick}>
         <img
           className={styles['image']}
           src={src}

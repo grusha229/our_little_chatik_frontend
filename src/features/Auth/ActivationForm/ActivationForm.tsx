@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useActivateUserMutation } from '../../../services/auth';
 import style from './ActivationForm.module.scss';
 import { IActivationPayload } from '../../../models/auth';
-import Button from '../../controls/Button/Button';
-import Input from '../../controls/Input/Input';
+import Button from '../../../ui/Button/Button';
+import Input from '../../../ui/Input/Input';
 export default function ActivationForm() {
 
     // Инициализация useForm

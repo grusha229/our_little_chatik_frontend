@@ -3,9 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useLoginUserMutation } from '../../../services/auth';
 import style from './LoginForm.module.scss';
 import { ILoginPayload } from '../../../models/auth';
-import Button from '../../controls/Button/Button';
-import InputComponent from '../../controls/Input/Input';
-import Input from '../../controls/Input/Input';
+import Button from '../../../ui/Button/Button';
+import Input from '../../../ui/Input/Input';
 
 export default function LoginForm() {
 

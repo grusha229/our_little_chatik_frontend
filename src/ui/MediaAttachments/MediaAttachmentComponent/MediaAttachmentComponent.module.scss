@@ -3,9 +3,17 @@
     display: flex;
     flex-direction: column;
 
-    width: 100px;
-    max-width: 100px;
+
     box-sizing: content-box;
+
+    &--large {
+        flex: 1;
+    }
+
+    &--small {
+        width: 100px;
+        max-width: 100px;
+    }
 }
 
 .button-delete {
