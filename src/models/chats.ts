@@ -14,6 +14,7 @@ export interface IMediaRefItem {
     path?: string;
     url: string;
     content_type: string;
+    file_name: string;
 }
 
 export interface IMediaResponse {

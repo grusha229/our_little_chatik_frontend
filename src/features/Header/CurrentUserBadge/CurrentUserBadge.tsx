@@ -11,7 +11,7 @@ export default function CurrentUserBadge() {
     const { data, refetch } = useGetCurrentUserInfoQuery();
     const avatarSrc = data?.avatar || `https://ui-avatars.com/api/?name=${data?.name}+${data?.surname}`;
 
-    const isOnline = useAppSelector((state) => state.websocket.connected);
+    // const isOnline = useAppSelector((state) => state.websocket.connected);
 
     const toggleModalVisibility = useCallback(()=> {
         dispatch(
@@ -31,7 +31,7 @@ export default function CurrentUserBadge() {
         <div className={styles['block']} onClick={toggleModalVisibility}>
             <Avatar src={avatarSrc} />
             <div>{data?.name} {data?.surname} – @{data?.nickname}</div>
-            <div>{isOnline ? 'Online' : 'Offline'}</div>
+            <div>{true ? 'Online' : 'Offline'}</div>
         </div>
     )
 }

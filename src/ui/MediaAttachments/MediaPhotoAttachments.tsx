@@ -5,7 +5,7 @@ import { openModal } from '../../store/features/modals';
 import { useAppDispatch } from '../../store/store';
 import { isImageFile } from './MediaAttachmentComponent/MediaAttachmentComponent.utils';
 import MediaAttachmentComponent from './MediaAttachmentComponent/MediaAttachmentComponent';
-export type TAttachmentsSize = 'small' | 'large';
+export type TAttachmentsSize = 'small' | 'large' | 'xsmall'
 
 export interface IProps {
     media: IMediaRefItem[],
@@ -63,8 +63,8 @@ export default function MediaAttachments({
                             preview_link={media.url}
                             content_type={media.content_type}
                             isFileUploaded
-                            size="small"
-                            file_name=''
+                            size="xsmall"
+                            file_name={media?.file_name || "file"}
                         />
                     ))
                 }

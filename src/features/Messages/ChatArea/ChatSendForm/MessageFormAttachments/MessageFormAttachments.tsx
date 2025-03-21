@@ -33,12 +33,14 @@ export default function MessageFormAttachments({
                                 url: current_media.preview_link,
                                 path: current_media.upload_file_name,
                                 content_type: current_media.content_type,
+                                file_name: current_media?.upload_file_name,
                             }
                         ],
                         start_image: {
                             url: current_media.preview_link,
                             path: current_media.upload_file_name,
                             content_type: current_media.content_type,
+                            file_name: current_media?.upload_file_name
                         }
                     }
                 }))

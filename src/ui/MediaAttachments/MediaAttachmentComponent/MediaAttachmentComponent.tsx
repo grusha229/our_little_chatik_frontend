@@ -1,10 +1,9 @@
-import React, { useCallback } from 'react'
-import { getAttachmentComponent } from './MediaAttachmentComponent.utils'
+import React, { SyntheticEvent, useCallback } from 'react'
+import { getAttachmentComponent, getFileType } from './MediaAttachmentComponent.utils'
 import IconButton from '../../IconButton/IconButton'
 import deleteIcon from './../../../img/icons/icon--x-mark.svg'
 import styles from './MediaAttachmentComponent.module.scss'
-
-export type TAttachmentsSize = 'large' | 'small';
+import { TAttachmentsSize } from '../MediaPhotoAttachments'
 
 export interface IProps {
   size?: TAttachmentsSize;
@@ -30,9 +29,10 @@ export default function MediaAttachmentComponent({
     onClick && onClick()
   }, [onClick])
 
-  const AttachmentComponent = getAttachmentComponent({content_type, preview_link, isFileUploaded, size, onClick: handleAttachmentClick})
+  const AttachmentComponent = getAttachmentComponent({content_type, preview_link, isFileUploaded, size})
 
-  const handleDeleteFile = useCallback(() => {
+  const handleDeleteFile = useCallback((event: SyntheticEvent) => {
+    event.stopPropagation()
     onDelete && onDelete()
   }, [onDelete]);
 
@@ -41,8 +41,16 @@ export default function MediaAttachmentComponent({
     styles[`block--${size}`]
   ].join(' ');
 
+  const fileNameClassName = [
+    styles['file'],
+    styles[`file--${size}`]
+  ].join(' ');
+
   return (
-    <div className={blockClassName} >
+    <div
+      className={blockClassName}
+      onClick={handleAttachmentClick}
+    >
       {onDelete && (
         <IconButton
           className={styles['button-delete']}
@@ -53,8 +61,17 @@ export default function MediaAttachmentComponent({
       )}
       {AttachmentComponent}
       {(size !== "large") && (
-          <div className={styles['file-name']}>
-              {file_name}
+          <div className={fileNameClassName}>
+              <div
+                className={styles['file-name']}
+              >
+                {file_name}
+              </div>
+              <div
+                className={styles['file-type']}
+              >
+                {getFileType(content_type)}
+              </div>
           </div>
       )}
     </div>

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import styles from './MediaFileAttachmentsItem.module.scss'
-export type TAttachmentsSize = 'small' | 'large';
+import { TAttachmentsSize } from '../MediaPhotoAttachments';
 
 export interface IProps {
     src: string;

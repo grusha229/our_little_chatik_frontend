@@ -108,6 +108,8 @@ export default function ChatSendForm({ chat_id }: IProps) {
         {
           url: link.preview_link,
           path: link.upload_file_name,
+          file_name: link.upload_file_name,
+          content_type: link.content_type
         }
       )) || [];
 

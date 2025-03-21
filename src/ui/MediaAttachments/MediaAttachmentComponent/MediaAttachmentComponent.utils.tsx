@@ -19,8 +19,7 @@ export const FILE_TYPE_ICONS: Record<string, string> = {
     default: defaultFileIcon,
 };
 
-const getFileType = (content_type: string): keyof typeof FILE_TYPE_ICONS => {
-    console.log(content_type)
+export const getFileType = (content_type: string): keyof typeof FILE_TYPE_ICONS => {
     if (content_type?.startsWith("image/")) return "image";
     if (content_type?.startsWith("application/zip")) return "zip";
     if (content_type?.startsWith("application/pdf")) return "pdf";
@@ -35,11 +34,9 @@ export interface IProps {
     isFileUploaded: boolean;
     preview_link: string;
     content_type: string;
-    onClick: () => void;
 }
 
-export const getAttachmentComponent = ({content_type, size, isFileUploaded, preview_link, onClick}: IProps) => {
-    console.log(content_type)
+export const getAttachmentComponent = ({content_type, size, isFileUploaded, preview_link}: IProps) => {
     const fileType = getFileType(content_type);
 
     const iconBackgroundSrc = ((fileType === "image") && isFileUploaded)
@@ -50,7 +47,6 @@ export const getAttachmentComponent = ({content_type, size, isFileUploaded, prev
         <MediaFileAttachmentsItem
             size={size}
             src={iconBackgroundSrc}
-            onClick={onClick}
         />
     )
 }
