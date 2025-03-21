@@ -1,4 +1,4 @@
-@import "../../../helpers/styles/colors.scss";
+@use "../../../helpers/styles/colors.scss" as colors;
 
 /* Стили для компонента ChatItem */
 .chat {
@@ -7,14 +7,14 @@
     padding: 16px 16px 16px 12px;
     text-decoration: none; /* Убираем подчеркивание ссылок */
     color: inherit; /* Наследуем цвет текста */
-    border-bottom: 1px solid $color-text-primary; /* Разделительная линия между чатами */
+    border-bottom: 1px solid colors.$color-text-primary; /* Разделительная линия между чатами */
     transition: background-color 0.3s ease;
     width: 100%;
     gap: 12px;
   }
   
   .chat:hover {
-    background-color: $color-background-light; /* Эффект при наведении */
+    background-color: colors.$color-background-light; /* Эффект при наведении */
   }
 
   .chat-details {
@@ -28,7 +28,7 @@
   .name {
     font-size: 16px;
     font-weight: bold;
-    color: $color-text-primary;
+    color: colors.$color-text-primary;
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis;
@@ -37,7 +37,7 @@
   .message {
     font-size: 14px;
     font-weight: 300;
-    color: $color-text-primary;
+    color: colors.$color-text-primary;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

@@ -86,7 +86,7 @@ export default function MessagesSearchResults() {
         {chatsResultsExists && (
           <div className={styles['search-results--block']}>
             <div className={styles['search-results--header']}>
-              Founded chats:
+              Found chats:
             </div>
             {chatsResults.map((chat) => (
               <MessagesChatItem 
@@ -102,7 +102,7 @@ export default function MessagesSearchResults() {
         {messagesResultsExists && (
           <div className={styles['search-results--block']}>
             <div className={styles['search-results--header']}>
-              Founded messages:
+              Found messages:
             </div>
             {messagesResults.map((message) => (
               <MessagesChatItem
@@ -119,7 +119,7 @@ export default function MessagesSearchResults() {
         {usersResultsExists && (
           <div className={styles['search-results--block']}>
             <div className={styles['search-results--header']}>
-              Founded users:
+              Found users:
             </div>
             {usersResults.map((user) => (
               <MessagesChatItem

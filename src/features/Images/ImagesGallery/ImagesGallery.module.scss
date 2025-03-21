@@ -1,4 +1,4 @@
-@import "../../../helpers/styles/colors";
+@use "../../../helpers/styles/colors" as colors;
 
 
 .image-block {
@@ -29,7 +29,7 @@
         align-items: center;
 
         &:hover {
-            background: $color-background-light;
+            background: colors.$color-background-light;
             transition: background ease-out .1s;
         }
     }

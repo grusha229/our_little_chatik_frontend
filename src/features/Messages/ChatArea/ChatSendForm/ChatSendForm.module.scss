@@ -1,10 +1,10 @@
-@import "../../../../helpers/styles/colors";
+@use "../../../../helpers/styles/colors" as colors;
 
 .form {
     width: 100%;
     border-bottom: 1px solid #fcc521;
     padding: 8px 8px 2px;
-    background-color: $color-background-light;
+    background-color: colors.$color-background-light;
     display: flex;
     flex-direction: row;
     gap: 8px;
@@ -17,6 +17,6 @@
 }
 
 .input {
-    background-color: $color-background;
+    background-color: colors.$color-background;
     border-radius: 4px;
 }

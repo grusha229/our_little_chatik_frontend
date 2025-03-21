@@ -1,6 +1,7 @@
 import React from 'react'
 import { FieldError, UseFormRegister } from 'react-hook-form';
 import Input from '../Input/Input';
+import styles from './UploadFileButton.module.scss';
 
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -36,16 +37,7 @@ export default function UploadFileButton({
         />
         <label
             htmlFor={`fileInput--${name}`}
-            style={{
-                display: "inline-block",
-                padding: "10px 20px",
-                backgroundColor: "#4CAF50",
-                color: "white",
-                borderRadius: "5px",
-                cursor: "pointer",
-                textAlign: "center",
-                fontSize: "16px",
-            }}
+            className={styles['button']}
         >
             {children}
         </label>

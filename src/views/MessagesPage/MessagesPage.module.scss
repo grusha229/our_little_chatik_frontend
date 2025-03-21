@@ -1,5 +1,5 @@
-@import "../../helpers/styles/colors.scss";
-@import "../../helpers/styles/responsives.scss";
+@use "../../helpers/styles/colors.scss" as colors;
+@use "../../helpers/styles/responsives.scss" as responsive;
 
 .page {
     display: grid;
@@ -10,10 +10,10 @@
 
     max-width: 1200px;
     margin: 0 auto;
-    border-left: 1px solid $color-yellow-primary;
+    border-left: 1px solid colors.$color-yellow-primary;
 
     &--sidebar {
-        border-right: 1px solid $color-yellow-primary;
+        border-right: 1px solid colors.$color-yellow-primary;
         display: flex;
         flex-direction: column;
     }
@@ -21,15 +21,15 @@
     &--content {
         display: flex;
         flex-direction: column;
-        border-right: 1px solid $color-yellow-primary;
+        border-right: 1px solid colors.$color-yellow-primary;
         overflow: hidden;
     }
 
-    @include media-tablet {
+    @include responsive.media-tablet {
         grid-template-columns: unset;
     }
 
-    @include media-mobile {
+    @include responsive.media-mobile {
         grid-template-columns: unset;
     }
 }

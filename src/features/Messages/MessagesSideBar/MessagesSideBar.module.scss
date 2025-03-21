@@ -1,4 +1,4 @@
-@import "../../../helpers/styles/_colors.scss";
+@use "../../../helpers/styles/_colors.scss" as colors;
 
 .sidebar-content {
     height: 100%;
@@ -9,9 +9,9 @@
 }
 
 .form {
-    border-bottom: 1px solid $color-yellow-primary;
+    border-bottom: 1px solid colors.$color-yellow-primary;
     padding: 8px;
-    background-color: $color-background-light;
+    background-color: colors.$color-background-light;
 
     display: flex;
     flex-direction: row;

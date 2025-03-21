@@ -1,4 +1,4 @@
-@import "../../../helpers/styles/colors";
+@use "../../../helpers/styles/colors" as colors;
 
 .block {
     display: flex;
@@ -8,11 +8,11 @@
     gap: 8px;
 
     padding: 12px;
-    background: $color-background-light;
+    background: colors.$color-background-light;
     border-radius: 8px;
 
     &:hover {
-        background: rgba($color: $color-background-light, $alpha: .7);
+        background: rgba($color: colors.$color-background-light, $alpha: .7);
         transition: background ease 0.3s;
     }
 }

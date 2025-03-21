@@ -1,0 +1,19 @@
+@use "./../../helpers/styles/_colors.scss" as colors;
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: colors.$color-background;
+    color: colors.$color-grey-light;
+
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+
+    &:hover {
+        background-color: colors.$color-background-light;
+        border: 1px solid colors.$color-grey-light;
+        color: colors.$color-grey-light;
+    }
+}

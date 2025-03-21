@@ -1,10 +1,10 @@
-@import "../../../helpers/styles/_colors.scss";
+@use "../../../helpers/styles/_colors.scss" as colors;
 
 .form {
     width: 100%;
 }
 
 .input {
-    background-color: $color-background;
+    background-color: colors.$color-background;
     border-radius: 4px;
 }

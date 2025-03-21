@@ -1,4 +1,4 @@
-@import "../../../helpers/styles/colors.scss";
+@use "../../../helpers/styles/colors.scss" as colors;
 
 .search-empty {
     display: flex;
@@ -29,9 +29,9 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        border-bottom: $color-text-primary solid 1px;
+        border-bottom: colors.$color-text-primary solid 1px;
 
         padding: 5px 10px;
-        background-color: $color-background-light;
+        background-color: colors.$color-background-light;
     }
 }

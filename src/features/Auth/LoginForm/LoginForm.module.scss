@@ -1,4 +1,4 @@
-@import "../../../helpers/styles/_colors.scss";
+@use "../../../helpers/styles/_colors.scss" as colors;
 
 .block {
     display: flex;
@@ -17,7 +17,7 @@
 
         font-size: 24px;
         border: none;
-        color: $color-text-primary;
+        color: colors.$color-text-primary;
         border-radius: 5px;
         padding: 12px 20px;
         margin-right: 10px;
@@ -29,7 +29,7 @@
     &--button {
         font-size: 24px;
         border: none;
-        color: $color-text-primary;
+        color: colors.$color-text-primary;
         border-radius: 5px;
         padding: 12px 20px;
         transition: filter 400ms;

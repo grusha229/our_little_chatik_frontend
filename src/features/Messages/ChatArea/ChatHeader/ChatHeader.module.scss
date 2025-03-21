@@ -1,5 +1,5 @@
-@import "../../../../helpers/styles/colors.scss";
-@import "../../../../helpers/styles/responsives.scss";
+@use "../../../../helpers/styles/colors.scss" as colors;
+@use "../../../../helpers/styles/responsives.scss" as responsive;
 
 .header {
     width: 100%;
@@ -12,7 +12,7 @@
     margin: 10px;
     align-items: center;
     
-    @include media-tablet {
+    @include responsive.media-tablet {
         justify-content: space-between;
     }
 }
@@ -24,7 +24,7 @@
     align-items: center;
     gap: 8px;
 
-    @include media-tablet {
+    @include responsive.media-tablet {
         flex-direction: row-reverse;
     }
 }
@@ -35,6 +35,6 @@
 }
 
 .back {
-    color: $color-text-primary;
+    color: colors.$color-text-primary;
     cursor: pointer;
 }
