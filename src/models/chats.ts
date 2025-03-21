@@ -2,11 +2,11 @@ import { ICurrentUserInfoResponse } from "./users";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IChatsUser {
-    avatar: string,
+    participant_avatar: string,
     email: string,
     name: string,
     surname: string,
-    user_id: string,
+    participant_id: string,
     participant_nickname: string
 }
 

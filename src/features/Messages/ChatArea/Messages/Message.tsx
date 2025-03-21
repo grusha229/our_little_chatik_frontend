@@ -37,7 +37,7 @@ export const Message = ({
 }: IProps) => {
 
     const messageTime = new Date(data?.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    const avatarSrc = sender?.avatar ? sender.avatar : `https://ui-avatars.com/api/?name=${sender?.participant_nickname}`;
+    const avatarSrc = sender?.participant_avatar ? sender.participant_avatar : `https://ui-avatars.com/api/?name=${sender?.participant_nickname}`;
     const isMediaExists = data.media?.refs && data.media?.refs?.length > 0
 
     return (

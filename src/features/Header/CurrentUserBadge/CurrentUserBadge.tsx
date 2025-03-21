@@ -8,20 +8,21 @@ import { openModal } from '../../../store/features/modals';
 export default function CurrentUserBadge() {
     const dispatch = useAppDispatch();
     
-    const { data, refetch } = useGetCurrentUserInfoQuery();
-    const avatarSrc = data?.avatar || `https://ui-avatars.com/api/?name=${data?.name}+${data?.surname}`;
+    const { refetch } = useGetCurrentUserInfoQuery();
+    const currentUser = useAppSelector((state) => state.users.current_user)
+    const avatarSrc = currentUser?.avatar || `https://ui-avatars.com/api/?name=${currentUser?.name}+${currentUser?.surname}`;
 
-    // const isOnline = useAppSelector((state) => state.websocket.connected);
+    const isOnline = useAppSelector((state) => state.websocket.connected);
 
     const toggleModalVisibility = useCallback(()=> {
         dispatch(
             openModal({
                 modal: "user_info",
                 params: {
-                    current_id: data?.user_id
+                    current_id: currentUser?.user_id
                 }
             }))
-        },[data?.user_id, dispatch])
+        },[currentUser?.user_id, dispatch])
 
     useEffect(() => {
         refetch();
@@ -30,8 +31,14 @@ export default function CurrentUserBadge() {
     return (
         <div className={styles['block']} onClick={toggleModalVisibility}>
             <Avatar src={avatarSrc} />
-            <div>{data?.name} {data?.surname} – @{data?.nickname}</div>
-            <div>{true ? 'Online' : 'Offline'}</div>
+            <div className={styles['personal-info']}>
+                <div className={styles['personal-info--name']}>
+                    {currentUser?.name} {currentUser?.surname}
+                </div>
+                <div className={styles['personal-info--status']}>
+                    {isOnline ? 'Online' : 'Offline'}
+                </div>
+            </div>
         </div>
     )
 }

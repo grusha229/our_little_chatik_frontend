@@ -11,22 +11,26 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: FieldError | undefined; // Ошибка валидации
   className?: string;
   children: React.ReactNode;
+  multiple?: boolean;
 }
 
 export default function UploadFileButton({
     register,
     handleChange,
     name,
-    children
+    children,
+    multiple = true,
+    className,
 }: IProps) {
+  const blockClassName = [className && className].join(' ')
   return (
-    <div>
+    <div className={blockClassName}>
         <Input
             name={name}
             type="file"
             id={`fileInput--${name}`}
             style={{ display: "none" }}
-            multiple
+            multiple={multiple}
             onChange={handleChange}
             register={register}
         />

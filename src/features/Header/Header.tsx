@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from './Header.module.scss'
-import LogoutButton from './LogoutButton/LogoutButton';
 import CurrentUserBadge from './CurrentUserBadge/CurrentUserBadge';
 
 export default function Header() {
@@ -10,7 +9,6 @@ export default function Header() {
       <div className={styles['header']}>
         <div className={styles['header--container']}>
             <CurrentUserBadge />
-            <LogoutButton />
         </div>
       </div>
   )

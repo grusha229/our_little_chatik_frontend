@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { createBaseQueryWithReauth } from './baseQuery'
-import { ICurrentUserInfoResponse, IUsersSearchPayload, IUsersSearchResponse } from '../models/users'
+import { ICurrentUserInfoResponse, IUsersPatchCurrentUserPayload, IUsersPatchCurrentUserResponse, IUsersSearchPayload, IUsersSearchResponse, IUsersUploadAvatarLink, IUsersUploadAvatarLinkPayload, IUsersUploadAvatarLinkResponse } from '../models/users'
+import { IChatsUploadFileLinkResponse, IChatsUploadFilePayload } from '../models/chats'
 
 export const usersApi = createApi({
   reducerPath: 'users_api',
@@ -12,6 +13,38 @@ export const usersApi = createApi({
           url: `/me`,
           method: 'GET',
         }),
+    }),
+    patchCurrentUserInfo: builder.mutation<IUsersPatchCurrentUserResponse, IUsersPatchCurrentUserPayload>({
+      // query: (payload) => ({
+      //   const {avatar, ...data} = payload;
+
+      //   return {
+      //     url: `/me`,
+      //     method: 'PATCH',
+      //     body: data,
+      //   }
+      // }),
+      query: (payload) => {
+        const { avatar_upload_id, email, ...data } = payload;
+
+        // Добавляем avatar_upload_id в запрос, только если он существует
+        const requestBody = avatar_upload_id
+            ? { ...data, avatar_upload_id }
+            : data;
+
+        return {
+        url: '/me',
+        method: 'PATCH',
+        body: requestBody,
+      }},
+    }),
+    getAvatarUploadUrl: builder.mutation<IUsersUploadAvatarLinkResponse, IUsersUploadAvatarLinkPayload>({
+      query: (payload) => {
+        return {
+        url: '/me/avatar',
+        method: 'POST',
+        body: payload,
+      }},
     }),
     getUserInfoById: builder.query<ICurrentUserInfoResponse, { user_id: string }>({
         query: (payload) => ({
@@ -32,6 +65,8 @@ export const usersApi = createApi({
 
 export const { 
   useGetCurrentUserInfoQuery,
+  usePatchCurrentUserInfoMutation,
+  useGetAvatarUploadUrlMutation,
   useGetUserInfoByIdQuery,
   useSearchQuery,
 } = usersApi

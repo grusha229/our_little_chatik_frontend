@@ -4,19 +4,17 @@ import styles from './PersonalInfoModal.module.scss'
 import { useAppSelector } from '../../../store/store';
 import { useGetUserInfoByIdQuery } from '../../../services/users';
 import Avatar from '../Avatar/Avatar';
+import LogoutButton from '../../Header/LogoutButton/LogoutButton';
+import PersonalInfoForm from '../PersonalInfoForm/PersonalInfoForm';
 
 export interface IProps {
     user_id: string
 }
 
 export default function PersonalInfoModal() {
-    const { isVisible, current_id } = useAppSelector(state => state.modals['user_info']);
+    const currentUser = useAppSelector((state) => state.users.current_user)
 
-    const { data } = useGetUserInfoByIdQuery({ user_id: current_id }, {
-        skip: !isVisible
-    });
-
-    const avatarSrc = data?.avatar || `https://ui-avatars.com/api/?name=${data?.name}+${data?.surname}`;
+    const avatarSrc = currentUser?.avatar || `https://ui-avatars.com/api/?name=${currentUser?.name}+${currentUser?.surname}`;
 
     return (
         <Modal
@@ -24,10 +22,9 @@ export default function PersonalInfoModal() {
         >
             <div className={styles['content']}>
                 <Avatar src={avatarSrc} size="xlarge" />
-                <div>
-                    <h2>{data?.name} {data?.surname}</h2>
-                    <div>{data?.nickname}</div>
-                    <div>{data?.email}</div>
+                <PersonalInfoForm user={currentUser} />
+                <div className={styles['content--footer']}>
+                    <LogoutButton/>
                 </div>
             </div>
         </Modal>

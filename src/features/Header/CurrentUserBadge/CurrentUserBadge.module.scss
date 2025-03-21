@@ -1,5 +1,33 @@
+@import "../../../helpers/styles/colors";
+
 .block {
     display: flex;
     flex-direction: row;
     cursor: pointer;
+
+    gap: 8px;
+
+    padding: 12px;
+    background: $color-background-light;
+    border-radius: 8px;
+
+    &:hover {
+        background: rgba($color: $color-background-light, $alpha: .7);
+        transition: background ease 0.3s;
+    }
+}
+
+.personal-info {
+    display: flex;
+    flex-direction: column;
+
+    &--name {
+        font-size: 20px;
+        line-height: 1.2
+    }
+
+    &--status {
+        font-size: 12px;
+        line-height: 1.2
+    }
 }

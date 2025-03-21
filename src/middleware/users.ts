@@ -11,6 +11,11 @@ const usersMiddleware: Middleware = (store) => (next) => async (action) => {
     dispatch(setCurrentUser(action.payload));
   }
 
+  if (usersApi.endpoints.patchCurrentUserInfo.matchFulfilled(action)) {
+    console.log('agggaaa!', action.payload)
+    dispatch(setCurrentUser(action.payload));
+  }
+
   // If there an error - delete tokens
   if (usersApi.endpoints.getCurrentUserInfo.matchRejected(action)) {
 
