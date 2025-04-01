@@ -5,7 +5,7 @@ import MessagesChatItem from '../MessagesChatItem/MessagesChatItem';
 import { useAppSelector } from '../../../store/store';
 
 export function MessagesChatList() {
-    const { _, refetch } = useChatsListQuery();
+    const { refetch } = useChatsListQuery();
     const chats = useAppSelector((state) => state.chats.chats)
 
     useEffect(() => {

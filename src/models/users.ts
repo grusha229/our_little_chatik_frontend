@@ -19,7 +19,8 @@ export interface IUsersPatchCurrentUserPayload {
   avatar_upload_id: string,
   name: string,
   nickname: string,
-  surname: string
+  surname: string,
+  email?: string,
 }
 
 export interface IUsersPatchCurrentUserResponse extends ICurrentUserInfoResponse {}

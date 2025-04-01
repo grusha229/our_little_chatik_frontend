@@ -32,8 +32,8 @@ export default function PersonalInfoForm({
   const watchUploadIds = watch("avatar_upload_id");
   const isAvatarLoaded = (watchUploadIds && watchUploadIds.length > 0);
 
-  const [ getAttachmentUploadLink, { isSuccess: isLinkSuccessfullyGet, data: fetchedLinkToUpload, reset: resetUploadLink, isUninitialized }] = useGetAvatarUploadUrlMutation();
-  const [ uploadAttachment, { isLoading: isFilesUploading, isUninitialized: isFilesUploadingUninitialized } ] = useUploadAttachmentMutation();
+  const [ getAttachmentUploadLink, { isSuccess: isLinkSuccessfullyGet, data: fetchedLinkToUpload, isUninitialized }] = useGetAvatarUploadUrlMutation();
+  const [ uploadAttachment ] = useUploadAttachmentMutation();
   
     useEffect(() => {
         reset({
@@ -113,19 +113,16 @@ export default function PersonalInfoForm({
                 placeholder={user?.name ?? 'Enter name'}
                 register={register}
                 error={errors.name}
-                // defaultValue={user?.name}
             />
             <Input
                 name="surname"
                 placeholder={user?.surname ?? 'Enter surname'}
-                // defaultValue={user?.surname}
                 register={register}
                 error={errors.surname}
             />
             <Input
                 name="nickname"
                 placeholder={user?.nickname ?? 'Enter nickname'}
-                // defaultValue={user?.nickname}
                 register={register}
                 error={errors.nickname}
             />
@@ -133,7 +130,6 @@ export default function PersonalInfoForm({
                 name="email"
                 placeholder={user?.email ?? 'Enter nickname'}
                 disabled
-                // defaultValue={user?.nickname}
                 register={register}
                 error={errors.nickname}
             />

@@ -1,7 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { createBaseQueryWithReauth } from './baseQuery'
-import { ICurrentUserInfoResponse, IUsersPatchCurrentUserPayload, IUsersPatchCurrentUserResponse, IUsersSearchPayload, IUsersSearchResponse, IUsersUploadAvatarLink, IUsersUploadAvatarLinkPayload, IUsersUploadAvatarLinkResponse } from '../models/users'
-import { IChatsUploadFileLinkResponse, IChatsUploadFilePayload } from '../models/chats'
+import { ICurrentUserInfoResponse, IUsersPatchCurrentUserPayload, IUsersPatchCurrentUserResponse, IUsersSearchPayload, IUsersSearchResponse, IUsersUploadAvatarLinkPayload, IUsersUploadAvatarLinkResponse } from '../models/users'
 
 export const usersApi = createApi({
   reducerPath: 'users_api',
@@ -25,7 +24,7 @@ export const usersApi = createApi({
       //   }
       // }),
       query: (payload) => {
-        const { avatar_upload_id, email, ...data } = payload;
+        const { avatar_upload_id, email: _email, ...data } = payload;
 
         // Добавляем avatar_upload_id в запрос, только если он существует
         const requestBody = avatar_upload_id

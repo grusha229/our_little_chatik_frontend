@@ -27,7 +27,7 @@ export default function MessagesSideBar() {
 
   const handleOpenModalClicked = useCallback(() => {
     toggleModalVisibility()
-  }, []);
+  }, [toggleModalVisibility]);
 
   return (
     <>

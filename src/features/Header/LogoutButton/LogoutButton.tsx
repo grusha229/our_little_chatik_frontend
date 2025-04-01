@@ -6,7 +6,7 @@ export default function LogoutButton() {
     const [ logoutUser ] = useLogoutUserMutation();
     const handleLogoutClicked = useCallback(() => {
         logoutUser({});
-    }, []);
+    }, [logoutUser]);
 
     return (
         <Button

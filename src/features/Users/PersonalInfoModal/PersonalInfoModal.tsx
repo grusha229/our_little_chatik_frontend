@@ -2,7 +2,6 @@ import React from 'react'
 import Modal from '../../../ui/Modal/Modal'
 import styles from './PersonalInfoModal.module.scss'
 import { useAppSelector } from '../../../store/store';
-import { useGetUserInfoByIdQuery } from '../../../services/users';
 import Avatar from '../Avatar/Avatar';
 import LogoutButton from '../../Header/LogoutButton/LogoutButton';
 import PersonalInfoForm from '../PersonalInfoForm/PersonalInfoForm';
