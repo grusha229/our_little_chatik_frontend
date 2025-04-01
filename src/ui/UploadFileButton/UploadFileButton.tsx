@@ -2,6 +2,8 @@ import React from 'react'
 import { FieldError, UseFormRegister } from 'react-hook-form';
 import Input from '../Input/Input';
 import styles from './UploadFileButton.module.scss';
+import { isMobile, useWindowSize } from '../../utils/responsives';
+import AttachmentIcon from '../../img/icons/icon--attachments.svg'
 
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -24,6 +26,17 @@ export default function UploadFileButton({
     className,
 }: IProps) {
   const blockClassName = [className && className].join(' ')
+
+  const {width} = useWindowSize();
+  const isMobileDevice = isMobile(width)
+  const buttonContent = isMobileDevice
+    ? (
+      <div className={styles['icon']}>
+        <img src={AttachmentIcon} alt=''/>
+      </div>
+    )
+    : children
+
   return (
     <div className={blockClassName}>
         <Input
@@ -39,7 +52,7 @@ export default function UploadFileButton({
             htmlFor={`fileInput--${name}`}
             className={styles['button']}
         >
-            {children}
+            {buttonContent}
         </label>
     </div>
   )

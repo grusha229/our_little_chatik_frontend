@@ -1,4 +1,5 @@
 @use "./../../helpers/styles/_colors.scss" as colors;
+@use "../../helpers/styles/responsives" as responsives;
 
 .button {
   cursor: pointer;
@@ -12,13 +13,19 @@
   padding: 12px 20px;
   background-color: colors.$color-grey-light;
   text-decoration: none;
-  margin-bottom: 7px;
   text-decoration: none;
   color: colors.$color-background;
   text-align: center;
 
+  font-size: 18px;
+
+  @include responsives.media-mobile {
+    font-size: 14px;
+}
+
   line-height: 1.2;
   height: 45px;
+  
 
   &--block {
     width: 100%;

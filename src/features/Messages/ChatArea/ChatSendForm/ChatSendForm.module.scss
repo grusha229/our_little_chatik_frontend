@@ -3,11 +3,13 @@
 .form {
     width: 100%;
     border-bottom: 1px solid #fcc521;
-    padding: 8px 8px 2px;
+    padding: 8px;
     background-color: colors.$color-background-light;
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 8px;
+    flex-wrap: wrap;
 
     &--container {
         display: flex;

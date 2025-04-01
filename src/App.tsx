@@ -5,17 +5,19 @@ import MessagesPage from './views/MessagesPage/MessagesPage';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import RegisterPage from './views/RegisterPage/RegisterPage';
-import PrivateRoute from './views/PrivateRoute';
+import PrivateRoute from './views/PrivateRoute/PrivateRoute';
 import PublicRoute from './views/PublicRoute';
 import ErrorPage from './views/404/404';
 import ActivationPage from './views/ActivationPage/ActivationPage';
+import AuthRedirect from './views/AuthRedirect';
 
 function App() {
   return (
     <Provider store={store}>
         <Router>
           <Routes>
-            <Route path="/" element={<PublicRoute />} >
+            <Route path="/" element={<AuthRedirect />} />
+            <Route path="/" element={<PublicRoute />} errorElement={<ErrorPage />} >
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/activation" element={<ActivationPage />} />

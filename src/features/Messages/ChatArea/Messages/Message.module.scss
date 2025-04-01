@@ -1,3 +1,6 @@
+@use "../../../../helpers/styles/_colors.scss" as colors;
+@use "../../../../helpers/styles/responsives" as responsives;
+
 .message {
     display: flex;
     margin-top: 15px;
@@ -30,6 +33,10 @@
 .message--text {
     font-size: 18px;
     font-weight: 400;
+
+    @include responsives.media-mobile {
+        font-size: 14px;
+    }
 }
 
 .mine {
