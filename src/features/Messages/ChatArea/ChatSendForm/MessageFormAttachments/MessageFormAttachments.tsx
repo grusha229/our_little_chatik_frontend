@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import MediaAttachmentComponent from '../../../../../ui/MediaAttachments/MediaAttachmentComponent/MediaAttachmentComponent'
 import { IChatsUploadFileLink, IChatsUploadFileLinkResponse } from '../../../../../models/chats';
 import styles from './MessageFormAttachments.module.scss'
-import { useAppDispatch } from '../../../../../store/store';
+import { useAppDispatch } from '../../../../../store/hooks';
 import { openModal } from '../../../../../store/features/modals';
 import { isImageFile } from '../../../../../ui/MediaAttachments/MediaAttachmentComponent/MediaAttachmentComponent.utils';
 

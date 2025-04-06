@@ -3,7 +3,7 @@ import { Message, MessageSkeleton } from "./Message";
 import { useEffect, useRef, useCallback, useState, useMemo } from "react";
 import { useInView } from "react-intersection-observer";
 import { useGetChatMessagesQuery } from "../../../../services/chat.js";
-import { useAppSelector } from "../../../../store/store.js";
+import { useAppSelector } from "../../../../store/hooks";
 import { IChatsGetChatInfoResponse } from "../../../../models/chats.js";
 import { getSenderById } from "./Messages.utils.js";
 import throttle from "../../../../utils/throttle.js";

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './ActivationPage.module.scss';
 import Layout from '../../features/Layout/Layout';
 import Block from '../../features/Layout/Block/Block';
-import { RootState, useAppSelector } from '../../store/store';
+import { RootState, useAppSelector } from '../../store/hooks';
 import { Navigate } from 'react-router-dom';
 import ActivationForm from '../../features/Auth/ActivationForm/ActivationForm';
 // import ActivationForm from '../../features/Auth/ActivationForm/ActivationForm';

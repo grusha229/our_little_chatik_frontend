@@ -10,7 +10,7 @@ import { ChatType, IChatsCreateChatPayload } from "../../../models/chats";
 import styles from "./CreateChatForm.module.scss";
 import { useCreateMutation } from "../../../services/chat";
 import { closeModal } from "../../../store/features/modals";
-import { useAppDispatch } from "../../../store/store";
+import { useAppDispatch } from "../../../store/hooks";
 import { muiInputStyles } from "./CreateChatForm.utils";
 
 export interface IUsersOption {

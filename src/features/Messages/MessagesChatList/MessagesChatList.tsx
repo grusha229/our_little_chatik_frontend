@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from 'react'
 import { useChatsListQuery } from '../../../services/chat';
 import styles from './MessagesChatList.module.scss'
 import MessagesChatItem from '../MessagesChatItem/MessagesChatItem';
-import { useAppSelector } from '../../../store/store';
+import { useAppSelector } from '../../../store/hooks';
 
 export function MessagesChatList() {
     const { refetch } = useChatsListQuery();
@@ -10,7 +10,7 @@ export function MessagesChatList() {
 
     useEffect(() => {
         refetch();
-    }, [])
+    }, [refetch])
 
     const sortedChats = useMemo(() => {
         return chats?.slice().sort((a, b) => {

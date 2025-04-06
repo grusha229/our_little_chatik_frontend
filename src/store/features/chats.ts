@@ -34,6 +34,7 @@ export const chatsSlice = createSlice({
     },
     addChat: (state, action: PayloadAction<IChatsGetChatInfoResponse>) => {
       state.chats.unshift(action.payload);
+      state.messages[action.payload.chat_id] = [];
     },
     updateChatLastMessage: (state, action: PayloadAction<IChatsChat>) => {
       const current_chat_id = action.payload.chat_id;

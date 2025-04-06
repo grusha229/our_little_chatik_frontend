@@ -17,6 +17,7 @@ import websocketMiddleware from '../middleware/websocket';
 
 import websocketSlice from './features/websocket';
 import { filesApi } from '../services/files';
+import { AppDispatch, RootState } from './types';
 
 // Объединение редукторов
 const rootReducer = combineReducers({
@@ -39,17 +40,12 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => (
     getDefaultMiddleware()
       .concat(authApi.middleware, usersApi.middleware, chatApi.middleware)
-      .concat(authMiddleware, usersMiddleware, chatsMiddleware, searchMiddleware, websocketMiddleware)
-  )
+      .concat(authMiddleware, usersMiddleware, chatsMiddleware, searchMiddleware, websocketMiddleware)  )
 });
 
 // Загрузка токенов из localStorage при запуске приложения
 store.dispatch(loadTokensFromStorage());
 
 // Типы для состояния и dispatch
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-
-// Создание хуков для типизированных dispatch и selector
-export const useAppDispatch: () => AppDispatch = useDispatch;
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+// export type RootState = ReturnType<typeof store.getState>;
+// export type AppDispatch = typeof store.dispatch;

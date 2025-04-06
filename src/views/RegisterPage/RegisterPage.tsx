@@ -5,7 +5,7 @@ import Layout from '../../features/Layout/Layout';
 import Button from '../../ui/Button/Button';
 import Block from '../../features/Layout/Block/Block';
 import { Navigate } from 'react-router-dom';
-import { useAppSelector } from '../../store/store';
+import { useAppSelector } from '../../store/hooks';
 
 export default function RegisterPage() {
     const token = useAppSelector((state) => state.auth.token);

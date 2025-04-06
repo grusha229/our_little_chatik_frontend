@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import styles from './MediaPhotoAttachments.module.scss'
 import { IMediaRefItem } from '../../models/chats'
 import { openModal } from '../../store/features/modals';
-import { useAppDispatch } from '../../store/store';
+import { useAppDispatch } from '../../store/hooks';
 import { isImageFile } from './MediaAttachmentComponent/MediaAttachmentComponent.utils';
 import MediaAttachmentComponent from './MediaAttachmentComponent/MediaAttachmentComponent';
 export type TAttachmentsSize = 'small' | 'large' | 'xsmall'

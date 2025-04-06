@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { IChatsFilesLink, IChatsSendMessagePayload, IChatsUploadFileLinkResponse, IMediaRefItem } from "../../../../models/chats";
 import { useGetAttachmentsUploadUrlsMutation, useSendChatMessageMutation } from "../../../../services/chat";
 import { generateNewMessage } from "./ChatSendForm.utils";
-import { useAppSelector } from "../../../../store/store";
+import { useAppSelector } from "../../../../store/hooks";
 import { addMessage, updateMessageStatus } from "../../../../store/features/chats";
 import { useDispatch } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";

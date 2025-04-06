@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../store/store';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import Header from '../../features/Header/Header';
 import styles from './PrivateRoute.module.scss';
 

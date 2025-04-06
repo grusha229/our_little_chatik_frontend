@@ -1,7 +1,7 @@
 import React from 'react'
 import Modal from '../../../ui/Modal/Modal'
 import ImagesGallery from '../ImagesGallery/ImagesGallery'
-import { useAppSelector } from '../../../store/store';
+import { useAppSelector } from '../../../store/hooks';
 
 export default function ImagesGalleryModal() {
     const { images, start_image } = useAppSelector(state => state.modals["image_viewer"]);

@@ -3,7 +3,7 @@ import MessagesSearchForm from '../MessagesSearchForm/MessagesSearchForm'
 import MessagesChatList from '../MessagesChatList/MessagesChatList';
 import MessagesSearchResults from '../MessagesSearchResults/MessagesSearchResults';
 import styles from './MessagesSideBar.module.scss'
-import { useAppDispatch } from '../../../store/store';
+import { useAppDispatch } from '../../../store/hooks';
 import { openModal } from '../../../store/features/modals';
 import IconButton from '../../../ui/IconButton/IconButton';
 

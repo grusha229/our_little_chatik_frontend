@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react'
 import styles from './CurrentUserBadge.module.scss'
 import { useGetCurrentUserInfoQuery } from '../../../services/users';
 import { Avatar } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../../../store/store';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { openModal } from '../../../store/features/modals';
 
 export default function CurrentUserBadge() {

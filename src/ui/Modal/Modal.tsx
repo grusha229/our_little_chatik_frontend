@@ -1,7 +1,7 @@
 import styles from "./Modal.module.scss"
 import {useCallback} from "react";
 import { closeModal, IModalsState } from "../../store/features/modals";
-import { useAppSelector, useAppDispatch } from "../../store/store";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import iconClose from '../../img/icons/icon--x-mark-white.svg';
 
 export type TModalSize = 'small' | 'medium' | 'large' | 'xlarge'

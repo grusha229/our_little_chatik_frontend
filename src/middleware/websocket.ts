@@ -1,15 +1,17 @@
-import { Middleware } from '@reduxjs/toolkit';
+import { Middleware, MiddlewareAPI } from '@reduxjs/toolkit';
 import { websocketService } from '../services/websocket';
 import { addChat, addMessage, updateChatLastMessage } from '../store/features/chats';
 import { WsMessageType } from '../models/websocket';
 import { setConnectionStatus } from '../store/features/websocket';
-import { store } from '../store/store';
+import type { RootState } from '../store/types';
 
-const websocketMiddleware: Middleware = (state) => (next) => async (action) => {
-  let token;
+const websocketMiddleware: Middleware = (api: MiddlewareAPI<any, RootState>) => (next) => (action: any) => {
+  const { dispatch, getState } = api;
+  const state = getState();
+
   switch (action.type) {
     case 'websocket/connect': {
-      token = state.getState().auth.token;
+      const token = state.auth.token || '';
       websocketService.connect(action.payload, token);
       break;
     }
@@ -21,7 +23,7 @@ const websocketMiddleware: Middleware = (state) => (next) => async (action) => {
 
     case 'websocket/disconnect': {
       websocketService.disconnect();
-      store.dispatch(setConnectionStatus(false));
+      dispatch(setConnectionStatus(false));
       break;
     }
 
@@ -30,15 +32,22 @@ const websocketMiddleware: Middleware = (state) => (next) => async (action) => {
 
       switch (message.type) {
         case WsMessageType.MESSAGE_CREATED:
-          if (message.data.sender_id !== state.getState().users.current_user?.user_id) {
-            store.dispatch(addMessage({ chat_id: message.data.chat_id, message: message.data }));
+          console.log('Message created', message.data);
+          if (message.data.sender_id !== state.users.current_user?.user_id) {
+            dispatch(addMessage({ chat_id: message.data.chat_id, message: message.data }));
           }
-          store.dispatch(updateChatLastMessage(message.data));
+          dispatch(updateChatLastMessage(message.data));
           break;
 
-        case WsMessageType.CHAT_CREATED:
-          store.dispatch(addChat(message.data));
+        case WsMessageType.CHAT_CREATED: {
+          console.log('Chat created', message.data);
+          const chatExists = state.chats.chats.find(chat => chat.chat_id === message.data.chat_id);
+          if (!chatExists) {
+            dispatch(addChat(message.data));
+          }
+
           break;
+        }
 
         case WsMessageType.MESSAGE_READ:
           console.log('Message read', message.data);

@@ -1,7 +1,7 @@
 import { Middleware } from '@reduxjs/toolkit';
 import { chatApi } from '../services/chat';
 import { addMoreMessages, setChatMessages, setChats, setCurrentChat } from '../store/features/chats';
-import { AppDispatch } from '../store/store';
+import { AppDispatch } from '../store/types';
 
 const chatsMiddleware: Middleware = (store) => (next) => async (action) => {
   const result = next(action);

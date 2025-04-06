@@ -1,5 +1,5 @@
 import React from 'react'
-import { useAppSelector } from '../../../store/store';
+import { useAppSelector } from '../../../store/hooks';
 import styles from './MessagesSearchResults.module.scss';
 import MessagesChatItem from '../MessagesChatItem/MessagesChatItem';
 import { IChatsMessage } from '../../../models/chats';
