@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react'
 import styles from './MediaFileAttachmentsItem.module.scss'
 import { TAttachmentsSize } from '../MediaPhotoAttachments';
+import { buildClassName } from '../../../utils/styles';
 
 export interface IProps {
     src: string;
@@ -15,10 +16,10 @@ export default function MediaFileAttachmentsItem({
   onClick
 }: IProps) {
 
-  const wrapperClassName = [
+  const wrapperClassName = buildClassName(
     styles['image-wrapper'],
     styles[`image-wrapper--${size}`]
-  ].join(' ');
+  );
 
   const handleClick = useCallback(() => {
     onClick && onClick()

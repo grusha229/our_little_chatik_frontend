@@ -3,7 +3,7 @@ import styles from "./ChatSendForm.module.scss";
 import Button from "../../../../ui/Button/Button";
 import Input from "../../../../ui/Input/Input";
 import { useForm } from "react-hook-form";
-import { IChatsFilesLink, IChatsSendMessagePayload, IChatsUploadFileLinkResponse, IMediaRefItem } from "../../../../models/chats";
+import { IChatsFilesLink, IChatsGetChatInfoResponse, IChatsSendMessagePayload, IChatsUploadFileLinkResponse, IMediaRefItem } from "../../../../models/chats";
 import { useGetAttachmentsUploadUrlsMutation, useSendChatMessageMutation } from "../../../../services/chat";
 import { generateNewMessage } from "./ChatSendForm.utils";
 import { useAppSelector } from "../../../../store/hooks";
@@ -15,12 +15,14 @@ import UploadFileButton from "../../../../ui/UploadFileButton/UploadFileButton";
 import MessageFormAttachments from "./MessageFormAttachments/MessageFormAttachments";
 
 export interface IProps {
-  chat_id: string;
+  current_chat: IChatsGetChatInfoResponse;
 }
 
-export default function ChatSendForm({ chat_id }: IProps) {
+export default function ChatSendForm({ current_chat }: IProps) {
   const [ filesToUpload, setFilesToUpload ] = useState<File[]>([])
   const [ linksToUpload, setLinksToUpload ] = useState<IChatsUploadFileLinkResponse>([])
+  const chat_id = current_chat?.chat_id;
+  const [lastMessageId, setLastMessageId] = useState(current_chat.last_message?.id + 1);
 
   const { register, handleSubmit, formState: { isSubmitting }, reset, setValue, watch } = useForm<IChatsSendMessagePayload>({
     defaultValues: {
@@ -41,7 +43,6 @@ export default function ChatSendForm({ chat_id }: IProps) {
   const watchPayload = watch("payload");
   const watchUploadIds = watch("upload_ids");
   const isMessageValid = watchPayload.trim().length > 0 || (watchUploadIds && watchUploadIds.length > 0);
-
 
   const isSendButtonDisabled = !isMessageValid || isSubmitting;
 
@@ -103,7 +104,7 @@ export default function ChatSendForm({ chat_id }: IProps) {
     setLinksToUpload(filetedLinksToUpload)
   }, [linksToUpload, setValue])
 
-    const onSubmit = async (formData: IChatsSendMessagePayload) => {
+    const onSubmit = useCallback(async (formData: IChatsSendMessagePayload) => {
       const mediaRefs: IMediaRefItem[] = linksToUpload?.map((link) => (
         {
           url: link.preview_link,
@@ -113,13 +114,14 @@ export default function ChatSendForm({ chat_id }: IProps) {
         }
       )) || [];
 
-      const tempId = nanoid();
       const newMessage = generateNewMessage(
-        tempId,
+        lastMessageId,
         formData.payload,
         current_id,
         mediaRefs
       );
+
+      setLastMessageId((prev) => prev + 1)
 
       dispatch(addMessage({ chat_id, message: newMessage }));
       console.log('добавляем сообщение в стор', chat_id,  newMessage)
@@ -131,7 +133,6 @@ export default function ChatSendForm({ chat_id }: IProps) {
               // Обновляем статус на "sent" и ID на настоящий
               dispatch(
                   updateMessageStatus({
-                      tempId,
                       id: response.id,
                       status: 'sent',
                       chat_id: response.chat_id,
@@ -142,7 +143,6 @@ export default function ChatSendForm({ chat_id }: IProps) {
         // В случае ошибки обновляем статус на "failed"
         dispatch(
           updateMessageStatus({
-              tempId,
               id: newMessage.id,
               status: 'failed',
               chat_id
@@ -153,7 +153,7 @@ export default function ChatSendForm({ chat_id }: IProps) {
       resetUploadLinks();
       setLinksToUpload([]);
       reset(); // Очистка формы
-  };
+  }, [chat_id, current_id, dispatch, lastMessageId, linksToUpload, reset, resetUploadLinks, sendMessage]);
 
   return (
     <form

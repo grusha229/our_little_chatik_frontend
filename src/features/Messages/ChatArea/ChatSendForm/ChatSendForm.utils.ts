@@ -1,6 +1,6 @@
 import { IChatsMessage, IMediaRefItem } from "../../../../models/chats";
 
-export function generateNewMessage(tempId: string, message: string, userId: string, mediaRefs?: IMediaRefItem[]) {
+export function generateNewMessage(tempId: number, message: string, userId: string, mediaRefs?: IMediaRefItem[]) {
 
     const newMessage: IChatsMessage = {
               id: tempId,

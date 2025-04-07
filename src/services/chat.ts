@@ -41,11 +41,13 @@ export const chatApi = createApi({
         },
       }),
       sendChatMessage: builder.mutation<IChatsSendMessageResponse, IChatsSendMessagePayload>({
-        query: (payload) => ({
-          url: `/${payload.id}/messages`,
-          method: 'POST',
-          body: payload,
-        }),
+        query: (payload) => {
+          return {
+            url: `/${payload.id}/messages`,
+            method: 'POST',
+            body: payload,
+          }
+        },
       }),
       getAttachmentsUploadUrls: builder.mutation<IChatsUploadFileLinkResponse, IChatsUploadFilePayload>({
         query: (payload) => {

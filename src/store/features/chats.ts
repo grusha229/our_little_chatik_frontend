@@ -27,7 +27,11 @@ export const chatsSlice = createSlice({
       state.messages[action.payload.chat_id] = action.payload.messages
     },
     addMessage: (state, action: PayloadAction<{ chat_id: string; message: IChatsMessage }>) => {
-      state.messages[action.payload.chat_id]?.unshift(action.payload.message);
+      if (state.messages[action.payload.chat_id].some((saved_message) => saved_message.id === action.payload.message.id)) {
+        return
+      } else {
+        state.messages[action.payload.chat_id]?.unshift(action.payload.message);
+      }
     },
     addMoreMessages: (state, action: PayloadAction<{ chat_id: string; messages: IChatsGetChatMessagesResponse }>) => {
       state.messages[action.payload.chat_id] = [...state.messages[action.payload.chat_id], ...action.payload.messages];
@@ -53,14 +57,12 @@ export const chatsSlice = createSlice({
     updateMessageStatus: (
       state,
       action: PayloadAction<{
-        /** Temporary ID */
-        tempId: string;
         chat_id: string;
         id: number;
         status: IChatsMessage['status'] 
       }>
     ) => {
-      const targetMessageIndex = state.messages[action.payload.chat_id].findIndex((message) => message.id.toString() === action.payload.tempId);
+      const targetMessageIndex = state.messages[action.payload.chat_id].findIndex((message) => message.id === action.payload.id);
 
       if (targetMessageIndex !== -1) {
         state.messages[action.payload.chat_id][targetMessageIndex].status = action.payload.status;

@@ -1,6 +1,6 @@
 import { Middleware, MiddlewareAPI } from '@reduxjs/toolkit';
 import { websocketService } from '../services/websocket';
-import { addChat, addMessage, updateChatLastMessage } from '../store/features/chats';
+import { addChat, addMessage, updateChatLastMessage, updateMessageStatus } from '../store/features/chats';
 import { WsMessageType } from '../models/websocket';
 import { setConnectionStatus } from '../store/features/websocket';
 import type { RootState } from '../store/types';
@@ -33,9 +33,12 @@ const websocketMiddleware: Middleware = (api: MiddlewareAPI<any, RootState>) => 
       switch (message.type) {
         case WsMessageType.MESSAGE_CREATED:
           console.log('Message created', message.data);
-          if (message.data.sender_id !== state.users.current_user?.user_id) {
+          // if (message.data.sender_id !== state.users.current_user?.user_id) {
             dispatch(addMessage({ chat_id: message.data.chat_id, message: message.data }));
-          }
+          // } else {
+            // dispatch(updateMessageStatus({ id: message.data.id, chat_id: message.data.chat_id, status: 'sent'}))
+          // }
+
           dispatch(updateChatLastMessage(message.data));
           break;
 

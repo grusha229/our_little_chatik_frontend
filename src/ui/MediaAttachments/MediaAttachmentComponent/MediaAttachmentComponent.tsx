@@ -4,6 +4,7 @@ import IconButton from '../../IconButton/IconButton'
 import deleteIcon from './../../../img/icons/icon--x-mark.svg'
 import styles from './MediaAttachmentComponent.module.scss'
 import { TAttachmentsSize } from '../MediaPhotoAttachments'
+import { buildClassName } from '../../../utils/styles'
 
 export interface IProps {
   size?: TAttachmentsSize;
@@ -36,15 +37,15 @@ export default function MediaAttachmentComponent({
     onDelete && onDelete()
   }, [onDelete]);
 
-  const blockClassName = [
+  const blockClassName = buildClassName(
     styles['block'],
     styles[`block--${size}`]
-  ].join(' ');
+  )
 
-  const fileNameClassName = [
+  const fileNameClassName = buildClassName(
     styles['file'],
     styles[`file--${size}`]
-  ].join(' ');
+  );
 
   return (
     <div

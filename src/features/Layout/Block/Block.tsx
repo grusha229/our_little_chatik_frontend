@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './Block.module.scss';
+import { buildClassName } from '../../../utils/styles';
 
 export interface IProps {
     children: React.ReactNode,
@@ -8,7 +9,11 @@ export interface IProps {
 }
 
 export default function Block({ children, className, width}: IProps) {
-  const containerClassName = [styles['block'], className].join(' ');
+  const containerClassName = buildClassName(
+    styles['block'],
+    className ?? className,
+  )
+
   const containerStyle = { maxWidth: width };
 
   return (

@@ -6,7 +6,7 @@ import { isDesktop, useWindowSize } from "../../../../utils/responsives";
 import { useNavigate } from "react-router-dom";
 
 export interface IProps {
-    current_chat: IChatsGetChatInfoResponse | undefined,
+    current_chat: IChatsGetChatInfoResponse,
     isLoading?: boolean
 }
 

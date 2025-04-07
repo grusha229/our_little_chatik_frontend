@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Button.module.scss';
 import {Link} from "react-router-dom";
+import { buildClassName } from '../../utils/styles';
 
 export interface IProps {
     type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
@@ -19,7 +20,10 @@ export default function Button({
     ...props
 }: IProps){
 
-    const buttonClassName = [styles['button'], block && styles['button--block']].join(' ');
+    const buttonClassName = buildClassName(
+        styles['button'],
+        block ? styles['button--block'] : ''
+    )
 
     if (href) {
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './Avatar.module.scss'
 import Skeleton from '@mui/material/Skeleton';
+import { buildClassName } from '../../../utils/styles';
 
 export type TAvatarSize = 'small' | 'medium' | 'large' | 'xlarge'
 
@@ -15,7 +16,7 @@ export default function Avatar({
     alt = '',
     src,
 }: IProps) {
-    const avatarClassName = [styles['avatar'], styles[`avatar--${size}`]].join(' ');
+    const avatarClassName = buildClassName(styles['avatar'], styles[`avatar--${size}`]);
 
     return (
         <div className={avatarClassName}>

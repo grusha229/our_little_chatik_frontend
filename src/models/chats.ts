@@ -88,6 +88,7 @@ export interface IChatsSendMessagePayload {
     id: string,
     payload: string,
     upload_ids?: Array<string>,
+    // status: 'pending'
 }
 
 export interface IChatsFilesLink {

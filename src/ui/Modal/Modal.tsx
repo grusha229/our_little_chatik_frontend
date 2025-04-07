@@ -3,6 +3,7 @@ import {useCallback} from "react";
 import { closeModal, IModalsState } from "../../store/features/modals";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import iconClose from '../../img/icons/icon--x-mark-white.svg';
+import { buildClassName } from "../../utils/styles";
 
 export type TModalSize = 'small' | 'medium' | 'large' | 'xlarge'
 
@@ -32,15 +33,15 @@ const Modal = ({
             dispatch(closeModal(name))
     },[dispatch, name, onClose])
 
-    const modalClassName = [
+    const modalClassName = buildClassName(
         styles['modal'],
         isModalVisible ? styles['visible'] : '',
-    ].join(' ');
+    );
 
-    const modalBlockClassName = [
+    const modalBlockClassName = buildClassName(
         styles['modal-block'],
         styles[`modal--${size}`],
-    ].join(' ');
+    );
 
     return (
         <div className={modalClassName} onClick={toggleModalVisibility}>

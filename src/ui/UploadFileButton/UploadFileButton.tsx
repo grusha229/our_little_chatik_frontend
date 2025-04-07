@@ -4,6 +4,7 @@ import Input from '../Input/Input';
 import styles from './UploadFileButton.module.scss';
 import { isMobile, useWindowSize } from '../../utils/responsives';
 import AttachmentIcon from '../../img/icons/icon--attachments.svg'
+import { buildClassName } from '../../utils/styles';
 
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -25,7 +26,9 @@ export default function UploadFileButton({
     multiple = true,
     className,
 }: IProps) {
-  const blockClassName = [className && className].join(' ')
+  const blockClassName = buildClassName(
+    className && className
+  )
 
   const {width} = useWindowSize();
   const isMobileDevice = isMobile(width)

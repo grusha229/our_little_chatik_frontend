@@ -5,23 +5,29 @@ import Messages from "./Messages/Messages.js";
 import ChatHeader from "./ChatHeader/ChatHeader.js";
 import ChatSendForm from "./ChatSendForm/ChatSendForm.js";
 import { useGetChatInfoMutation } from "../../../services/chat.js";
+import Loader from "../../../ui/Loader/Loader.js";
+import { useAppSelector } from "../../../store/hooks.js";
 
 export default function ChatArea() {
 
     const params = useParams();
     const chat_id = params.id || '';
-    const [ getChatInfo, { isLoading, data: currentChat } ] = useGetChatInfoMutation();
+    const [ getChatInfo, { isLoading } ] = useGetChatInfoMutation();
+    const currentChat = useAppSelector((state) => state.chats.currentChat)
+    console.warn(currentChat?.last_message.id)
 
     useEffect(() => {
         getChatInfo({ id: chat_id})
-        // getInfo({ id: chat_id, links: [{
-        //     content_type: 'photo',
-        //     name: 'image.png'
-        // }] })
     }, [chat_id, getChatInfo])
 
-    if (isLoading) {
-        return <div>Loading...</div>;
+    if (isLoading || !currentChat) {
+        return (
+            <>
+                <div className={styles['block']}>
+                    <Loader size="large" />
+                </div>
+            </>
+        );
     }
 
     return (
@@ -32,7 +38,7 @@ export default function ChatArea() {
                     isLoading={isLoading}
                 />
                 <Messages current_chat={currentChat} />
-                <ChatSendForm chat_id={chat_id} />
+                <ChatSendForm current_chat={currentChat} />
             </div>
         </>
     );

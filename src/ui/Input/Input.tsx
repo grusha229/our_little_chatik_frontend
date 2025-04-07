@@ -1,6 +1,7 @@
 import React from 'react';
 import { UseFormRegister, FieldError } from 'react-hook-form';
 import style from './Input.module.scss';
+import { buildClassName } from '../../utils/styles';
 
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -13,12 +14,12 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export default function Input ({ name, placeholder, register, rules, error, className, ...props }: IProps) {
-  
-  const inputClassName = [
+
+  const inputClassName = buildClassName(
     style['input'],
     error ? style['input--error'] : '',
     className ? className : '',
-  ].join(' ');
+  );
 
   return (
     <div className={style['input-wrapper']}>

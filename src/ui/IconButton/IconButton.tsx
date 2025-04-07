@@ -2,6 +2,7 @@ import React, { SyntheticEvent } from 'react';
 import styles from './IconButton.module.scss';
 import {Link} from "react-router-dom";
 import plusIcon from './../../img/icons/icon--plus.svg';
+import { buildClassName } from '../../utils/styles';
 
 export interface IProps {
     type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
@@ -22,11 +23,11 @@ export default function IconButton({
     ...props
 }: IProps){
 
-    const buttonClassName = [
+    const buttonClassName = buildClassName(
         styles['button'],
         styles[`button--${size}`],
         className,
-    ].join(' ');
+    );
 
     if (href) {
 

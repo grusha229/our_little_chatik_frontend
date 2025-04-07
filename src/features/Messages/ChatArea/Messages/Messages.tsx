@@ -8,9 +8,10 @@ import { IChatsGetChatInfoResponse } from "../../../../models/chats.js";
 import { getSenderById } from "./Messages.utils.js";
 import throttle from "../../../../utils/throttle.js";
 import { scrollToBottom } from "../../../../utils/scrollToBottom.js";
+import Loader from "../../../../ui/Loader/Loader.js";
 
 export interface IProps {
-    current_chat: IChatsGetChatInfoResponse | undefined;
+    current_chat: IChatsGetChatInfoResponse;
     isLoading?: boolean;
 }
 
@@ -126,7 +127,12 @@ export default function Messages({
 
     return (
         <div className={styles["messages"]} ref={containerRef}>
-            {isFetching && <div className={styles["loading"]}>Loading...</div>}
+            {isFetching && (
+                <div className={styles["loading"]}>
+                    <Loader/>
+                    Loading...
+                </div>
+            )}
 
             {sortedMessages?.map((message, index) => (
                 <Message
@@ -137,7 +143,11 @@ export default function Messages({
                     sender={getSenderById(message.sender_id, participants)}
                 />
             ))}
-            {hasMore && <div ref={ref} className={styles["system_message"]}>Loading...</div>}
+            {hasMore && (
+                <div ref={ref} className={styles["system_message"]}>
+                    <Loader />
+                </div>
+            )}
         </div>
     );
 }
