@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { IMediaRefItem } from '../../../models/chats';
+import { IMediaRefItem } from '@app/models/chats';
 import styles from './ImagesGallery.module.scss';
 
 export interface IProps {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { UseFormRegister, FieldError } from 'react-hook-form';
 import style from './Input.module.scss';
-import { buildClassName } from '../../utils/styles';
+import { buildClassName } from '@app/utils/styles';
 
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;

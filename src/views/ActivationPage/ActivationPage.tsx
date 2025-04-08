@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './ActivationPage.module.scss';
-import Layout from '../../features/Layout/Layout';
-import Block from '../../features/Layout/Block/Block';
-import { RootState, useAppSelector } from '../../store/hooks';
+import Layout from '@app/features/Layout/Layout';
+import Block from '@app/features/Layout/Block/Block';
+import { RootState, useAppSelector } from '@app/store/hooks';
 import { Navigate } from 'react-router-dom';
-import ActivationForm from '../../features/Auth/ActivationForm/ActivationForm';
-// import ActivationForm from '../../features/Auth/ActivationForm/ActivationForm';
+import ActivationForm from '@app/features/Auth/ActivationForm/ActivationForm';
+// import ActivationForm from '@app/features/Auth/ActivationForm/ActivationForm';
 
 export default function ActivationPage() {
     const token = useAppSelector((state) => state.auth.token);

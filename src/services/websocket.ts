@@ -1,5 +1,5 @@
-import { setConnectionStatus } from "../store/features/websocket";
-import { store } from "../store/store";
+import { setConnectionStatus } from "@app/store/features/websocket";
+import { store } from "@app/store/store";
 
 // services/websocketService.ts
 class WebSocketService {

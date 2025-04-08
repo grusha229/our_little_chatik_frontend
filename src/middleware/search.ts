@@ -1,6 +1,6 @@
 import { Middleware } from '@reduxjs/toolkit';
-import { setSearchResults } from '../store/features/search';
-import { searchApi } from '../services/search';
+import { setSearchResults } from '@app/store/features/search';
+import { searchApi } from '@app/services/search';
 
 const searchMiddleware: Middleware = (store) => (next) => async (action) => {
   const result = next(action);

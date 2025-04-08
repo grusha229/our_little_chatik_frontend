@@ -1,8 +1,8 @@
 import React, { SyntheticEvent } from 'react';
 import styles from './IconButton.module.scss';
 import {Link} from "react-router-dom";
-import plusIcon from './../../img/icons/icon--plus.svg';
-import { buildClassName } from '../../utils/styles';
+import plusIcon from '@app/img/icons/icon--plus.svg';
+import { buildClassName } from '@app/utils/styles';
 
 export interface IProps {
     type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];

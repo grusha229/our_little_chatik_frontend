@@ -1,9 +1,9 @@
 import styles from "./Modal.module.scss"
 import {useCallback} from "react";
-import { closeModal, IModalsState } from "../../store/features/modals";
-import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import iconClose from '../../img/icons/icon--x-mark-white.svg';
-import { buildClassName } from "../../utils/styles";
+import { closeModal, IModalsState } from "@app/store/features/modals";
+import { useAppSelector, useAppDispatch } from "@app/store/hooks";
+import iconClose from '@app/img/icons/icon--x-mark-white.svg';
+import { buildClassName } from "@app/utils/styles";
 
 export type TModalSize = 'small' | 'medium' | 'large' | 'xlarge'
 

@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IMediaRefItem } from "../../models/chats";
+import { IMediaRefItem } from "@app/models/chats";
 
 export interface IBaseModalState {
   isVisible: boolean;

@@ -1,10 +1,10 @@
 import React from 'react'
-import Modal from '../../../ui/Modal/Modal'
+import Modal from '@app/ui/Modal/Modal'
 import styles from './PersonalInfoModal.module.scss'
-import { useAppSelector } from '../../../store/hooks';
-import Avatar from '../Avatar/Avatar';
-import LogoutButton from '../../Header/LogoutButton/LogoutButton';
-import PersonalInfoForm from '../PersonalInfoForm/PersonalInfoForm';
+import { useAppSelector } from '@app/store/hooks';
+import Avatar from '@app/features/Users/Avatar/Avatar';
+import LogoutButton from '@app/features/Header/LogoutButton/LogoutButton';
+import PersonalInfoForm from '@app/features/Users/PersonalInfoForm/PersonalInfoForm';
 
 export interface IProps {
     user_id: string

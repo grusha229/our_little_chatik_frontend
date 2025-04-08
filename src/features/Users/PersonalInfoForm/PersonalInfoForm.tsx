@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { useGetAvatarUploadUrlMutation, usePatchCurrentUserInfoMutation } from '../../../services/users';
+import { useGetAvatarUploadUrlMutation, usePatchCurrentUserInfoMutation } from '@app/services/users';
 import { useForm } from 'react-hook-form';
-import { ICurrentUserInfoResponse, IUsersPatchCurrentUserPayload, IUsersUploadAvatarLinkResponse } from '../../../models/users';
+import { ICurrentUserInfoResponse, IUsersPatchCurrentUserPayload, IUsersUploadAvatarLinkResponse } from '@app/models/users';
 import styles from './PersonalInfoForm.module.scss';
-import Input from '../../../ui/Input/Input';
-import Button from '../../../ui/Button/Button';
-import UploadFileButton from '../../../ui/UploadFileButton/UploadFileButton';
-import { useUploadAttachmentMutation } from '../../../services/files';
+import Input from '@app/ui/Input/Input';
+import Button from '@app/ui/Button/Button';
+import UploadFileButton from '@app/ui/UploadFileButton/UploadFileButton';
+import { useUploadAttachmentMutation } from '@app/services/files';
 
 export interface IProps {
     user: ICurrentUserInfoResponse

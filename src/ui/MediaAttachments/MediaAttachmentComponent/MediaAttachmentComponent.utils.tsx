@@ -1,10 +1,11 @@
-import MediaFileAttachmentsItem, { TAttachmentsSize } from "../MediaFileAttachmentsItem/MediaFileAttachmentsItem";
-import fallbackIcon from '../../../img/icons/icon--file-image.svg';
-import zipFileIcon from '../../../img/icons/icon--file-zip.svg';
-import pdfFileIcon from '../../../img/icons/icon--file-pdf.svg';
-import audioFileIcon from '../../../img/icons/icon--file-audio.svg';
-import videoFileIcon from '../../../img/icons/icon--file-video.svg';
-import defaultFileIcon from '../../../img/icons/icon--file-default.svg';
+import MediaFileAttachmentsItem from "@app/ui/MediaAttachments/MediaFileAttachmentsItem/MediaFileAttachmentsItem";
+import { TAttachmentsSize } from '@app/ui/MediaAttachments/MediaPhotoAttachments';
+import fallbackIcon from '@app/img/icons/icon--file-image.svg';
+import zipFileIcon from '@app/img/icons/icon--file-zip.svg';
+import pdfFileIcon from '@app/img/icons/icon--file-pdf.svg';
+import audioFileIcon from '@app/img/icons/icon--file-audio.svg';
+import videoFileIcon from '@app/img/icons/icon--file-video.svg';
+import defaultFileIcon from '@app/img/icons/icon--file-default.svg';
 
 export const isImageFile = (content_type: string): boolean => {
     return content_type.startsWith("image/");

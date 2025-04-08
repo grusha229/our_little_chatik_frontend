@@ -1,9 +1,9 @@
 import { Middleware, MiddlewareAPI } from '@reduxjs/toolkit';
-import { websocketService } from '../services/websocket';
-import { addChat, addMessage, updateChatLastMessage, updateMessageStatus } from '../store/features/chats';
-import { WsMessageType } from '../models/websocket';
-import { setConnectionStatus } from '../store/features/websocket';
-import type { RootState } from '../store/types';
+import { websocketService } from '@app/services/websocket';
+import { addChat, addMessage, updateChatLastMessage, updateMessageStatus } from '@app/store/features/chats';
+import { WsMessageType } from '@app/models/websocket';
+import { setConnectionStatus } from '@app/store/features/websocket';
+import type { RootState } from '@app/store/types';
 
 const websocketMiddleware: Middleware = (api: MiddlewareAPI<any, RootState>) => (next) => (action: any) => {
   const { dispatch, getState } = api;

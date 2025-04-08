@@ -2,13 +2,13 @@ import styles from "./Messages.module.scss";
 import { Message, MessageSkeleton } from "./Message";
 import { useEffect, useRef, useCallback, useState, useMemo } from "react";
 import { useInView } from "react-intersection-observer";
-import { useGetChatMessagesQuery } from "../../../../services/chat.js";
-import { useAppSelector } from "../../../../store/hooks";
-import { IChatsGetChatInfoResponse } from "../../../../models/chats.js";
+import { useGetChatMessagesQuery } from "@app/services/chat.js";
+import { useAppSelector } from "@app/store/hooks";
+import { IChatsGetChatInfoResponse } from "@app/models/chats.js";
 import { getSenderById } from "./Messages.utils.js";
-import throttle from "../../../../utils/throttle.js";
-import { scrollToBottom } from "../../../../utils/scrollToBottom.js";
-import Loader from "../../../../ui/Loader/Loader.js";
+import throttle from "@app/utils/throttle.js";
+import { scrollToBottom } from "@app/utils/scrollToBottom.js";
+import Loader from "@app/ui/Loader/Loader.js";
 
 export interface IProps {
     current_chat: IChatsGetChatInfoResponse;
@@ -58,14 +58,14 @@ export default function Messages({
 
     const sortedMessages = useMemo(() => {
         return chatMessages?.slice().sort((a, b) => {
-            return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+            return b.id - a.id
         })
     }, [chatMessages])
 
     const containerRef = useRef<HTMLDivElement>(null);
     
     useEffect(() => {
-        const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
+        const { scrollTop, scrollHeight, clientHeight } = containerRef.current as HTMLDivElement;
 
         const distanceFromBottom = scrollHeight - (scrollTop + clientHeight);
 
@@ -130,7 +130,7 @@ export default function Messages({
             {isFetching && (
                 <div className={styles["loading"]}>
                     <Loader/>
-                    Loading...
+                    <div>Loading...</div>
                 </div>
             )}
 
@@ -146,6 +146,7 @@ export default function Messages({
             {hasMore && (
                 <div ref={ref} className={styles["system_message"]}>
                     <Loader />
+                    <div>Loading...</div>
                 </div>
             )}
         </div>

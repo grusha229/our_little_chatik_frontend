@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { IChatsAttachmentUploadPayload, IChatsUploadFileLinkResponse } from '../models/chats'
+import { IChatsAttachmentUploadPayload, IChatsUploadFileLinkResponse } from '@app/models/chats'
 import { createBaseQuery } from './baseQuery'
 
 export const filesApi = createApi({

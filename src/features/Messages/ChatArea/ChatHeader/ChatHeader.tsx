@@ -1,8 +1,8 @@
 import styles from "./ChatHeader.module.scss"
-import Avatar from "../../../Users/Avatar/Avatar";
+import Avatar from "@app/features/Users/Avatar/Avatar"
 import { Skeleton } from "@mui/material";
-import { IChatsGetChatInfoResponse } from "../../../../models/chats";
-import { isDesktop, useWindowSize } from "../../../../utils/responsives";
+import { IChatsGetChatInfoResponse } from "@app/models/chats";
+import { isDesktop, useWindowSize } from "@app/utils/responsives";
 import { useNavigate } from "react-router-dom";
 
 export interface IProps {

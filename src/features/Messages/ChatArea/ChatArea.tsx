@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Messages from "./Messages/Messages.js";
 import ChatHeader from "./ChatHeader/ChatHeader.js";
-import ChatSendForm from "./ChatSendForm/ChatSendForm.js";
-import { useGetChatInfoMutation } from "../../../services/chat.js";
-import Loader from "../../../ui/Loader/Loader.js";
-import { useAppSelector } from "../../../store/hooks.js";
+import { useGetChatInfoMutation } from "@app/services/chat.js";
+import Loader from "@app/ui/Loader/Loader.js";
+import { useAppSelector } from "@app/store/hooks.js";
+import MessagesInput from "./MessagesInput/MessagesInput.js";
 
 export default function ChatArea() {
 
@@ -20,7 +20,7 @@ export default function ChatArea() {
         getChatInfo({ id: chat_id})
     }, [chat_id, getChatInfo])
 
-    if (isLoading || !currentChat) {
+    if ((currentChat && isLoading) || !currentChat) {
         return (
             <>
                 <div className={styles['block']}>
@@ -38,7 +38,7 @@ export default function ChatArea() {
                     isLoading={isLoading}
                 />
                 <Messages current_chat={currentChat} />
-                <ChatSendForm current_chat={currentChat} />
+                <MessagesInput current_chat={currentChat} />
             </div>
         </>
     );

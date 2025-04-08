@@ -1,10 +1,10 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
-import { useSignupUserMutation } from '../../../services/auth';
+import { useSignupUserMutation } from '@app/services/auth';
 import style from './RegisterForm.module.scss';
-import { ISignupPayload } from '../../../models/auth';
-import Button from '../../../ui/Button/Button';
-import Input from '../../../ui/Input/Input';
+import { ISignupPayload } from '@app/models/auth';
+import Button from '@app/ui/Button/Button';
+import Input from '@app/ui/Input/Input';
 
 export default function LoginForm() {
 

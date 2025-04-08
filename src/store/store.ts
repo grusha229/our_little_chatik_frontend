@@ -1,22 +1,22 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
 import authSlice, { loadTokensFromStorage } from './features/auth';
-import { authApi } from '../services/auth';
-import authMiddleware from '../middleware/auth';
+import { authApi } from '@app/services/auth';
+import authMiddleware from '@app/middleware/auth';
 import usersSlice from './features/users';
-import { usersApi } from '../services/users';
-import usersMiddleware from '../middleware/users';
+import { usersApi } from '@app/services/users';
+import usersMiddleware from '@app/middleware/users';
 import chatsSlice from './features/chats';
-import { chatApi } from '../services/chat';
-import chatsMiddleware from '../middleware/chats';
-import searchMiddleware from '../middleware/search';
+import { chatApi } from '@app/services/chat';
+import chatsMiddleware from '@app/middleware/chats';
+import searchMiddleware from '@app/middleware/search';
 import searchSlice from './features/search';
-import { searchApi } from '../services/search';
+import { searchApi } from '@app/services/search';
 import modalsSlice from './features/modals';
-import websocketMiddleware from '../middleware/websocket';
+import websocketMiddleware from '@app/middleware/websocket';
 
 import websocketSlice from './features/websocket';
-import { filesApi } from '../services/files';
+import { filesApi } from '@app/services/files';
 import { AppDispatch, RootState } from './types';
 
 // Объединение редукторов

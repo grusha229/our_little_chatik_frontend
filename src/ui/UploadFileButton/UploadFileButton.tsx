@@ -1,10 +1,10 @@
 import React from 'react'
 import { FieldError, UseFormRegister } from 'react-hook-form';
-import Input from '../Input/Input';
+import Input from '@app/ui/Input/Input';
 import styles from './UploadFileButton.module.scss';
-import { isMobile, useWindowSize } from '../../utils/responsives';
-import AttachmentIcon from '../../img/icons/icon--attachments.svg'
-import { buildClassName } from '../../utils/styles';
+import { isMobile, useWindowSize } from '@app/utils/responsives';
+import AttachmentIcon from '@app/img/icons/icon--attachments.svg'
+import { buildClassName } from '@app/utils/styles';
 
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;

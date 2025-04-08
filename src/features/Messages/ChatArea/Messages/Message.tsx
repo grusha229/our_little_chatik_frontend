@@ -1,9 +1,9 @@
 import { Skeleton } from "@mui/material";
 import styles from "./Message.module.scss"
-import { IChatsMessage, IChatsUser } from "../../../../models/chats";
-import Avatar from "../../../Users/Avatar/Avatar";
-import MediaPhotoAttachments from "../../../../ui/MediaAttachments/MediaPhotoAttachments";
-import Loader from "../../../../ui/Loader/Loader";
+import { IChatsMessage, IChatsUser } from "@app/models/chats";
+import Avatar from "@app/features/Users/Avatar/Avatar";
+import MediaPhotoAttachments from "@app/ui/MediaAttachments/MediaPhotoAttachments";
+import Loader from "@app/ui/Loader/Loader";
 
 export interface IProps {
     data: IChatsMessage;

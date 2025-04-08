@@ -1,4 +1,4 @@
-@use "../../helpers/styles/colors" as colors;
+@use "@app/helpers/styles/colors" as colors;
 
 .container {
     display: flex;
@@ -21,9 +21,15 @@
     }
 
     &--small {
-        width: 40px;
-        height: 40px;
-        border-width: 4px;
+        width: 30px;
+        height: 30px;
+        border-width: 3px;
+    }
+
+    &--default {
+      width: 40px;
+      height: 40px;
+      border-width: 4px;
     }
 
     &--large {

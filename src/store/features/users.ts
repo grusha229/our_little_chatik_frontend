@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ICurrentUserInfoResponse } from "../../models/users";
+import { ICurrentUserInfoResponse } from "@app/models/users";
 
 export interface IUsersState {
     current_user: ICurrentUserInfoResponse | null

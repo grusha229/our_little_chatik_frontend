@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Loader.module.scss';
-import { buildClassName } from '../../utils/styles';
+import { buildClassName } from '@app/utils/styles';
 
 export type TLoaderSize = "xsmall" | "small" | "default" | "large"
 

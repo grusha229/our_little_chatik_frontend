@@ -1,5 +1,5 @@
-@use "./../../helpers/styles/_colors" as colors;
-@use "./../../helpers/styles/responsives" as responsive;
+@use "@app/helpers/styles/_colors" as colors;
+@use "@app/helpers/styles/responsives" as responsive;
 
 .button {
     display: flex;

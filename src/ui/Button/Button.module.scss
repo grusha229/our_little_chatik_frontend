@@ -1,5 +1,5 @@
-@use "./../../helpers/styles/_colors.scss" as colors;
-@use "../../helpers/styles/responsives" as responsives;
+@use "@app/helpers/styles/_colors.scss" as colors;
+@use "@app/helpers/styles/responsives" as responsive;
 
 .button {
   cursor: pointer;
@@ -19,13 +19,12 @@
 
   font-size: 18px;
 
-  @include responsives.media-mobile {
-    font-size: 14px;
-}
-
   line-height: 1.2;
   height: 45px;
-  
+
+  @include responsive.media-mobile {
+    font-size: 14px;
+  }
 
   &--block {
     width: 100%;

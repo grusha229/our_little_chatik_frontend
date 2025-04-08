@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './LoginPage.module.scss';
-import LoginForm from '../../features/Auth/LoginForm/LoginForm';
-import Layout from '../../features/Layout/Layout';
-import Block from '../../features/Layout/Block/Block';
-import Button from '../../ui/Button/Button';
+import LoginForm from '@app/features/Auth/LoginForm/LoginForm';
+import Layout from '@app/features/Layout/Layout';
+import Block from '@app/features/Layout/Block/Block';
+import Button from '@app/ui/Button/Button';
 
 export default function LoginPage() {
   return (

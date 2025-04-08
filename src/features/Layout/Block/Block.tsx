@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Block.module.scss';
-import { buildClassName } from '../../../utils/styles';
+import { buildClassName } from '@app/utils/styles';
 
 export interface IProps {
     children: React.ReactNode,

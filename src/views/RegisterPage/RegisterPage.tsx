@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './RegisterPage.module.scss';
-import RegisterForm from '../../features/Auth/RegisterForm/RegisterForm';
-import Layout from '../../features/Layout/Layout';
-import Button from '../../ui/Button/Button';
-import Block from '../../features/Layout/Block/Block';
+import RegisterForm from '@app/features/Auth/RegisterForm/RegisterForm';
+import Layout from '@app/features/Layout/Layout';
+import Button from '@app/ui/Button/Button';
+import Block from '@app/features/Layout/Block/Block';
 import { Navigate } from 'react-router-dom';
-import { useAppSelector } from '../../store/hooks';
+import { useAppSelector } from '@app/store/hooks';
 
 export default function RegisterPage() {
     const token = useAppSelector((state) => state.auth.token);

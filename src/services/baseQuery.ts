@@ -1,7 +1,7 @@
 // services/baseQueryWithReauth.ts
 import { BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
-import { setTokens, deleteTokens } from '../store/features/auth';
-import { RootState } from '../store/store'; // Типизация корневого состояния
+import { setTokens, deleteTokens } from '@app/store/features/auth';
+import { RootState } from '@app/store/store'; // Типизация корневого состояния
 import { authApi } from './auth';
 
 const TEST_URL = '/api/v1';

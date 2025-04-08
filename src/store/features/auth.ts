@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IRefreshTokenResponse } from "../../models/auth";
+import { IRefreshTokenResponse } from "@app/models/auth";
 
 export interface IAuthState {
   refresh_token: string | null;

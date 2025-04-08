@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { IActivationPayload, IRefreshTokenResponse, ILoginPayload, IRefreshTokenPayload, IRenewPasswordPayload, ISignupPayload } from '../models/auth'
+import { IActivationPayload, IRefreshTokenResponse, ILoginPayload, IRefreshTokenPayload, IRenewPasswordPayload, ISignupPayload } from '@app/models/auth'
 import { createBaseQueryWithReauth } from './baseQuery'
 
 export const authApi = createApi({

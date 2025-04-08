@@ -1,7 +1,7 @@
 import { Middleware } from '@reduxjs/toolkit';
-import { usersApi } from '../services/users';
-import { AppDispatch } from '../store/store';
-import { setCurrentUser } from '../store/features/users';
+import { usersApi } from '@app/services/users';
+import { AppDispatch } from '@app/store/store';
+import { setCurrentUser } from '@app/store/features/users';
 
 const usersMiddleware: Middleware = (store) => (next) => async (action) => {
 

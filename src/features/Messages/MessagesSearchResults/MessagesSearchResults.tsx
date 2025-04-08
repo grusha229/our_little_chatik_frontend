@@ -1,9 +1,9 @@
 import React from 'react'
-import { useAppSelector } from '../../../store/hooks';
+import { useAppSelector } from '@app/store/hooks';
 import styles from './MessagesSearchResults.module.scss';
-import MessagesChatItem from '../MessagesChatItem/MessagesChatItem';
-import { IChatsMessage } from '../../../models/chats';
-import { useSearchMutation } from '../../../services/search';
+import MessagesChatItem from '@app/features/Messages/MessagesChatItem/MessagesChatItem';
+import { IChatsMessage } from '@app/models/chats';
+import { useSearchMutation } from '@app/services/search';
 
 
 const MOCK_MESSAGE: IChatsMessage = {

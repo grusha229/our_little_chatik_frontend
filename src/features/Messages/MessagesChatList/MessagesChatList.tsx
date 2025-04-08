@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo } from 'react'
-import { useChatsListQuery } from '../../../services/chat';
+import { useChatsListQuery } from '@app/services/chat';
 import styles from './MessagesChatList.module.scss'
-import MessagesChatItem from '../MessagesChatItem/MessagesChatItem';
-import { useAppSelector } from '../../../store/hooks';
+import MessagesChatItem from '@app/features/Messages/MessagesChatItem/MessagesChatItem';
+import { useAppSelector } from '@app/store/hooks';
 
 export function MessagesChatList() {
     const { refetch } = useChatsListQuery();

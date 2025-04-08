@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react'
 import style from './MessagesSearchForm.module.scss';
-import { useSearchMutation } from '../../../services/search';
-import { ISearchPayload } from '../../../models/search';
+import { useSearchMutation } from '@app/services/search';
+import { ISearchPayload } from '@app/models/search';
 import { useForm } from 'react-hook-form';
-import debounce from '../../../utils/debounce';
-import Input from '../../../ui/Input/Input';
+import debounce from '@app/utils/debounce';
+import Input from '@app/ui/Input/Input';
 
 export interface IProps {
     onFocus: () => void;

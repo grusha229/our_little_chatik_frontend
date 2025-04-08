@@ -1,16 +1,16 @@
 import React, {useCallback, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Autocomplete, Box, Chip, TextField } from "@mui/material";
-import { useSearchQuery } from "../../../services/users";
-import MessagesChatItem from "../MessagesChatItem/MessagesChatItem";
-import Button from "../../../ui/Button/Button";
-import debounce from "../../../utils/debounce";
-import { ICurrentUserInfoResponse } from "../../../models/users";
-import { ChatType, IChatsCreateChatPayload } from "../../../models/chats";
+import { useSearchQuery } from "@app/services/users";
+import MessagesChatItem from "@app/features/Messages/MessagesChatItem/MessagesChatItem";
+import Button from "@app/ui/Button/Button";
+import debounce from "@app/utils/debounce";
+import { ICurrentUserInfoResponse } from "@app/models/users";
+import { ChatType, IChatsCreateChatPayload } from "@app/models/chats";
 import styles from "./CreateChatForm.module.scss";
-import { useCreateMutation } from "../../../services/chat";
-import { closeModal } from "../../../store/features/modals";
-import { useAppDispatch } from "../../../store/hooks";
+import { useCreateMutation } from "@app/services/chat";
+import { closeModal } from "@app/store/features/modals";
+import { useAppDispatch } from "@app/store/hooks";
 import { muiInputStyles } from "./CreateChatForm.utils";
 
 export interface IUsersOption {

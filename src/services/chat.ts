@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { IChatsChatListResponse, IChatsCreateChatPayload, IChatsGetChatInfoPayload, IChatsGetChatInfoResponse, IChatsGetChatMessagesPayload, IChatsGetChatMessagesResponse, IChatsSendMessagePayload, IChatsSendMessageResponse, IChatsUploadFileLinkResponse, IChatsUploadFilePayload } from '../models/chats'
+import { IChatsChatListResponse, IChatsCreateChatPayload, IChatsGetChatInfoPayload, IChatsGetChatInfoResponse, IChatsGetChatMessagesPayload, IChatsGetChatMessagesResponse, IChatsSendMessagePayload, IChatsSendMessageResponse, IChatsUploadFileLinkResponse, IChatsUploadFilePayload } from '@app/models/chats'
 import { createBaseQueryWithReauth } from './baseQuery'
 
 export const chatApi = createApi({

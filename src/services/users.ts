@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { createBaseQueryWithReauth } from './baseQuery'
-import { ICurrentUserInfoResponse, IUsersPatchCurrentUserPayload, IUsersPatchCurrentUserResponse, IUsersSearchPayload, IUsersSearchResponse, IUsersUploadAvatarLinkPayload, IUsersUploadAvatarLinkResponse } from '../models/users'
+import { ICurrentUserInfoResponse, IUsersPatchCurrentUserPayload, IUsersPatchCurrentUserResponse, IUsersSearchPayload, IUsersSearchResponse, IUsersUploadAvatarLinkPayload, IUsersUploadAvatarLinkResponse } from '@app/models/users'
 
 export const usersApi = createApi({
   reducerPath: 'users_api',

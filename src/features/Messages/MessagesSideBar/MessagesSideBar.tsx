@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react'
-import MessagesSearchForm from '../MessagesSearchForm/MessagesSearchForm'
-import MessagesChatList from '../MessagesChatList/MessagesChatList';
-import MessagesSearchResults from '../MessagesSearchResults/MessagesSearchResults';
+import MessagesSearchForm from "@app/features/Messages/MessagesSearchForm/MessagesSearchForm"
+import MessagesChatList from '@app/features/Messages/MessagesChatList/MessagesChatList';
+import MessagesSearchResults from '@app/features/Messages/MessagesSearchResults/MessagesSearchResults';
 import styles from './MessagesSideBar.module.scss'
-import { useAppDispatch } from '../../../store/hooks';
-import { openModal } from '../../../store/features/modals';
-import IconButton from '../../../ui/IconButton/IconButton';
+import { useAppDispatch } from '@app/store/hooks';
+import { openModal } from '@app/store/features/modals';
+import IconButton from '@app/ui/IconButton/IconButton';
 
 export default function MessagesSideBar() {
 

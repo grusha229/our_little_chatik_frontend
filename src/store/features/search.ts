@@ -1,4 +1,4 @@
-import { ISearchResponse } from './../../models/search';
+import { ISearchResponse } from '@app/models/search';
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export interface ISearchState {

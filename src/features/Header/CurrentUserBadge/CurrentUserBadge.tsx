@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect } from 'react'
 import styles from './CurrentUserBadge.module.scss'
-import { useGetCurrentUserInfoQuery } from '../../../services/users';
+import { useGetCurrentUserInfoQuery } from '@app/services/users';
 import { Avatar } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { openModal } from '../../../store/features/modals';
+import { useAppDispatch, useAppSelector } from '@app/store/hooks';
+import { openModal } from '@app/store/features/modals';
 
 export default function CurrentUserBadge() {
     const dispatch = useAppDispatch();

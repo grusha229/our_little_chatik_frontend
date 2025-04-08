@@ -1,26 +1,31 @@
 import React, { useCallback } from 'react'
-import MediaAttachmentComponent from '../../../../../ui/MediaAttachments/MediaAttachmentComponent/MediaAttachmentComponent'
-import { IChatsUploadFileLink, IChatsUploadFileLinkResponse } from '../../../../../models/chats';
+import MediaAttachmentComponent from '@app/ui/MediaAttachments/MediaAttachmentComponent/MediaAttachmentComponent'
+import { IChatsGetChatInfoResponse, IChatsUploadFileLink } from '@app//models/chats';
 import styles from './MessageFormAttachments.module.scss'
-import { useAppDispatch } from '../../../../../store/hooks';
-import { openModal } from '../../../../../store/features/modals';
-import { isImageFile } from '../../../../../ui/MediaAttachments/MediaAttachmentComponent/MediaAttachmentComponent.utils';
+import { useAppDispatch, useAppSelector } from '@app/store/hooks';
+import { openModal } from '@app/store/features/modals';
+import { isImageFile } from '@app/ui/MediaAttachments/MediaAttachmentComponent/MediaAttachmentComponent.utils';
+import { deleteUploadFiles } from '@app/store/features/chats';
 
 export interface IProps {
-    /** Список файлов */
-    linksToUpload: IChatsUploadFileLinkResponse;
-    /** Флаг что файлы загружены */
-    isFileUploaded: boolean;
-    /** Удаление вложения */
-    onDelete: (upload_id: string) => void;
+    current_chat: IChatsGetChatInfoResponse;
 }
 
 export default function MessageFormAttachments({
-    linksToUpload,
-    isFileUploaded,
-    onDelete,
+    current_chat,
 }: IProps) {
+    const attachments = useAppSelector((state) => state.chats.uploads[current_chat?.chat_id])
     const dispatch = useAppDispatch()
+
+    const handleDeleteFile = useCallback((target_id: string) => {
+        dispatch(deleteUploadFiles({
+            chat_id: current_chat.chat_id, 
+            target_id
+        }))
+    },[current_chat?.chat_id, dispatch])
+
+    console.log('attachments[current_chat?.chat_id]', attachments)
+    console.log('current_chat?.chat_id', current_chat?.chat_id)
 
     const toggleModalVisibility = useCallback((current_media: IChatsUploadFileLink)=> {
         if (isImageFile(current_media.content_type)) {
@@ -49,7 +54,7 @@ export default function MessageFormAttachments({
         }
     },[dispatch])
 
-    if (!linksToUpload || linksToUpload?.length === 0) {
+    if (!attachments || attachments?.length === 0) {
         return null
     }
 
@@ -57,14 +62,16 @@ export default function MessageFormAttachments({
         <div className={styles['block']}>
             <div>
                 <div className={styles['slider']}>
-                    {linksToUpload.map((file) => (
+                    {attachments.map((file) => (
                         <MediaAttachmentComponent
                             {...file}
                             key={file.upload_id}
                             preview_link={file?.preview_link}
                             onClick={() => toggleModalVisibility(file)}
-                            onDelete={() => onDelete(file?.upload_id)}
-                            isFileUploaded={isFileUploaded}
+                            onDelete={() => handleDeleteFile(file.upload_id)}
+                            // onDelete={() => onDelete(file?.upload_id)}
+                            // isFileUploaded={isFileUploaded}
+                            isFileUploaded
                             file_name={file?.upload_file_name}
                             size="small"
                         />
