@@ -7,6 +7,7 @@ import { useGetChatInfoMutation } from "@app/services/chat.js";
 import Loader from "@app/ui/Loader/Loader.js";
 import { useAppSelector } from "@app/store/hooks.js";
 import MessagesInput from "./MessagesInput/MessagesInput.js";
+import useDocumentTitle from "@app/utils/useDocumentTitle.js";
 
 export default function ChatArea() {
 
@@ -14,7 +15,7 @@ export default function ChatArea() {
     const chat_id = params.id || '';
     const [ getChatInfo, { isLoading } ] = useGetChatInfoMutation();
     const currentChat = useAppSelector((state) => state.chats.currentChat)
-    console.warn(currentChat?.last_message.id)
+    useDocumentTitle(currentChat?.name ?? 'Messages')
 
     useEffect(() => {
         getChatInfo({ id: chat_id})
