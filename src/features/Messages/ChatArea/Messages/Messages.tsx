@@ -12,6 +12,7 @@ import Loader from '@app/ui/Loader/Loader.js';
 import AlertBlock from '@app/ui/AlertBlock/AlertBlock.js';
 import emojiHand from '@app/img/icons/emoji-hand.png';
 import emojiMonkey from '@app/img/icons/emoji-monkey.png';
+import { IErrorResponse } from '@app/services/baseQuery.js';
 
 export interface IProps {
     current_chat: IChatsGetChatInfoResponse;
@@ -46,6 +47,8 @@ export default function Messages({ current_chat }: IProps) {
             refetchOnMountOrArgChange: true,
         },
     );
+
+    const apiError = error as IErrorResponse;
 
     useEffect(() => {
         if (total_messages) {
@@ -121,7 +124,7 @@ export default function Messages({ current_chat }: IProps) {
     if (error) {
         return (
             <div className={styles['messages']} ref={containerRef}>
-                <AlertBlock title="Error" description="You can send a message first" img_src={emojiMonkey} />
+                <AlertBlock title="Error" description={apiError.data?.message} img_src={emojiMonkey} />
             </div>
         );
     }
@@ -129,7 +132,7 @@ export default function Messages({ current_chat }: IProps) {
     if (sortedMessages?.length === 0) {
         return (
             <div className={styles['messages']} ref={containerRef}>
-                <AlertBlock title="There is nothing here yet" description={error} img_src={emojiHand} />
+                <AlertBlock title="There is nothing here yet" description="You can send a message first" img_src={emojiHand} />
             </div>
         );
     }
