@@ -6,10 +6,7 @@ export const filesApi = createApi({
     reducerPath: 'files_api',
     baseQuery: createBaseQuery(''),
     endpoints: builder => ({
-        uploadAttachment: builder.mutation<
-            IChatsUploadFileLinkResponse,
-            IChatsAttachmentUploadPayload
-        >({
+        uploadAttachment: builder.mutation<IChatsUploadFileLinkResponse, IChatsAttachmentUploadPayload>({
             query: payload => {
                 const { url, file, content_type } = payload;
 

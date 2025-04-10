@@ -15,8 +15,7 @@ export default function ChatHeader({ current_chat, isLoading }: IProps) {
 
     const { width: windowWidth } = useWindowSize();
     const isDesktopView = isDesktop(windowWidth);
-    const avatarSrc =
-        current_chat?.photo?.path || `https://ui-avatars.com/api/?name=${current_chat?.name}`;
+    const avatarSrc = current_chat?.photo?.path;
 
     return (
         <div className={styles['header']}>

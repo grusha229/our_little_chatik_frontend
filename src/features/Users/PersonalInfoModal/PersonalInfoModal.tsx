@@ -13,9 +13,7 @@ export interface IProps {
 export default function PersonalInfoModal() {
     const currentUser = useAppSelector(state => state.users.current_user);
 
-    const avatarSrc =
-        currentUser?.avatar ||
-        `https://ui-avatars.com/api/?name=${currentUser?.name}+${currentUser?.surname}`;
+    const avatarSrc = currentUser?.avatar;
 
     return (
         <Modal name="user_info">

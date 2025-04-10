@@ -21,10 +21,7 @@ export const usersApi = createApi({
                 method: 'GET',
             }),
         }),
-        patchCurrentUserInfo: builder.mutation<
-            IUsersPatchCurrentUserResponse,
-            IUsersPatchCurrentUserPayload
-        >({
+        patchCurrentUserInfo: builder.mutation<IUsersPatchCurrentUserResponse, IUsersPatchCurrentUserPayload>({
             // query: (payload) => ({
             //   const {avatar, ...data} = payload;
 
@@ -47,10 +44,7 @@ export const usersApi = createApi({
                 };
             },
         }),
-        getAvatarUploadUrl: builder.mutation<
-            IUsersUploadAvatarLinkResponse,
-            IUsersUploadAvatarLinkPayload
-        >({
+        getAvatarUploadUrl: builder.mutation<IUsersUploadAvatarLinkResponse, IUsersUploadAvatarLinkPayload>({
             query: payload => {
                 return {
                     url: '/me/avatar',
@@ -76,10 +70,5 @@ export const usersApi = createApi({
     }),
 });
 
-export const {
-    useGetCurrentUserInfoQuery,
-    usePatchCurrentUserInfoMutation,
-    useGetAvatarUploadUrlMutation,
-    useGetUserInfoByIdQuery,
-    useSearchQuery,
-} = usersApi;
+export const { useGetCurrentUserInfoQuery, usePatchCurrentUserInfoMutation, useGetAvatarUploadUrlMutation, useGetUserInfoByIdQuery, useSearchQuery } =
+    usersApi;

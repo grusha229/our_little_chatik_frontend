@@ -14,14 +14,7 @@ export interface IProps {
     className?: string;
 }
 
-export default function IconButton({
-    icon = plusIcon,
-    href,
-    onClick,
-    size = 'default',
-    className,
-    ...props
-}: IProps) {
+export default function IconButton({ icon = plusIcon, href, onClick, size = 'default', className, ...props }: IProps) {
     const buttonClassName = buildClassName(styles['button'], styles[`button--${size}`], className);
 
     if (href) {

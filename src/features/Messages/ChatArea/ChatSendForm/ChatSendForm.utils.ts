@@ -1,11 +1,6 @@
 import { IChatsMessage, IMediaRefItem } from '@app/models/chats';
 
-export function generateNewMessage(
-    tempId: number,
-    message: string,
-    userId: string,
-    mediaRefs?: IMediaRefItem[],
-) {
+export function generateNewMessage(tempId: number, message: string, userId: string, mediaRefs?: IMediaRefItem[]) {
     const newMessage: IChatsMessage = {
         id: tempId,
         status: 'pending',

@@ -40,17 +40,15 @@ export const chatApi = createApi({
                 method: 'GET',
             }),
         }),
-        getChatMessages: builder.query<IChatsGetChatMessagesResponse, IChatsGetChatMessagesPayload>(
-            {
-                query: payload => {
-                    return {
-                        url: `/${payload.id}/messages`,
-                        method: 'GET',
-                        params: payload,
-                    };
-                },
+        getChatMessages: builder.query<IChatsGetChatMessagesResponse, IChatsGetChatMessagesPayload>({
+            query: payload => {
+                return {
+                    url: `/${payload.id}/messages`,
+                    method: 'GET',
+                    params: payload,
+                };
             },
-        ),
+        }),
         sendChatMessage: builder.mutation<IChatsSendMessageResponse, IChatsSendMessagePayload>({
             query: payload => {
                 return {
@@ -60,10 +58,7 @@ export const chatApi = createApi({
                 };
             },
         }),
-        getAttachmentsUploadUrls: builder.mutation<
-            IChatsUploadFileLinkResponse,
-            IChatsUploadFilePayload
-        >({
+        getAttachmentsUploadUrls: builder.mutation<IChatsUploadFileLinkResponse, IChatsUploadFilePayload>({
             query: payload => {
                 const { id, links } = payload;
                 return {

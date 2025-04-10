@@ -52,11 +52,7 @@ export const chatsSlice = createSlice({
             state.messages[action.payload.chat_id] = action.payload.messages;
         },
         addMessage: (state, action: PayloadAction<{ chat_id: string; message: IChatsMessage }>) => {
-            if (
-                state.messages[action.payload.chat_id]?.some(
-                    saved_message => saved_message.id === action.payload.message.id,
-                )
-            ) {
+            if (state.messages[action.payload.chat_id]?.some(saved_message => saved_message.id === action.payload.message.id)) {
                 return;
             } else {
                 state.messages[action.payload.chat_id]?.unshift(action.payload.message);
@@ -71,13 +67,8 @@ export const chatsSlice = createSlice({
         ) => {
             state.uploads[action.payload.chat_id] = [...action.payload.files];
         },
-        deleteUploadFiles: (
-            state,
-            action: PayloadAction<{ chat_id: string; target_id: string }>,
-        ) => {
-            state.uploads[action.payload.chat_id] = state.uploads[action.payload.chat_id].filter(
-                file => file.upload_id !== action.payload.target_id,
-            );
+        deleteUploadFiles: (state, action: PayloadAction<{ chat_id: string; target_id: string }>) => {
+            state.uploads[action.payload.chat_id] = state.uploads[action.payload.chat_id].filter(file => file.upload_id !== action.payload.target_id);
         },
         resetUploadFiles: (state, action: PayloadAction<{ chat_id: string }>) => {
             state.uploads[action.payload.chat_id] = [];
@@ -89,10 +80,7 @@ export const chatsSlice = createSlice({
                 messages: IChatsGetChatMessagesResponse;
             }>,
         ) => {
-            state.messages[action.payload.chat_id] = [
-                ...state.messages[action.payload.chat_id],
-                ...action.payload.messages,
-            ];
+            state.messages[action.payload.chat_id] = [...state.messages[action.payload.chat_id], ...action.payload.messages];
         },
         addChat: (state, action: PayloadAction<IChatsGetChatInfoResponse>) => {
             state.chats.unshift(action.payload);
@@ -121,14 +109,10 @@ export const chatsSlice = createSlice({
                 status: IChatsMessage['status'];
             }>,
         ) => {
-            const targetMessageIndex =
-                state.messages[action.payload.chat_id]?.findIndex(
-                    message => message.id === action.payload.id,
-                ) ?? 0;
+            const targetMessageIndex = state.messages[action.payload.chat_id]?.findIndex(message => message.id === action.payload.id) ?? 0;
 
             if (targetMessageIndex !== -1) {
-                state.messages[action.payload.chat_id][targetMessageIndex].status =
-                    action.payload.status;
+                state.messages[action.payload.chat_id][targetMessageIndex].status = action.payload.status;
                 state.messages[action.payload.chat_id][targetMessageIndex].id = action.payload.id;
             }
         },

@@ -36,16 +36,10 @@ export interface IProps {
     content_type: string;
 }
 
-export const getAttachmentComponent = ({
-    content_type,
-    size,
-    isFileUploaded,
-    preview_link,
-}: IProps) => {
+export const getAttachmentComponent = ({ content_type, size, isFileUploaded, preview_link }: IProps) => {
     const fileType = getFileType(content_type);
 
-    const iconBackgroundSrc =
-        fileType === 'image' && isFileUploaded ? preview_link : FILE_TYPE_ICONS[fileType];
+    const iconBackgroundSrc = fileType === 'image' && isFileUploaded ? preview_link : FILE_TYPE_ICONS[fileType];
 
     return <MediaFileAttachmentsItem size={size} src={iconBackgroundSrc} />;
 };

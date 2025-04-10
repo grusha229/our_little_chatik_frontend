@@ -2,6 +2,7 @@ import { useAppSelector } from '@app/store/hooks';
 import styles from './MessagesSearchResults.module.scss';
 import MessagesChatItem from '@app/features/Messages/MessagesChatItem/MessagesChatItem';
 import { useSearchMutation } from '@app/services/search';
+import AlertBlock from '@app/ui/AlertBlock/AlertBlock';
 
 // const MOCK_MESSAGE: IChatsMessage = {
 //     created_at: 'Message 1',
@@ -65,7 +66,7 @@ export default function MessagesSearchResults() {
     if (isSearchLoading) {
         return (
             <div className={styles['search-empty']}>
-                <div>No results</div>
+                <AlertBlock title="No results" />
             </div>
         );
     }
@@ -73,7 +74,7 @@ export default function MessagesSearchResults() {
     if (!chatsResultsExists && !usersResultsExists && !messagesResultsExists) {
         return (
             <div className={styles['search-empty']}>
-                <div>No results</div>
+                <AlertBlock title="No results" />
             </div>
         );
     }
@@ -84,12 +85,7 @@ export default function MessagesSearchResults() {
                 <div className={styles['search-results--block']}>
                     <div className={styles['search-results--header']}>Found chats:</div>
                     {chatsResults.map(chat => (
-                        <MessagesChatItem
-                            key={chat.chat_id}
-                            heading={chat.name}
-                            img_src={chat.photo?.path}
-                            link={`/messages/${chat.chat_id}`}
-                        />
+                        <MessagesChatItem key={chat.chat_id} heading={chat.name} img_src={chat.photo?.path} link={`/messages/${chat.chat_id}`} />
                     ))}
                 </div>
             )}

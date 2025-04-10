@@ -1,16 +1,17 @@
 import styles from './Avatar.module.scss';
 import Skeleton from '@mui/material/Skeleton';
 import { buildClassName } from '@app/utils/styles';
+import avatarFallbackIcon from '@app/img/icons/icon--avatar.svg';
 
 export type TAvatarSize = 'small' | 'medium' | 'large' | 'xlarge';
 
 export interface IProps {
     size?: TAvatarSize;
-    src: string;
+    src?: string;
     alt?: string;
 }
 
-export default function Avatar({ size = 'medium', alt = '', src }: IProps) {
+export default function Avatar({ size = 'medium', alt = '', src = avatarFallbackIcon }: IProps) {
     const avatarClassName = buildClassName(styles['avatar'], styles[`avatar--${size}`]);
 
     return (

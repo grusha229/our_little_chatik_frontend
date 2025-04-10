@@ -6,6 +6,8 @@ import ChatArea from '@app/features/Messages/ChatArea/ChatArea';
 import { isDesktop, useWindowSize } from '@app/utils/responsives';
 import PersonalInfoModal from '@app/features/Users/PersonalInfoModal/PersonalInfoModal';
 import ImagesGalleryModal from '@app/features/Images/ImagesGalleryModal/ImagesGalleryModal';
+import AlertBlock from '@app/ui/AlertBlock/AlertBlock';
+import sadImage from '@app/img/icons/emoji-sad.png';
 
 export default function MessagesPage() {
     const params = useParams();
@@ -22,7 +24,11 @@ export default function MessagesPage() {
                 )}
                 {(isDesktopView || params.id) && (
                     <div className={styles['page--content']}>
-                        {params.id ? <ChatArea /> : <div> No chat selected </div>}
+                        {params.id ? (
+                            <ChatArea />
+                        ) : (
+                            <AlertBlock title="No chat selected" description="Select chat or create new to start 🚀" img_src={sadImage} />
+                        )}
                     </div>
                 )}
             </div>

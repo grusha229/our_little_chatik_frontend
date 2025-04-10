@@ -1,11 +1,6 @@
 import { Middleware } from '@reduxjs/toolkit';
 import { chatApi } from '@app/services/chat';
-import {
-    addMoreMessages,
-    setChatMessages,
-    setChats,
-    setCurrentChat,
-} from '@app/store/features/chats';
+import { addMoreMessages, setChatMessages, setChats, setCurrentChat } from '@app/store/features/chats';
 import { AppDispatch } from '@app/store/types';
 
 const chatsMiddleware: Middleware = store => next => async action => {
@@ -32,6 +27,9 @@ const chatsMiddleware: Middleware = store => next => async action => {
 
     if (chatApi.endpoints.getChatInfo.matchFulfilled(action)) {
         store.dispatch(setCurrentChat(action.payload));
+        if (!action.payload?.last_message) {
+            store.dispatch(setChatMessages({ chat_id: action.payload.chat_id, messages: [] }));
+        }
     }
 
     if (chatApi.endpoints.getChatMessages.matchFulfilled(action)) {

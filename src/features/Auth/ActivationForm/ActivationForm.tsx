@@ -31,13 +31,7 @@ export default function ActivationForm() {
 
     return (
         <form onSubmit={handleSubmit(handleSubmitActivationUserForm)} className={style['form']}>
-            <Input
-                name="code"
-                placeholder="Activation code"
-                register={register}
-                rules={{ required: 'Enter the code' }}
-                error={errors.code}
-            />
+            <Input name="code" placeholder="Activation code" register={register} rules={{ required: 'Enter the code' }} error={errors.code} />
             <Button type="submit" block disabled={!isValid || isSubmitting}>
                 Activate
             </Button>

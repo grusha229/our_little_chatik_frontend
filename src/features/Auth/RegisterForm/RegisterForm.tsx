@@ -40,20 +40,8 @@ export default function LoginForm() {
     return (
         <div className={style['block']}>
             <form onSubmit={handleSubmit(handleSubmitLinkForm)} className={style['form']}>
-                <Input
-                    name="name"
-                    placeholder="Name"
-                    register={register}
-                    rules={{ required: 'Enter your name' }}
-                    error={errors.name}
-                />
-                <Input
-                    name="surname"
-                    placeholder="Surname"
-                    register={register}
-                    rules={{ required: 'Enter your surname' }}
-                    error={errors.surname}
-                />
+                <Input name="name" placeholder="Name" register={register} rules={{ required: 'Enter your name' }} error={errors.name} />
+                <Input name="surname" placeholder="Surname" register={register} rules={{ required: 'Enter your surname' }} error={errors.surname} />
                 <Input
                     name="nickname"
                     placeholder="Nickname"

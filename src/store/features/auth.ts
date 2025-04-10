@@ -38,12 +38,6 @@ export const authSlice = createSlice({
     },
 });
 
-export const {
-    setTokens,
-    deleteTokens,
-    loadTokensFromStorage,
-    setActivatedEmail,
-    deleteActivatedEmail,
-} = authSlice.actions;
+export const { setTokens, deleteTokens, loadTokensFromStorage, setActivatedEmail, deleteActivatedEmail } = authSlice.actions;
 
 export default authSlice.reducer;

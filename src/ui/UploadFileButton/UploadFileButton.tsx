@@ -17,14 +17,7 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
     multiple?: boolean;
 }
 
-export default function UploadFileButton({
-    register,
-    handleChange,
-    name,
-    children,
-    multiple = true,
-    className,
-}: IProps) {
+export default function UploadFileButton({ register, handleChange, name, children, multiple = true, className }: IProps) {
     const blockClassName = buildClassName(className && className);
 
     const { width } = useWindowSize();

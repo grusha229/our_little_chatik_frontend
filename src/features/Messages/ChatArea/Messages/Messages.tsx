@@ -9,6 +9,8 @@ import { getSenderById } from './Messages.utils.js';
 import throttle from '@app/utils/throttle.js';
 import { scrollToBottom } from '@app/utils/scrollToBottom.js';
 import Loader from '@app/ui/Loader/Loader.js';
+import AlertBlock from '@app/ui/AlertBlock/AlertBlock.js';
+import emojiHand from '@app/img/icons/emoji-hand.png';
 
 export interface IProps {
     current_chat: IChatsGetChatInfoResponse;
@@ -58,6 +60,9 @@ export default function Messages({ current_chat }: IProps) {
     const YOUR_ID = useAppSelector(state => state.users.current_user?.user_id) || '0';
 
     const sortedMessages = useMemo(() => {
+        if (!chatMessages || chatMessages?.length === 0) {
+            return [];
+        }
         return chatMessages?.slice().sort((a, b) => {
             return b.id - a.id;
         });
@@ -123,7 +128,7 @@ export default function Messages({ current_chat }: IProps) {
     if (sortedMessages?.length === 0) {
         return (
             <div className={styles['messages']} ref={containerRef}>
-                <div className={styles['system_message']}>No messages</div>
+                <AlertBlock title="There is nothing here yet" description="You can send a message first" img_src={emojiHand} />
             </div>
         );
     }

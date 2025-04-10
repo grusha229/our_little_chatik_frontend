@@ -33,10 +33,7 @@ export default function MessagesSearchForm({ onBlur, onFocus }: IProps) {
     };
 
     return (
-        <form
-            onChange={handleSubmit(debounce(handleSubmitSearchForm, 500))}
-            className={style['form']}
-        >
+        <form onChange={handleSubmit(debounce(handleSubmitSearchForm, 500))} className={style['form']}>
             <Input
                 className={style['input']}
                 name="text"

@@ -86,10 +86,7 @@ export default function CreateChatForm() {
                             key={user.user_id}
                             label={`${user.name} ${user.surname}`}
                             onDelete={() => {
-                                const filteredTags =
-                                    selectedUsers.filter(
-                                        selectedUser => selectedUser.user_id !== user.user_id,
-                                    ) || [];
+                                const filteredTags = selectedUsers.filter(selectedUser => selectedUser.user_id !== user.user_id) || [];
                                 setSelectedUsers(filteredTags);
                                 setValue(
                                     'participants_ids',

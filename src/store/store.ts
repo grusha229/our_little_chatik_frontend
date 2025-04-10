@@ -38,13 +38,7 @@ export const store = configureStore({
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
             .concat(authApi.middleware, usersApi.middleware, chatApi.middleware)
-            .concat(
-                authMiddleware,
-                usersMiddleware,
-                chatsMiddleware,
-                searchMiddleware,
-                websocketMiddleware,
-            ),
+            .concat(authMiddleware, usersMiddleware, chatsMiddleware, searchMiddleware, websocketMiddleware),
 });
 
 // Загрузка токенов из localStorage при запуске приложения

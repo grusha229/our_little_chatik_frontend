@@ -51,14 +51,7 @@ export default function MediaAttachmentComponent({
 
     return (
         <div className={blockClassName} onClick={handleAttachmentClick}>
-            {onDelete && (
-                <IconButton
-                    className={styles['button-delete']}
-                    size="xsmall"
-                    icon={deleteIcon}
-                    onClick={handleDeleteFile}
-                />
-            )}
+            {onDelete && <IconButton className={styles['button-delete']} size="xsmall" icon={deleteIcon} onClick={handleDeleteFile} />}
             {AttachmentComponent}
             {size !== 'large' && (
                 <div className={fileNameClassName}>

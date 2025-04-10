@@ -1,11 +1,6 @@
 import { Middleware } from '@reduxjs/toolkit';
 import { authApi } from '@app/services/auth';
-import {
-    setTokens,
-    deleteTokens,
-    setActivatedEmail,
-    deleteActivatedEmail,
-} from '@app/store/features/auth';
+import { setTokens, deleteTokens, setActivatedEmail, deleteActivatedEmail } from '@app/store/features/auth';
 
 const authMiddleware: Middleware = store => next => async action => {
     const result = next(action);

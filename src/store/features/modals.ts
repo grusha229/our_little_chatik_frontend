@@ -39,10 +39,7 @@ export const modalsSlice = createSlice({
     name: 'search',
     initialState,
     reducers: {
-        openModal: <T extends keyof IModalsState>(
-            state: IModalsState,
-            action: PayloadAction<{ modal: T; params?: Partial<IModalsState[T]> }>,
-        ) => {
+        openModal: <T extends keyof IModalsState>(state: IModalsState, action: PayloadAction<{ modal: T; params?: Partial<IModalsState[T]> }>) => {
             console.log(action.payload);
             state[action.payload.modal].isVisible = true;
             if (action.payload.params) {

@@ -1,10 +1,5 @@
 // services/baseQueryWithReauth.ts
-import {
-    BaseQueryFn,
-    FetchArgs,
-    fetchBaseQuery,
-    FetchBaseQueryError,
-} from '@reduxjs/toolkit/query/react';
+import { BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import { setTokens, deleteTokens } from '@app/store/features/auth';
 import { RootState } from '@app/store/types'; // Типизация корневого состояния
 import { authApi } from './auth';
@@ -22,9 +17,7 @@ export interface IErrorResponse {
     };
 }
 
-export const createBaseQueryWithReauth = (
-    prefix: string,
-): BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError | IErrorResponse> => {
+export const createBaseQueryWithReauth = (prefix: string): BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError | IErrorResponse> => {
     const baseQuery = fetchBaseQuery({
         baseUrl: TEST_URL + prefix, // Пустой базовый URL, он будет передаваться в query
         credentials: 'include',
@@ -37,11 +30,7 @@ export const createBaseQueryWithReauth = (
         },
     });
 
-    const baseQueryWithReauth: BaseQueryFn<
-        string | FetchArgs,
-        unknown,
-        FetchBaseQueryError
-    > = async (args, api, extraOptions) => {
+    const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
         let result = await baseQuery(args, api, extraOptions);
         // Если получили ошибку 401 (неавторизован)
         if (result.error?.status === 401) {
@@ -49,9 +38,7 @@ export const createBaseQueryWithReauth = (
 
             if (refresh_token) {
                 // Используем refreshToken для обновления токенов
-                const refreshResult = await api.dispatch(
-                    authApi.endpoints.refreshToken.initiate({ refresh_token }),
-                );
+                const refreshResult = await api.dispatch(authApi.endpoints.refreshToken.initiate({ refresh_token }));
 
                 if (refreshResult.data) {
                     // Если обновление прошло успешно, сохраняем новые токены
@@ -75,19 +62,13 @@ export const createBaseQueryWithReauth = (
     return baseQueryWithReauth;
 };
 
-export const createBaseQuery = (
-    prefix: string,
-): BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> => {
+export const createBaseQuery = (prefix: string): BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> => {
     const baseQuery = fetchBaseQuery({
         baseUrl: TEST_URL + prefix, // Пустой базовый URL, он будет передаваться в query
         credentials: 'include',
     });
 
-    const baseQueryWithReauth: BaseQueryFn<
-        string | FetchArgs,
-        unknown,
-        FetchBaseQueryError
-    > = async (args, api, extraOptions) => {
+    const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
         return await baseQuery(args, api, extraOptions);
     };
 

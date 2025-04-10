@@ -12,29 +12,12 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
     className?: string;
 }
 
-export default function Input({
-    name,
-    placeholder,
-    register,
-    rules,
-    error,
-    className,
-    ...props
-}: IProps) {
-    const inputClassName = buildClassName(
-        style['input'],
-        error ? style['input--error'] : '',
-        className ? className : '',
-    );
+export default function Input({ name, placeholder, register, rules, error, className, ...props }: IProps) {
+    const inputClassName = buildClassName(style['input'], error ? style['input--error'] : '', className ? className : '');
 
     return (
         <div className={style['input-wrapper']}>
-            <input
-                className={inputClassName}
-                placeholder={placeholder}
-                {...register(name, rules)}
-                {...props}
-            />
+            <input className={inputClassName} placeholder={placeholder} {...register(name, rules)} {...props} />
             {error && <div className={style['error']}>{error.message}</div>}
         </div>
     );

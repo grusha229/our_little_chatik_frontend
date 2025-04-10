@@ -3,24 +3,11 @@ import styles from './ChatSendForm.module.scss';
 import Button from '@app/ui/Button/Button';
 import Input from '@app/ui/Input/Input';
 import { useForm } from 'react-hook-form';
-import {
-    IChatsFilesLink,
-    IChatsGetChatInfoResponse,
-    IChatsSendMessagePayload,
-    IMediaRefItem,
-} from '@app/models/chats';
-import {
-    useGetAttachmentsUploadUrlsMutation,
-    useSendChatMessageMutation,
-} from '@app/services/chat';
+import { IChatsFilesLink, IChatsGetChatInfoResponse, IChatsSendMessagePayload, IMediaRefItem } from '@app/models/chats';
+import { useGetAttachmentsUploadUrlsMutation, useSendChatMessageMutation } from '@app/services/chat';
 import { generateNewMessage } from './ChatSendForm.utils';
 import { useAppSelector } from '@app/store/hooks';
-import {
-    addMessage,
-    addUploadFiles,
-    resetUploadFiles,
-    updateMessageStatus,
-} from '@app/store/features/chats';
+import { addMessage, addUploadFiles, resetUploadFiles, updateMessageStatus } from '@app/store/features/chats';
 import { useDispatch } from 'react-redux';
 import { useUploadAttachmentMutation } from '@app/services/files';
 import UploadFileButton from '@app/ui/UploadFileButton/UploadFileButton';
@@ -32,14 +19,12 @@ export interface IProps {
 export default function ChatSendForm({ current_chat }: IProps) {
     const [filesToUpload, setFilesToUpload] = useState<File[]>([]);
     const chat_id = current_chat?.chat_id;
-    const [lastMessageId, setLastMessageId] = useState(current_chat.last_message?.id + 1);
+    const [lastMessageId, setLastMessageId] = useState(current_chat.last_message?.id ?? 0 + 1);
 
     const dispatch = useDispatch();
     const [sendMessage] = useSendChatMessageMutation();
-    const [
-        getAttachmentsUploadLinks,
-        { isSuccess: isLinksSuccessfullyGet, data: fetchedLinksToUpload, isUninitialized },
-    ] = useGetAttachmentsUploadUrlsMutation();
+    const [getAttachmentsUploadLinks, { isSuccess: isLinksSuccessfullyGet, data: fetchedLinksToUpload, isUninitialized }] =
+        useGetAttachmentsUploadUrlsMutation();
     const [uploadAttachment] = useUploadAttachmentMutation();
     const attachments = useAppSelector(state => state.chats.uploads[current_chat?.chat_id]);
 
@@ -124,12 +109,7 @@ export default function ChatSendForm({ current_chat }: IProps) {
                     content_type: link.content_type,
                 })) || [];
 
-            const newMessage = generateNewMessage(
-                lastMessageId,
-                formData.payload,
-                current_id,
-                mediaRefs,
-            );
+            const newMessage = generateNewMessage(lastMessageId, formData.payload, current_id, mediaRefs);
 
             setLastMessageId(prev => prev + 1);
             dispatch(addMessage({ chat_id, message: newMessage }));
@@ -167,12 +147,7 @@ export default function ChatSendForm({ current_chat }: IProps) {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles['form']}>
-            <Input
-                name="payload"
-                register={register}
-                className={styles['input']}
-                placeholder="Enter a message..."
-            />
+            <Input name="payload" register={register} className={styles['input']} placeholder="Enter a message..." />
             <UploadFileButton name="upload_ids" handleChange={handleFileChange} register={register}>
                 File
             </UploadFileButton>

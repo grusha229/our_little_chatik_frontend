@@ -27,9 +27,6 @@ export default function MessageFormAttachments({ current_chat }: IProps) {
         [current_chat?.chat_id, dispatch],
     );
 
-    console.log('attachments[current_chat?.chat_id]', attachments);
-    console.log('current_chat?.chat_id', current_chat?.chat_id);
-
     const toggleModalVisibility = useCallback(
         (current_media: IChatsUploadFileLink) => {
             if (isImageFile(current_media.content_type)) {

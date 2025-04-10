@@ -38,13 +38,7 @@ export default function LoginForm() {
 
     return (
         <form onSubmit={handleSubmit(handleSubmitLinkForm)} className={style['form']}>
-            <Input
-                name="nickname"
-                placeholder="Nickname"
-                register={register}
-                rules={{ required: 'Enter your nickname' }}
-                error={errors.nickname}
-            />
+            <Input name="nickname" placeholder="Nickname" register={register} rules={{ required: 'Enter your nickname' }} error={errors.nickname} />
             <Input
                 name="password"
                 placeholder="Password"

@@ -1,14 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import {
-    useGetAvatarUploadUrlMutation,
-    usePatchCurrentUserInfoMutation,
-} from '@app/services/users';
+import { useGetAvatarUploadUrlMutation, usePatchCurrentUserInfoMutation } from '@app/services/users';
 import { useForm } from 'react-hook-form';
-import {
-    ICurrentUserInfoResponse,
-    IUsersPatchCurrentUserPayload,
-    IUsersUploadAvatarLinkResponse,
-} from '@app/models/users';
+import { ICurrentUserInfoResponse, IUsersPatchCurrentUserPayload, IUsersUploadAvatarLinkResponse } from '@app/models/users';
 import styles from './PersonalInfoForm.module.scss';
 import Input from '@app/ui/Input/Input';
 import Button from '@app/ui/Button/Button';
@@ -44,10 +37,8 @@ export default function PersonalInfoForm({ user }: IProps) {
     const watchUploadIds = watch('avatar_upload_id');
     const isAvatarLoaded = watchUploadIds && watchUploadIds.length > 0;
 
-    const [
-        getAttachmentUploadLink,
-        { isSuccess: isLinkSuccessfullyGet, data: fetchedLinkToUpload, isUninitialized },
-    ] = useGetAvatarUploadUrlMutation();
+    const [getAttachmentUploadLink, { isSuccess: isLinkSuccessfullyGet, data: fetchedLinkToUpload, isUninitialized }] =
+        useGetAvatarUploadUrlMutation();
     const [uploadAttachment] = useUploadAttachmentMutation();
 
     useEffect(() => {
@@ -72,13 +63,7 @@ export default function PersonalInfoForm({ user }: IProps) {
                 content_type: fileToUpload?.type,
             });
         }
-    }, [
-        isUninitialized,
-        uploadAttachment,
-        isLinkSuccessfullyGet,
-        fileToUpload,
-        linkToUpload?.upload_link,
-    ]);
+    }, [isUninitialized, uploadAttachment, isLinkSuccessfullyGet, fileToUpload, linkToUpload?.upload_link]);
 
     const [updateUser, error] = usePatchCurrentUserInfoMutation();
     const apiError = error?.error as IErrorResponse;
@@ -128,31 +113,10 @@ export default function PersonalInfoForm({ user }: IProps) {
                 Upload avatar
             </UploadFileButton>
             <div className={styles['description']}>Tap to edit your personal info</div>
-            <Input
-                name="name"
-                placeholder={user?.name ?? 'Enter name'}
-                register={register}
-                error={errors.name}
-            />
-            <Input
-                name="surname"
-                placeholder={user?.surname ?? 'Enter surname'}
-                register={register}
-                error={errors.surname}
-            />
-            <Input
-                name="nickname"
-                placeholder={user?.nickname ?? 'Enter nickname'}
-                register={register}
-                error={errors.nickname}
-            />
-            <Input
-                name="email"
-                placeholder={user?.email ?? 'Enter nickname'}
-                disabled
-                register={register}
-                error={errors.nickname}
-            />
+            <Input name="name" placeholder={user?.name ?? 'Enter name'} register={register} error={errors.name} />
+            <Input name="surname" placeholder={user?.surname ?? 'Enter surname'} register={register} error={errors.surname} />
+            <Input name="nickname" placeholder={user?.nickname ?? 'Enter nickname'} register={register} error={errors.nickname} />
+            <Input name="email" placeholder={user?.email ?? 'Enter nickname'} disabled register={register} error={errors.nickname} />
             {(isDirty || isAvatarLoaded) && (
                 <Button type="submit" block disabled={!isValid}>
                     Change

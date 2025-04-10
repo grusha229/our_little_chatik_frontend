@@ -13,14 +13,7 @@ export interface IProps {
     ref?: React.MutableRefObject<any>;
 }
 
-export default function MessagesChatItem({
-    heading,
-    last_message,
-    img_src,
-    link,
-    onClick,
-    ref,
-}: IProps) {
+export default function MessagesChatItem({ heading, last_message, img_src, link, onClick, ref }: IProps) {
     const didItemClicked = useCallback(() => {
         return onClick && onClick();
     }, [onClick]);
@@ -28,7 +21,7 @@ export default function MessagesChatItem({
     if (link) {
         return (
             <Link to={`${link}`} className={styles['chat']} onClick={didItemClicked} ref={ref}>
-                <Avatar src={img_src || `https://ui-avatars.com/api/?name=${heading}`} />
+                <Avatar src={img_src} />
                 <div className={styles['chat-details']}>
                     <div className={styles['name']}>{heading}</div>
                     <div className={styles['message']}>{last_message}</div>
@@ -39,7 +32,7 @@ export default function MessagesChatItem({
 
     return (
         <div className={styles['chat']} onClick={didItemClicked} ref={ref}>
-            <Avatar src={img_src || `https://ui-avatars.com/api/?name=${heading}`} />
+            <Avatar src={img_src} />
             <div className={styles['chat-details']}>
                 <div className={styles['name']}>{heading}</div>
                 <div className={styles['message']}>{last_message}</div>

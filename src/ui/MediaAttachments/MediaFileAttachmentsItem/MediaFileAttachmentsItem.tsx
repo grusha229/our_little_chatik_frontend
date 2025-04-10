@@ -11,10 +11,7 @@ export interface IProps {
 }
 
 export default function MediaFileAttachmentsItem({ src, size = 'large', onClick }: IProps) {
-    const wrapperClassName = buildClassName(
-        styles['image-wrapper'],
-        styles[`image-wrapper--${size}`],
-    );
+    const wrapperClassName = buildClassName(styles['image-wrapper'], styles[`image-wrapper--${size}`]);
 
     const handleClick = useCallback(() => {
         onClick && onClick();
