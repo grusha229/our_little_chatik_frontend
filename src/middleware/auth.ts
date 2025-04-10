@@ -39,9 +39,12 @@ const authMiddleware: Middleware = store => next => async action => {
         const { token, refresh_token } = action.payload;
         const params = action.meta.arg.originalArgs;
 
+        const timestamp = new Date().getTime().toString();
+
         localStorage.setItem('access_token', token);
         localStorage.setItem('refresh_token', refresh_token);
         localStorage.setItem('activated_email', params.email);
+        localStorage.setItem('activation_timestamp', timestamp);
 
         store.dispatch(setActivatedEmail(params.email));
         store.dispatch(setTokens({ token, refresh_token }));
@@ -61,6 +64,7 @@ const authMiddleware: Middleware = store => next => async action => {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         localStorage.removeItem('activated_email');
+        localStorage.removeItem('activation_timestamp');
 
         store.dispatch(deleteTokens());
     }

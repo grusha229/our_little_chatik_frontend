@@ -5,6 +5,7 @@ import { IActivationPayload } from '@app/models/auth';
 import Button from '@app/ui/Button/Button';
 import Input from '@app/ui/Input/Input';
 import { IErrorResponse } from '@app/services/baseQuery';
+import ResendActivation from '../ResendActivation/ResendActivation';
 export default function ActivationForm() {
     // Инициализация useForm
     const {
@@ -35,6 +36,7 @@ export default function ActivationForm() {
             <Button type="submit" block disabled={!isValid || isSubmitting}>
                 Activate
             </Button>
+            <ResendActivation />
             {apiError && <div className="error">{apiError?.data?.message}</div>}
         </form>
     );
