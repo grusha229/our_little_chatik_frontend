@@ -1,6 +1,6 @@
 import styles from './ChatArea.module.scss';
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Messages from './Messages/Messages.js';
 import ChatHeader from './ChatHeader/ChatHeader.js';
 import { useGetChatInfoMutation } from '@app/services/chat.js';
