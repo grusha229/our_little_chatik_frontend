@@ -2,7 +2,7 @@ import styles from './AlertBlock.module.scss';
 
 export interface IProps {
     img_src?: string;
-    title: string;
+    title: JSX.Element | string;
     description?: string;
 }
 

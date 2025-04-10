@@ -12,7 +12,9 @@ export interface IProps {
 }
 
 export default function MessageFormAttachments({ current_chat }: IProps) {
-    const attachments = useAppSelector(state => state.chats.uploads[current_chat?.chat_id]);
+    const attachments = useAppSelector(state => state.chats.uploads[current_chat?.chat_id]?.list);
+    const attachmentsStatus = useAppSelector(state => state.chats.uploads[current_chat?.chat_id]?.status);
+    const isAttachmentsReady = attachmentsStatus === 'done';
     const dispatch = useAppDispatch();
 
     const handleDeleteFile = useCallback(
@@ -73,9 +75,7 @@ export default function MessageFormAttachments({ current_chat }: IProps) {
                             preview_link={file?.preview_link}
                             onClick={() => toggleModalVisibility(file)}
                             onDelete={() => handleDeleteFile(file.upload_id)}
-                            // onDelete={() => onDelete(file?.upload_id)}
-                            // isFileUploaded={isFileUploaded}
-                            isFileUploaded
+                            isFileUploaded={isAttachmentsReady}
                             file_name={file?.upload_file_name}
                             size="small"
                         />

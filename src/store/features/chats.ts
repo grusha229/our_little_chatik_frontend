@@ -6,6 +6,8 @@ import {
     IChatsGetChatInfoResponse,
     IChatsGetChatMessagesResponse,
     IChatsUploadFileLink,
+    IChatsUploadsState,
+    TStatus,
 } from '@app/models/chats';
 
 export interface IChatsState {
@@ -22,7 +24,7 @@ export interface IChatsState {
      * @key chat_id
      * @value array of files {@link IChatsUploadFileLink}
      */
-    uploads: Record<string, Array<IChatsUploadFileLink>>;
+    uploads: Record<string, IChatsUploadsState>;
 }
 
 const initialState: IChatsState = {
@@ -63,15 +65,31 @@ export const chatsSlice = createSlice({
             action: PayloadAction<{
                 chat_id: string;
                 files: Array<IChatsUploadFileLink>;
+                status: TStatus;
             }>,
         ) => {
-            state.uploads[action.payload.chat_id] = [...action.payload.files];
+            //@ts-expect-error TODO Check this problem with uploads initialization
+            state.uploads[action.payload.chat_id] = {};
+            state.uploads[action.payload.chat_id].list = [...action.payload.files];
+            state.uploads[action.payload.chat_id].status = action.payload.status;
+        },
+        editUploadFilesStatus: (
+            state,
+            action: PayloadAction<{
+                chat_id: string;
+                status: TStatus;
+            }>,
+        ) => {
+            state.uploads[action.payload.chat_id].status = action.payload.status;
         },
         deleteUploadFiles: (state, action: PayloadAction<{ chat_id: string; target_id: string }>) => {
-            state.uploads[action.payload.chat_id] = state.uploads[action.payload.chat_id].filter(file => file.upload_id !== action.payload.target_id);
+            state.uploads[action.payload.chat_id].list = state.uploads[action.payload.chat_id].list.filter(
+                file => file.upload_id !== action.payload.target_id,
+            );
         },
         resetUploadFiles: (state, action: PayloadAction<{ chat_id: string }>) => {
-            state.uploads[action.payload.chat_id] = [];
+            state.uploads[action.payload.chat_id].list = [];
+            state.uploads[action.payload.chat_id].status = 'done';
         },
         addMoreMessages: (
             state,
@@ -129,6 +147,7 @@ export const {
     addChat,
     updateChatLastMessage,
     addUploadFiles,
+    editUploadFilesStatus,
     resetUploadFiles,
     deleteUploadFiles,
 } = chatsSlice.actions;

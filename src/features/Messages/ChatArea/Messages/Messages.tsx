@@ -11,6 +11,7 @@ import { scrollToBottom } from '@app/utils/scrollToBottom.js';
 import Loader from '@app/ui/Loader/Loader.js';
 import AlertBlock from '@app/ui/AlertBlock/AlertBlock.js';
 import emojiHand from '@app/img/icons/emoji-hand.png';
+import emojiMonkey from '@app/img/icons/emoji-monkey.png';
 
 export interface IProps {
     current_chat: IChatsGetChatInfoResponse;
@@ -120,7 +121,7 @@ export default function Messages({ current_chat }: IProps) {
     if (error) {
         return (
             <div className={styles['messages']} ref={containerRef}>
-                <div className={styles['system_message']}>Error</div>
+                <AlertBlock title="Error" description="You can send a message first" img_src={emojiMonkey} />
             </div>
         );
     }
@@ -128,7 +129,7 @@ export default function Messages({ current_chat }: IProps) {
     if (sortedMessages?.length === 0) {
         return (
             <div className={styles['messages']} ref={containerRef}>
-                <AlertBlock title="There is nothing here yet" description="You can send a message first" img_src={emojiHand} />
+                <AlertBlock title="There is nothing here yet" description={error} img_src={emojiHand} />
             </div>
         );
     }
@@ -136,7 +137,7 @@ export default function Messages({ current_chat }: IProps) {
     return (
         <div className={styles['messages']} ref={containerRef}>
             {isFetching && (
-                <div className={styles['loading']}>
+                <div className={styles['system_message']}>
                     <Loader />
                     <div>Loading...</div>
                 </div>

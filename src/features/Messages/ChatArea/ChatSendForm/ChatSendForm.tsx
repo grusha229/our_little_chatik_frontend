@@ -7,7 +7,7 @@ import { IChatsFilesLink, IChatsGetChatInfoResponse, IChatsSendMessagePayload, I
 import { useGetAttachmentsUploadUrlsMutation, useSendChatMessageMutation } from '@app/services/chat';
 import { generateNewMessage } from './ChatSendForm.utils';
 import { useAppSelector } from '@app/store/hooks';
-import { addMessage, addUploadFiles, resetUploadFiles, updateMessageStatus } from '@app/store/features/chats';
+import { addMessage, addUploadFiles, editUploadFilesStatus, resetUploadFiles, updateMessageStatus } from '@app/store/features/chats';
 import { useDispatch } from 'react-redux';
 import { useUploadAttachmentMutation } from '@app/services/files';
 import UploadFileButton from '@app/ui/UploadFileButton/UploadFileButton';
@@ -26,14 +26,17 @@ export default function ChatSendForm({ current_chat }: IProps) {
     const [getAttachmentsUploadLinks, { isSuccess: isLinksSuccessfullyGet, data: fetchedLinksToUpload, isUninitialized }] =
         useGetAttachmentsUploadUrlsMutation();
     const [uploadAttachment] = useUploadAttachmentMutation();
-    const attachments = useAppSelector(state => state.chats.uploads[current_chat?.chat_id]);
 
+    const { list: attachments, status: attachmentsStatus } = useAppSelector(state => state.chats.uploads[current_chat.chat_id]);
+
+    const isAttachmentsReady = attachmentsStatus === 'done';
     const upload_ids = attachments?.map(file => file.upload_id);
 
     const {
         register,
         handleSubmit,
         formState: { isSubmitting },
+        setValue,
         reset,
         watch,
     } = useForm<IChatsSendMessagePayload>({
@@ -56,23 +59,40 @@ export default function ChatSendForm({ current_chat }: IProps) {
     }, [chat_id, reset]);
 
     useEffect(() => {
+        setValue('upload_ids', upload_ids);
+    }, [upload_ids, setValue]);
+
+    useEffect(() => {
         if (fetchedLinksToUpload && !isUninitialized && isLinksSuccessfullyGet) {
-            dispatch(addUploadFiles({ chat_id, files: fetchedLinksToUpload }));
+            dispatch(addUploadFiles({ chat_id, files: fetchedLinksToUpload, status: 'pending' }));
         }
     }, [chat_id, dispatch, fetchedLinksToUpload, isLinksSuccessfullyGet, isUninitialized, reset]);
 
     useEffect(() => {
         if (isLinksSuccessfullyGet && !isUninitialized && filesToUpload?.length > 0) {
-            attachments?.forEach((link, index) => {
+            const uploadPromises = attachments?.map((link, index) => {
                 const current_file = filesToUpload[index];
-                uploadAttachment({
-                    url: link?.upload_link,
-                    file: current_file,
-                    content_type: link?.content_type,
+                return new Promise((resolve, reject) => {
+                    uploadAttachment({
+                        url: link?.upload_link,
+                        file: current_file,
+                        content_type: link?.content_type,
+                    })
+                        .then(() => resolve('completed')) // Если загрузка успешна
+                        .catch(error => reject(error)); // Если ошибка загрузки
                 });
             });
+
+            // Ожидаем выполнения всех загрузок
+            Promise.all(uploadPromises)
+                .then(() => {
+                    dispatch(editUploadFilesStatus({ chat_id, status: 'done' }));
+                })
+                .catch(() => {
+                    dispatch(editUploadFilesStatus({ chat_id, status: 'rejected' }));
+                });
         }
-    }, [filesToUpload, isUninitialized, isLinksSuccessfullyGet, uploadAttachment, attachments]);
+    }, [filesToUpload, isUninitialized, isLinksSuccessfullyGet, uploadAttachment, attachments, chat_id, dispatch]);
 
     const handleFileChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +112,7 @@ export default function ChatSendForm({ current_chat }: IProps) {
                     id: chat_id,
                     links: filesArray,
                 }).then(res => {
-                    dispatch(addUploadFiles({ chat_id, files: res.data || [] }));
+                    dispatch(addUploadFiles({ chat_id, files: res.data || [], status: 'pending' }));
                 });
             }
         },
@@ -104,7 +124,7 @@ export default function ChatSendForm({ current_chat }: IProps) {
             const mediaRefs: IMediaRefItem[] =
                 attachments?.map(link => ({
                     url: link.preview_link,
-                    path: link.upload_file_name,
+                    path: link.preview_link,
                     file_name: link.upload_file_name,
                     content_type: link.content_type,
                 })) || [];
@@ -118,7 +138,6 @@ export default function ChatSendForm({ current_chat }: IProps) {
                 await sendMessage(formData)
                     .unwrap()
                     .then(response => {
-                        console.log('Пришёл ответ', response);
                         // Обновляем статус на "sent" и ID на настоящий
                         dispatch(
                             updateMessageStatus({
@@ -129,6 +148,7 @@ export default function ChatSendForm({ current_chat }: IProps) {
                         );
                     });
             } catch (error) {
+                console.error(error);
                 // В случае ошибки обновляем статус на "failed"
                 dispatch(
                     updateMessageStatus({
@@ -137,12 +157,11 @@ export default function ChatSendForm({ current_chat }: IProps) {
                         chat_id,
                     }),
                 );
-                console.error('Ошибка отправки сообщения:', error);
             }
-            dispatch(resetUploadFiles({ chat_id }));
+            isAttachmentsReady && dispatch(resetUploadFiles({ chat_id }));
             reset(); // Очистка формы
         },
-        [attachments, chat_id, current_id, dispatch, lastMessageId, reset, sendMessage],
+        [attachments, isAttachmentsReady, chat_id, current_id, dispatch, lastMessageId, reset, sendMessage],
     );
 
     return (

@@ -6,6 +6,7 @@ import pdfFileIcon from '@app/img/icons/icon--file-pdf.svg';
 import audioFileIcon from '@app/img/icons/icon--file-audio.svg';
 import videoFileIcon from '@app/img/icons/icon--file-video.svg';
 import defaultFileIcon from '@app/img/icons/icon--file-default.svg';
+import Loader from '@app/ui/Loader/Loader';
 
 export const isImageFile = (content_type: string): boolean => {
     return content_type.startsWith('image/');
@@ -38,6 +39,10 @@ export interface IProps {
 
 export const getAttachmentComponent = ({ content_type, size, isFileUploaded, preview_link }: IProps) => {
     const fileType = getFileType(content_type);
+
+    if (!isFileUploaded) {
+        return <Loader />;
+    }
 
     const iconBackgroundSrc = fileType === 'image' && isFileUploaded ? preview_link : FILE_TYPE_ICONS[fileType];
 

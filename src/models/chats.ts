@@ -108,6 +108,13 @@ export interface IChatsUploadFileLink {
     content_type: string;
 }
 
+export type TStatus = 'done' | 'pending' | 'rejected';
+
+export interface IChatsUploadsState {
+    list: IChatsUploadFileLink[];
+    status: TStatus;
+}
+
 export interface IChatsAttachmentUploadPayload {
     url: string;
     file: any;

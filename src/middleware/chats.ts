@@ -1,6 +1,6 @@
 import { Middleware } from '@reduxjs/toolkit';
 import { chatApi } from '@app/services/chat';
-import { addMoreMessages, setChatMessages, setChats, setCurrentChat } from '@app/store/features/chats';
+import { addMoreMessages, addUploadFiles, setChatMessages, setChats, setCurrentChat } from '@app/store/features/chats';
 import { AppDispatch } from '@app/store/types';
 
 const chatsMiddleware: Middleware = store => next => async action => {
@@ -30,6 +30,7 @@ const chatsMiddleware: Middleware = store => next => async action => {
         if (!action.payload?.last_message) {
             store.dispatch(setChatMessages({ chat_id: action.payload.chat_id, messages: [] }));
         }
+        store.dispatch(addUploadFiles({ chat_id: action.payload.chat_id, files: [], status: 'done' }));
     }
 
     if (chatApi.endpoints.getChatMessages.matchFulfilled(action)) {
