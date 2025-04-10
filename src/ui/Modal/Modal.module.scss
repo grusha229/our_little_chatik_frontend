@@ -61,13 +61,13 @@
 
     width: 24px;
     height: 24px;
-    opacity: .5;
+    opacity: 0.5;
 
     &:hover {
         opacity: 1;
         cursor: pointer;
 
-        transition: all ease-in-out .05s;
+        transition: all ease-in-out 0.05s;
     }
 
     img {

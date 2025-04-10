@@ -5,70 +5,78 @@ import { WsMessageType } from '@app/models/websocket';
 import { setConnectionStatus } from '@app/store/features/websocket';
 import type { RootState } from '@app/store/types';
 
-const websocketMiddleware: Middleware = (api: MiddlewareAPI<any, RootState>) => (next) => (action: any) => {
-  const { dispatch, getState } = api;
-  const state = getState();
+const websocketMiddleware: Middleware =
+    (api: MiddlewareAPI<any, RootState>) => next => (action: any) => {
+        const { dispatch, getState } = api;
+        const state = getState();
 
-  switch (action.type) {
-    case 'websocket/connect': {
-      const token = state.auth.token || '';
-      websocketService.connect(action.payload, token);
-      break;
-    }
+        switch (action.type) {
+            case 'websocket/connect': {
+                const token = state.auth.token || '';
+                websocketService.connect(action.payload, token);
+                break;
+            }
 
-    case 'websocket/sendMessage': {
-      websocketService.send(action.payload);
-      break;
-    }
+            case 'websocket/sendMessage': {
+                websocketService.send(action.payload);
+                break;
+            }
 
-    case 'websocket/disconnect': {
-      websocketService.disconnect();
-      dispatch(setConnectionStatus(false));
-      break;
-    }
+            case 'websocket/disconnect': {
+                websocketService.disconnect();
+                dispatch(setConnectionStatus(false));
+                break;
+            }
 
-    case 'websocket/receiveMessage': {
-      const message = action.payload;
+            case 'websocket/receiveMessage': {
+                const message = action.payload;
 
-      switch (message.type) {
-        case WsMessageType.MESSAGE_CREATED:
-          console.log('Message created', message.data);
-          // if (message.data.sender_id !== state.users.current_user?.user_id) {
-            dispatch(addMessage({ chat_id: message.data.chat_id, message: message.data }));
-          // } else {
-            // dispatch(updateMessageStatus({ id: message.data.id, chat_id: message.data.chat_id, status: 'sent'}))
-          // }
+                switch (message.type) {
+                    case WsMessageType.MESSAGE_CREATED:
+                        console.log('Message created', message.data);
+                        // if (message.data.sender_id !== state.users.current_user?.user_id) {
+                        dispatch(
+                            addMessage({
+                                chat_id: message.data.chat_id,
+                                message: message.data,
+                            }),
+                        );
+                        // } else {
+                        // dispatch(updateMessageStatus({ id: message.data.id, chat_id: message.data.chat_id, status: 'sent'}))
+                        // }
 
-          dispatch(updateChatLastMessage(message.data));
-          break;
+                        dispatch(updateChatLastMessage(message.data));
+                        break;
 
-        case WsMessageType.CHAT_CREATED: {
-          console.log('Chat created', message.data);
-          const chatExists = state.chats.chats.find(chat => chat.chat_id === message.data.chat_id);
-          if (!chatExists) {
-            dispatch(addChat(message.data));
-          }
+                    case WsMessageType.CHAT_CREATED: {
+                        console.log('Chat created', message.data);
+                        const chatExists = state.chats.chats.find(
+                            chat => chat.chat_id === message.data.chat_id,
+                        );
+                        if (!chatExists) {
+                            dispatch(addChat(message.data));
+                        }
 
-          break;
+                        break;
+                    }
+
+                    case WsMessageType.MESSAGE_READ:
+                        console.log('Message read', message.data);
+                        break;
+
+                    case WsMessageType.CHAT_UPDATED:
+                        console.log('Chat updated', message.data);
+                        break;
+
+                    default:
+                        console.warn('Unknown message type:', message.type);
+                }
+                break;
+            }
+
+            default:
+                return next(action);
         }
-
-        case WsMessageType.MESSAGE_READ:
-          console.log('Message read', message.data);
-          break;
-
-        case WsMessageType.CHAT_UPDATED:
-          console.log('Chat updated', message.data);
-          break;
-
-        default:
-          console.warn('Unknown message type:', message.type);
-      }
-      break;
-    }
-
-    default:
-      return next(action);
-  }
-};
+    };
 
 export default websocketMiddleware;

@@ -1,7 +1,14 @@
-import { useCallback, useEffect, useState } from 'react'
-import { useGetAvatarUploadUrlMutation, usePatchCurrentUserInfoMutation } from '@app/services/users';
+import { useCallback, useEffect, useState } from 'react';
+import {
+    useGetAvatarUploadUrlMutation,
+    usePatchCurrentUserInfoMutation,
+} from '@app/services/users';
 import { useForm } from 'react-hook-form';
-import { ICurrentUserInfoResponse, IUsersPatchCurrentUserPayload, IUsersUploadAvatarLinkResponse } from '@app/models/users';
+import {
+    ICurrentUserInfoResponse,
+    IUsersPatchCurrentUserPayload,
+    IUsersUploadAvatarLinkResponse,
+} from '@app/models/users';
 import styles from './PersonalInfoForm.module.scss';
 import Input from '@app/ui/Input/Input';
 import Button from '@app/ui/Button/Button';
@@ -10,18 +17,22 @@ import { useUploadAttachmentMutation } from '@app/services/files';
 import { IErrorResponse } from '@app/services/baseQuery';
 
 export interface IProps {
-    user: ICurrentUserInfoResponse
+    user: ICurrentUserInfoResponse;
 }
 
-export default function PersonalInfoForm({
-    user
-}: IProps) {
-
-    const [ fileToUpload, setFileToUpload ] = useState<File>()
-      const [ linkToUpload, setLinkToUpload ] = useState<IUsersUploadAvatarLinkResponse>()
+export default function PersonalInfoForm({ user }: IProps) {
+    const [fileToUpload, setFileToUpload] = useState<File>();
+    const [linkToUpload, setLinkToUpload] = useState<IUsersUploadAvatarLinkResponse>();
 
     // Инициализация useForm
-    const { register, handleSubmit, formState: { errors, isValid, isDirty }, reset, setValue, watch} = useForm<IUsersPatchCurrentUserPayload>({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isValid, isDirty },
+        reset,
+        setValue,
+        watch,
+    } = useForm<IUsersPatchCurrentUserPayload>({
         mode: 'onBlur',
         defaultValues: {
             name: user?.name,
@@ -30,12 +41,15 @@ export default function PersonalInfoForm({
         },
     });
 
-  const watchUploadIds = watch("avatar_upload_id");
-  const isAvatarLoaded = (watchUploadIds && watchUploadIds.length > 0);
+    const watchUploadIds = watch('avatar_upload_id');
+    const isAvatarLoaded = watchUploadIds && watchUploadIds.length > 0;
 
-  const [ getAttachmentUploadLink, { isSuccess: isLinkSuccessfullyGet, data: fetchedLinkToUpload, isUninitialized }] = useGetAvatarUploadUrlMutation();
-  const [ uploadAttachment ] = useUploadAttachmentMutation();
-  
+    const [
+        getAttachmentUploadLink,
+        { isSuccess: isLinkSuccessfullyGet, data: fetchedLinkToUpload, isUninitialized },
+    ] = useGetAvatarUploadUrlMutation();
+    const [uploadAttachment] = useUploadAttachmentMutation();
+
     useEffect(() => {
         reset({
             name: user?.name,
@@ -44,61 +58,66 @@ export default function PersonalInfoForm({
         });
     }, [user, reset]);
 
-      useEffect(() => {
+    useEffect(() => {
         if (fetchedLinkToUpload && !isUninitialized && isLinkSuccessfullyGet) {
-          setLinkToUpload(fetchedLinkToUpload)
+            setLinkToUpload(fetchedLinkToUpload);
         }
-      }, [fetchedLinkToUpload, isLinkSuccessfullyGet, isUninitialized, reset]);
+    }, [fetchedLinkToUpload, isLinkSuccessfullyGet, isUninitialized, reset]);
 
     useEffect(() => {
         if (isLinkSuccessfullyGet && !isUninitialized && fileToUpload) {
-                uploadAttachment({
-                    url: linkToUpload?.upload_link ?? '',
-                    file: fileToUpload,
-                    content_type: fileToUpload?.type,
-                });
+            uploadAttachment({
+                url: linkToUpload?.upload_link ?? '',
+                file: fileToUpload,
+                content_type: fileToUpload?.type,
+            });
         }
-    }, [isUninitialized, uploadAttachment, isLinkSuccessfullyGet, fileToUpload, linkToUpload?.upload_link]);
+    }, [
+        isUninitialized,
+        uploadAttachment,
+        isLinkSuccessfullyGet,
+        fileToUpload,
+        linkToUpload?.upload_link,
+    ]);
 
-    const [ updateUser, error ] = usePatchCurrentUserInfoMutation();
+    const [updateUser, error] = usePatchCurrentUserInfoMutation();
     const apiError = error?.error as IErrorResponse;
     let apiErrorText = apiError?.data?.message;
 
     if (apiError?.status === 403) {
-        apiErrorText = apiError?.data?.properties?.description
+        apiErrorText = apiError?.data?.properties?.description;
     }
 
     const handleSubmitLinkForm = async (formData: IUsersPatchCurrentUserPayload) => {
         try {
             const response = await updateUser(formData).unwrap();
-            console.log("Ответ от сервера:", response);
+            console.log('Ответ от сервера:', response);
         } catch (error) {
-            console.error("Failed to update user:", error);
+            console.error('Failed to update user:', error);
         }
     };
 
-      const handleFileChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-        const files = event.target.files;
+    const handleFileChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const files = event.target.files;
 
-        if (files && files?.length > 0) {
-            setFileToUpload(files[0]);
-            const file = {
-                content_type: files[0].type,
-                name: files[0].name,
-            }
-            getAttachmentUploadLink(file)
-                .then((res) => {
-                    console.log(res)
+            if (files && files?.length > 0) {
+                setFileToUpload(files[0]);
+                const file = {
+                    content_type: files[0].type,
+                    name: files[0].name,
+                };
+                getAttachmentUploadLink(file).then(res => {
+                    console.log(res);
                     setValue('avatar_upload_id', res?.data?.upload_id || '');
-                })
-        }
-      },[getAttachmentUploadLink, setValue]);
+                });
+            }
+        },
+        [getAttachmentUploadLink, setValue],
+    );
 
     return (
-        <form 
-            onSubmit={handleSubmit(handleSubmitLinkForm)}
-            className={styles['form']}
-        >
+        <form onSubmit={handleSubmit(handleSubmitLinkForm)} className={styles['form']}>
             <UploadFileButton
                 className={styles['avatar-button']}
                 name="avatar_upload_id"
@@ -127,7 +146,7 @@ export default function PersonalInfoForm({
                 register={register}
                 error={errors.nickname}
             />
-             <Input
+            <Input
                 name="email"
                 placeholder={user?.email ?? 'Enter nickname'}
                 disabled
@@ -135,19 +154,11 @@ export default function PersonalInfoForm({
                 error={errors.nickname}
             />
             {(isDirty || isAvatarLoaded) && (
-                <Button
-                    type='submit'
-                    block
-                    disabled={!isValid}
-                >
+                <Button type="submit" block disabled={!isValid}>
                     Change
                 </Button>
             )}
-            {apiError && (
-                <div className='error'>
-                    {apiErrorText}
-                </div>
-            )}
+            {apiError && <div className="error">{apiErrorText}</div>}
         </form>
-    )
+    );
 }

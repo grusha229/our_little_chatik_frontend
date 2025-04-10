@@ -1,5 +1,5 @@
-@use "@app/helpers/styles/_colors.scss" as colors;
-@use "@app/helpers/styles/responsives" as responsives;
+@use '@app/helpers/styles/_colors.scss' as colors;
+@use '@app/helpers/styles/responsives' as responsives;
 
 .message {
     display: flex;
@@ -44,7 +44,8 @@
     align-self: flex-end;
 }
 
-.notMine.loading, .mine.loading {
+.notMine.loading,
+.mine.loading {
     width: 150px;
     height: 1em;
 }

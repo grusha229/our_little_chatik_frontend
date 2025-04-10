@@ -1,4 +1,4 @@
-@use "@app/helpers/styles/colors" as colors;
+@use '@app/helpers/styles/colors' as colors;
 
 .block {
     display: flex;
@@ -12,7 +12,7 @@
     border-radius: 8px;
 
     &:hover {
-        background: rgba($color: colors.$color-background-light, $alpha: .7);
+        background: rgba($color: colors.$color-background-light, $alpha: 0.7);
         transition: background ease 0.3s;
     }
 }
@@ -23,11 +23,11 @@
 
     &--name {
         font-size: 20px;
-        line-height: 1.2
+        line-height: 1.2;
     }
 
     &--status {
         font-size: 12px;
-        line-height: 1.2
+        line-height: 1.2;
     }
 }

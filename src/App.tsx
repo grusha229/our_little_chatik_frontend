@@ -11,25 +11,33 @@ import ActivationPage from './views/ActivationPage/ActivationPage';
 import AuthRedirect from './views/AuthRedirect';
 
 function App() {
-  return (
-    <Provider store={store}>
-        <Router>
-          <Routes>
-            <Route path="/" element={<AuthRedirect />} />
-            <Route path="/" element={<PublicRoute />} errorElement={<ErrorPage />} >
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/activation" element={<ActivationPage />} />
-            </Route>
+    return (
+        <Provider store={store}>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<AuthRedirect />} />
+                    <Route path="/" element={<PublicRoute />} errorElement={<ErrorPage />}>
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/register" element={<RegisterPage />} />
+                        <Route path="/activation" element={<ActivationPage />} />
+                    </Route>
 
-            <Route path="/" element={<PrivateRoute />} errorElement={<ErrorPage />}>
-              <Route path="/messages" element={<MessagesPage />} errorElement={<ErrorPage />} />
-              <Route path="/messages/:id" element={<MessagesPage />} errorElement={<ErrorPage />} />
-            </Route>
-          </Routes>
-        </Router>
-    </Provider>
-  );
+                    <Route path="/" element={<PrivateRoute />} errorElement={<ErrorPage />}>
+                        <Route
+                            path="/messages"
+                            element={<MessagesPage />}
+                            errorElement={<ErrorPage />}
+                        />
+                        <Route
+                            path="/messages/:id"
+                            element={<MessagesPage />}
+                            errorElement={<ErrorPage />}
+                        />
+                    </Route>
+                </Routes>
+            </Router>
+        </Provider>
+    );
 }
 
 export default App;

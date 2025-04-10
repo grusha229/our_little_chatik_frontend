@@ -1,25 +1,25 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ICurrentUserInfoResponse } from "@app/models/users";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { ICurrentUserInfoResponse } from '@app/models/users';
 
 export interface IUsersState {
-    current_user: ICurrentUserInfoResponse | null
+    current_user: ICurrentUserInfoResponse | null;
 }
 
-const initialState: IUsersState  = {
+const initialState: IUsersState = {
     current_user: null,
-}
+};
 
 export const usersSlice = createSlice({
-  name: "users",
-  initialState,
-  reducers: {
-    setCurrentUser: (state, action: PayloadAction<ICurrentUserInfoResponse>) => {
-      state.current_user = action.payload;
+    name: 'users',
+    initialState,
+    reducers: {
+        setCurrentUser: (state, action: PayloadAction<ICurrentUserInfoResponse>) => {
+            state.current_user = action.payload;
+        },
+        deleteCurrentUser: state => {
+            state.current_user = null;
+        },
     },
-    deleteCurrentUser: (state) => {
-      state.current_user = null;
-    },
-  },
 });
 
 export const { deleteCurrentUser, setCurrentUser } = usersSlice.actions;

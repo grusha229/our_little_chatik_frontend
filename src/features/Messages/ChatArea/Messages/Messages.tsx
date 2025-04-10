@@ -1,14 +1,14 @@
-import styles from "./Messages.module.scss";
-import { Message, MessageSkeleton } from "./Message";
-import { useEffect, useRef, useCallback, useState, useMemo } from "react";
-import { useInView } from "react-intersection-observer";
-import { useGetChatMessagesQuery } from "@app/services/chat.js";
-import { useAppSelector } from "@app/store/hooks";
-import { IChatsGetChatInfoResponse } from "@app/models/chats.js";
-import { getSenderById } from "./Messages.utils.js";
-import throttle from "@app/utils/throttle.js";
-import { scrollToBottom } from "@app/utils/scrollToBottom.js";
-import Loader from "@app/ui/Loader/Loader.js";
+import styles from './Messages.module.scss';
+import { Message, MessageSkeleton } from './Message';
+import { useEffect, useRef, useCallback, useState, useMemo } from 'react';
+import { useInView } from 'react-intersection-observer';
+import { useGetChatMessagesQuery } from '@app/services/chat.js';
+import { useAppSelector } from '@app/store/hooks';
+import { IChatsGetChatInfoResponse } from '@app/models/chats.js';
+import { getSenderById } from './Messages.utils.js';
+import throttle from '@app/utils/throttle.js';
+import { scrollToBottom } from '@app/utils/scrollToBottom.js';
+import Loader from '@app/ui/Loader/Loader.js';
 
 export interface IProps {
     current_chat: IChatsGetChatInfoResponse;
@@ -17,31 +17,32 @@ export interface IProps {
 
 const MESSAGES_AMOUNT = 15;
 
-export default function Messages({ 
-    current_chat,
-}: IProps) {
+export default function Messages({ current_chat }: IProps) {
     const [messagesCounter, setMessagesCounter] = useState<number>(0);
     const [isFirstMessagesFetching, setIsFirstMessagesFetching] = useState<boolean>(true);
     const hasMore = messagesCounter - MESSAGES_AMOUNT - 1 >= 0;
 
     const { ref, inView } = useInView({
-        threshold: .5,
+        threshold: 0.5,
     });
 
     const chat_id = current_chat?.chat_id || '';
     const total_messages = current_chat?.last_message?.id;
     const participants = current_chat?.participants || [];
 
-    const { isLoading, error, isFetching } = useGetChatMessagesQuery({ 
-        id: chat_id,
-        isFirstMessagesFetching: isFirstMessagesFetching,
-        finish_with_id: Math.max(0, messagesCounter),
-        // start_with_id: Math.max(0, messagesCounter - MESSAGES_AMOUNT + 1),
-        limit: MESSAGES_AMOUNT,
-    }, {
-        skip: (isFirstMessagesFetching && messagesCounter === 0),
-        refetchOnMountOrArgChange: true
-    });
+    const { isLoading, error, isFetching } = useGetChatMessagesQuery(
+        {
+            id: chat_id,
+            isFirstMessagesFetching: isFirstMessagesFetching,
+            finish_with_id: Math.max(0, messagesCounter),
+            // start_with_id: Math.max(0, messagesCounter - MESSAGES_AMOUNT + 1),
+            limit: MESSAGES_AMOUNT,
+        },
+        {
+            skip: isFirstMessagesFetching && messagesCounter === 0,
+            refetchOnMountOrArgChange: true,
+        },
+    );
 
     useEffect(() => {
         if (total_messages) {
@@ -50,20 +51,20 @@ export default function Messages({
 
         return () => {
             setMessagesCounter(0);
-        }
-    }, [total_messages])
+        };
+    }, [total_messages]);
 
-    const chatMessages = useAppSelector((state) => state.chats.messages[chat_id]);
-    const YOUR_ID = useAppSelector((state) => state.users.current_user?.user_id) || "0";
+    const chatMessages = useAppSelector(state => state.chats.messages[chat_id]);
+    const YOUR_ID = useAppSelector(state => state.users.current_user?.user_id) || '0';
 
     const sortedMessages = useMemo(() => {
         return chatMessages?.slice().sort((a, b) => {
-            return b.id - a.id
-        })
-    }, [chatMessages])
+            return b.id - a.id;
+        });
+    }, [chatMessages]);
 
     const containerRef = useRef<HTMLDivElement>(null);
-    
+
     useEffect(() => {
         const { scrollTop, scrollHeight, clientHeight } = containerRef.current as HTMLDivElement;
 
@@ -81,8 +82,8 @@ export default function Messages({
         setIsFirstMessagesFetching(false);
 
         if (inView && hasMore) {
-            setMessagesCounter((prev) => {
-                return prev - MESSAGES_AMOUNT
+            setMessagesCounter(prev => {
+                return prev - MESSAGES_AMOUNT;
             });
         }
     }, [hasMore, inView, isFetching]);
@@ -90,18 +91,20 @@ export default function Messages({
     const throttledScrollHandler = throttle(handleScroll, 500);
 
     useEffect(() => {
-        if (containerRef.current) {
-            containerRef.current.addEventListener("scroll", throttledScrollHandler);
+        const container = containerRef.current;
+
+        if (container) {
+            container.addEventListener('scroll', throttledScrollHandler);
         }
 
         return () => {
-            containerRef.current?.removeEventListener("scroll", throttledScrollHandler);
+            container?.removeEventListener('scroll', throttledScrollHandler);
         };
     }, [throttledScrollHandler]);
 
     if (isLoading) {
         return (
-            <div className={styles["messages"]} ref={containerRef}>
+            <div className={styles['messages']} ref={containerRef}>
                 <MessageSkeleton isMine />
                 <MessageSkeleton />
                 <MessageSkeleton isMine />
@@ -111,25 +114,25 @@ export default function Messages({
 
     if (error) {
         return (
-            <div className={styles["messages"]} ref={containerRef}>
-                <div className={styles["system_message"]}>Error</div>
+            <div className={styles['messages']} ref={containerRef}>
+                <div className={styles['system_message']}>Error</div>
             </div>
         );
     }
 
     if (sortedMessages?.length === 0) {
         return (
-            <div className={styles["messages"]} ref={containerRef}>
-                <div className={styles["system_message"]}>No messages</div>
+            <div className={styles['messages']} ref={containerRef}>
+                <div className={styles['system_message']}>No messages</div>
             </div>
         );
     }
 
     return (
-        <div className={styles["messages"]} ref={containerRef}>
+        <div className={styles['messages']} ref={containerRef}>
             {isFetching && (
-                <div className={styles["loading"]}>
-                    <Loader/>
+                <div className={styles['loading']}>
+                    <Loader />
                     <div>Loading...</div>
                 </div>
             )}
@@ -144,7 +147,7 @@ export default function Messages({
                 />
             ))}
             {hasMore && (
-                <div ref={ref} className={styles["system_message"]}>
+                <div ref={ref} className={styles['system_message']}>
                     <Loader />
                     <div>Loading...</div>
                 </div>

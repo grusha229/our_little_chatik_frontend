@@ -1,5 +1,5 @@
-import { useCallback, useEffect } from 'react'
-import styles from './CurrentUserBadge.module.scss'
+import { useCallback, useEffect } from 'react';
+import styles from './CurrentUserBadge.module.scss';
 import { useGetCurrentUserInfoQuery } from '@app/services/users';
 import { Avatar } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@app/store/hooks';
@@ -7,26 +7,29 @@ import { openModal } from '@app/store/features/modals';
 
 export default function CurrentUserBadge() {
     const dispatch = useAppDispatch();
-    
+
     const { refetch } = useGetCurrentUserInfoQuery();
-    const currentUser = useAppSelector((state) => state.users.current_user)
-    const avatarSrc = currentUser?.avatar || `https://ui-avatars.com/api/?name=${currentUser?.name}+${currentUser?.surname}`;
+    const currentUser = useAppSelector(state => state.users.current_user);
+    const avatarSrc =
+        currentUser?.avatar ||
+        `https://ui-avatars.com/api/?name=${currentUser?.name}+${currentUser?.surname}`;
 
-    const isOnline = useAppSelector((state) => state.websocket.connected);
+    const isOnline = useAppSelector(state => state.websocket.connected);
 
-    const toggleModalVisibility = useCallback(()=> {
+    const toggleModalVisibility = useCallback(() => {
         dispatch(
             openModal({
-                modal: "user_info",
+                modal: 'user_info',
                 params: {
-                    current_id: currentUser?.user_id
-                }
-            }))
-        },[currentUser?.user_id, dispatch])
+                    current_id: currentUser?.user_id,
+                },
+            }),
+        );
+    }, [currentUser?.user_id, dispatch]);
 
     useEffect(() => {
         refetch();
-    }, [])
+    }, [refetch]);
 
     return (
         <div className={styles['block']} onClick={toggleModalVisibility}>
@@ -40,5 +43,5 @@ export default function CurrentUserBadge() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

@@ -1,6 +1,5 @@
-
-import Modal from '@app/ui/Modal/Modal'
-import styles from './PersonalInfoModal.module.scss'
+import Modal from '@app/ui/Modal/Modal';
+import styles from './PersonalInfoModal.module.scss';
 import { useAppSelector } from '@app/store/hooks';
 import Avatar from '@app/features/Users/Avatar/Avatar';
 import LogoutButton from '@app/features/Header/LogoutButton/LogoutButton';
@@ -8,33 +7,33 @@ import PersonalInfoForm from '@app/features/Users/PersonalInfoForm/PersonalInfoF
 import Loader from '@app/ui/Loader/Loader';
 
 export interface IProps {
-    user_id: string
+    user_id: string;
 }
 
 export default function PersonalInfoModal() {
-    const currentUser = useAppSelector((state) => state.users.current_user)
+    const currentUser = useAppSelector(state => state.users.current_user);
 
-    const avatarSrc = currentUser?.avatar || `https://ui-avatars.com/api/?name=${currentUser?.name}+${currentUser?.surname}`;
+    const avatarSrc =
+        currentUser?.avatar ||
+        `https://ui-avatars.com/api/?name=${currentUser?.name}+${currentUser?.surname}`;
 
     return (
-        <Modal
-            name='user_info'
-        >
+        <Modal name="user_info">
             <div className={styles['content']}>
-                {currentUser ? 
+                {currentUser ? (
                     <>
                         <Avatar src={avatarSrc} size="xlarge" />
                         <PersonalInfoForm user={currentUser} />
                         <div className={styles['content--footer']}>
-                            <LogoutButton/>
+                            <LogoutButton />
                         </div>
                     </>
-                :
+                ) : (
                     <>
-                        <Loader/>
+                        <Loader />
                     </>
-                }
+                )}
             </div>
         </Modal>
-    )
+    );
 }

@@ -1,5 +1,4 @@
-@use "@app/helpers/styles/colors" as colors;
-
+@use '@app/helpers/styles/colors' as colors;
 
 .image-block {
     display: flex;
@@ -20,7 +19,6 @@
     height: 50px;
     width: 100%;
 
-
     &--item {
         cursor: pointer;
         display: flex;
@@ -30,7 +28,7 @@
 
         &:hover {
             background: colors.$color-background-light;
-            transition: background ease-out .1s;
+            transition: background ease-out 0.1s;
         }
     }
 }

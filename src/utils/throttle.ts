@@ -3,10 +3,10 @@ const throttle = <T extends (...args: any[]) => void>(func: T, delay: number): T
 
     return ((...args: Parameters<T>) => {
         if (timeoutId === null) {
-        timeoutId = setTimeout(() => {
-            func(...args);
-            timeoutId = null;
-        }, delay);
+            timeoutId = setTimeout(() => {
+                func(...args);
+                timeoutId = null;
+            }, delay);
         }
     }) as T;
 };

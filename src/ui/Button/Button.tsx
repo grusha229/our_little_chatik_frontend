@@ -1,49 +1,29 @@
-;
 import styles from './Button.module.scss';
-import {Link} from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { buildClassName } from '@app/utils/styles';
 
 export interface IProps {
     type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
-    children: React.ReactNode,
-    href?: string,
-    block?: boolean,
-    onClick?: () => void
-    disabled?: boolean
+    children: React.ReactNode;
+    href?: string;
+    block?: boolean;
+    onClick?: () => void;
+    disabled?: boolean;
 }
 
-export default function Button({ 
-    children,
-    href,
-    onClick,
-    block,
-    ...props
-}: IProps){
-
-    const buttonClassName = buildClassName(
-        styles['button'],
-        block ? styles['button--block'] : ''
-    )
+export default function Button({ children, href, onClick, block, ...props }: IProps) {
+    const buttonClassName = buildClassName(styles['button'], block ? styles['button--block'] : '');
 
     if (href) {
-
-        return(
-            <Link
-                to={href}
-                className={buttonClassName}
-                {...props}
-            >
+        return (
+            <Link to={href} className={buttonClassName} {...props}>
                 {children}
             </Link>
         );
     }
 
-    return(
-        <button
-            className={buttonClassName}
-            onClick={onClick}
-            {...props}
-        >
+    return (
+        <button className={buttonClassName} onClick={onClick} {...props}>
             {children}
         </button>
     );

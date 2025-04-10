@@ -1,49 +1,49 @@
-@use "@app/helpers/styles/_colors.scss" as colors;
-@use "@app/helpers/styles/responsives" as responsive;
+@use '@app/helpers/styles/_colors.scss' as colors;
+@use '@app/helpers/styles/responsives' as responsive;
 
 .button {
-  cursor: pointer;
-  box-sizing: border-box;
-  position: relative;
-  transition-property: background-color, border, box-shadow;
-  transition-duration: 0.25s;
-  transition-timing-function: ease;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  padding: 12px 20px;
-  background-color: colors.$color-grey-light;
-  text-decoration: none;
-  text-decoration: none;
-  color: colors.$color-background;
-  text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    position: relative;
+    transition-property: background-color, border, box-shadow;
+    transition-duration: 0.25s;
+    transition-timing-function: ease;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 12px 20px;
+    background-color: colors.$color-grey-light;
+    text-decoration: none;
+    text-decoration: none;
+    color: colors.$color-background;
+    text-align: center;
 
-  font-size: 18px;
+    font-size: 18px;
 
-  line-height: 1.2;
-  height: 45px;
+    line-height: 1.2;
+    height: 45px;
 
-  @include responsive.media-mobile {
-    font-size: 14px;
-  }
+    @include responsive.media-mobile {
+        font-size: 14px;
+    }
 
-  &--block {
-    width: 100%;
-  }
+    &--block {
+        width: 100%;
+    }
 }
 
 .button:hover {
-  border-color: colors.$color-yellow-primary;
-  background-color: colors.$color-yellow-primary;
-  color: colors.$color-background;
+    border-color: colors.$color-yellow-primary;
+    background-color: colors.$color-yellow-primary;
+    color: colors.$color-background;
 }
 .text {
-  text-decoration: none;
-  color: colors.$color-yellow-primary;
+    text-decoration: none;
+    color: colors.$color-yellow-primary;
 }
 
 .button:disabled {
-  border-color: colors.$color-grey-light;
-  background-color: #717171;
-  color: colors.$color-background;
-  cursor: default;
+    border-color: colors.$color-grey-light;
+    background-color: #717171;
+    color: colors.$color-background;
+    cursor: default;
 }

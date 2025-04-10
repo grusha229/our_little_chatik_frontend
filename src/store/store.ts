@@ -19,26 +19,32 @@ import { filesApi } from '@app/services/files';
 
 // Объединение редукторов
 const rootReducer = combineReducers({
-  auth: authSlice,
-  [authApi.reducerPath]: authApi.reducer,
-  users: usersSlice,
-  [usersApi.reducerPath]: usersApi.reducer,
-  chats: chatsSlice,
-  [chatApi.reducerPath]: chatApi.reducer,
-  search: searchSlice,
-  [searchApi.reducerPath]: searchApi.reducer,
-  [filesApi.reducerPath]: filesApi.reducer,
-  modals: modalsSlice,
-  websocket: websocketSlice,
+    auth: authSlice,
+    [authApi.reducerPath]: authApi.reducer,
+    users: usersSlice,
+    [usersApi.reducerPath]: usersApi.reducer,
+    chats: chatsSlice,
+    [chatApi.reducerPath]: chatApi.reducer,
+    search: searchSlice,
+    [searchApi.reducerPath]: searchApi.reducer,
+    [filesApi.reducerPath]: filesApi.reducer,
+    modals: modalsSlice,
+    websocket: websocketSlice,
 });
 
 export const store = configureStore({
-  reducer: rootReducer,
+    reducer: rootReducer,
 
-  middleware: (getDefaultMiddleware) => (
-    getDefaultMiddleware()
-      .concat(authApi.middleware, usersApi.middleware, chatApi.middleware)
-      .concat(authMiddleware, usersMiddleware, chatsMiddleware, searchMiddleware, websocketMiddleware)  )
+    middleware: getDefaultMiddleware =>
+        getDefaultMiddleware()
+            .concat(authApi.middleware, usersApi.middleware, chatApi.middleware)
+            .concat(
+                authMiddleware,
+                usersMiddleware,
+                chatsMiddleware,
+                searchMiddleware,
+                websocketMiddleware,
+            ),
 });
 
 // Загрузка токенов из localStorage при запуске приложения

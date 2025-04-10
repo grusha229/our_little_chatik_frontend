@@ -1,7 +1,6 @@
- 
 export default function debounce<T extends (...args: any[]) => void>(
     func: T,
-    wait: number
+    wait: number,
 ): (...args: Parameters<T>) => void {
     let timeout: number | null;
 
@@ -10,7 +9,7 @@ export default function debounce<T extends (...args: any[]) => void>(
             clearTimeout(timeout);
         }
 
-        //@ts-ignore
+        //@ts-expect-error TODO Fix typings
         timeout = setTimeout(() => {
             func(...args);
         }, wait);

@@ -1,13 +1,12 @@
-import { ICurrentUserInfoResponse } from "./users";
+import { ICurrentUserInfoResponse } from './users';
 
- 
 export interface IChatsUser {
-    participant_avatar: string,
-    email: string,
-    name: string,
-    surname: string,
-    participant_id: string,
-    participant_nickname: string
+    participant_avatar: string;
+    email: string;
+    name: string;
+    surname: string;
+    participant_id: string;
+    participant_nickname: string;
 }
 
 export interface IMediaRefItem {
@@ -36,23 +35,23 @@ export interface IChatsMessage {
 }
 
 export interface IChatsPhoto {
-    path?: string,
-    url?: string,
+    path?: string;
+    url?: string;
 }
 
 export interface IChatsChat {
-    chat_id: string,
-    chat_type: string,
-    created_at: string,
-    last_message: IChatsMessage,
-    last_read_msg_id: number,
-    name: string,
-    participants?: Array<IChatsUser>,
-    photo: IChatsPhoto,
-    updated_at: string
+    chat_id: string;
+    chat_type: string;
+    created_at: string;
+    last_message: IChatsMessage;
+    last_read_msg_id: number;
+    name: string;
+    participants?: Array<IChatsUser>;
+    photo: IChatsPhoto;
+    updated_at: string;
 }
 
-export type IChatsChatListResponse = Array<IChatsChat>
+export type IChatsChatListResponse = Array<IChatsChat>;
 
 export enum ChatType {
     PRIVATE = 'private',
@@ -60,40 +59,40 @@ export enum ChatType {
 }
 
 export interface IChatsCreateChatPayload {
-    participants_ids: Array<ICurrentUserInfoResponse["user_id"]>,
-    participants: Array<ICurrentUserInfoResponse>,
-    chat_type: ChatType,
-    name: string,
-    photo_upload_id?: string,
+    participants_ids: Array<ICurrentUserInfoResponse['user_id']>;
+    participants: Array<ICurrentUserInfoResponse>;
+    chat_type: ChatType;
+    name: string;
+    photo_upload_id?: string;
 }
 
 export interface IChatsGetChatInfoPayload {
-    id: string
+    id: string;
 }
 
 export interface IChatsGetChatInfoResponse extends IChatsChat {}
 
 export interface IChatsGetChatMessagesPayload {
-    id: string,
-    limit?: number,
-    start_with_id?: number,
-    finish_with_id?: number,
-    isFirstMessagesFetching?: boolean
+    id: string;
+    limit?: number;
+    start_with_id?: number;
+    finish_with_id?: number;
+    isFirstMessagesFetching?: boolean;
 }
 
-export type IChatsGetChatMessagesResponse = Array<IChatsMessage> 
+export type IChatsGetChatMessagesResponse = Array<IChatsMessage>;
 
 export interface IChatsSendMessagePayload {
     /** Chat id */
-    id: string,
-    payload: string,
-    upload_ids?: Array<string>,
+    id: string;
+    payload: string;
+    upload_ids?: Array<string>;
     // status: 'pending'
 }
 
 export interface IChatsFilesLink {
-    content_type: string,
-    name: string
+    content_type: string;
+    name: string;
 }
 
 export interface IChatsUploadFilePayload {
@@ -102,17 +101,17 @@ export interface IChatsUploadFilePayload {
 }
 
 export interface IChatsUploadFileLink {
-    upload_id: string,
-    upload_link: string,
-    upload_file_name: string,
-    preview_link: string,
-    content_type: string
+    upload_id: string;
+    upload_link: string;
+    upload_file_name: string;
+    preview_link: string;
+    content_type: string;
 }
 
 export interface IChatsAttachmentUploadPayload {
     url: string;
-    file: any,
-    content_type: string,
+    file: any;
+    content_type: string;
 }
 
 export type IChatsUploadFileLinkResponse = IChatsUploadFileLink[];

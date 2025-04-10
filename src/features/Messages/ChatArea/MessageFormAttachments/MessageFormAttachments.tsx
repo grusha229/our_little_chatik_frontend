@@ -1,7 +1,7 @@
-import { useCallback } from 'react'
-import MediaAttachmentComponent from '@app/ui/MediaAttachments/MediaAttachmentComponent/MediaAttachmentComponent'
+import { useCallback } from 'react';
+import MediaAttachmentComponent from '@app/ui/MediaAttachments/MediaAttachmentComponent/MediaAttachmentComponent';
 import { IChatsGetChatInfoResponse, IChatsUploadFileLink } from '@app//models/chats';
-import styles from './MessageFormAttachments.module.scss'
+import styles from './MessageFormAttachments.module.scss';
 import { useAppDispatch, useAppSelector } from '@app/store/hooks';
 import { openModal } from '@app/store/features/modals';
 import { isImageFile } from '@app/ui/MediaAttachments/MediaAttachmentComponent/MediaAttachmentComponent.utils';
@@ -11,58 +11,65 @@ export interface IProps {
     current_chat: IChatsGetChatInfoResponse;
 }
 
-export default function MessageFormAttachments({
-    current_chat,
-}: IProps) {
-    const attachments = useAppSelector((state) => state.chats.uploads[current_chat?.chat_id])
-    const dispatch = useAppDispatch()
+export default function MessageFormAttachments({ current_chat }: IProps) {
+    const attachments = useAppSelector(state => state.chats.uploads[current_chat?.chat_id]);
+    const dispatch = useAppDispatch();
 
-    const handleDeleteFile = useCallback((target_id: string) => {
-        dispatch(deleteUploadFiles({
-            chat_id: current_chat.chat_id, 
-            target_id
-        }))
-    },[current_chat?.chat_id, dispatch])
-
-    console.log('attachments[current_chat?.chat_id]', attachments)
-    console.log('current_chat?.chat_id', current_chat?.chat_id)
-
-    const toggleModalVisibility = useCallback((current_media: IChatsUploadFileLink)=> {
-        if (isImageFile(current_media.content_type)) {
+    const handleDeleteFile = useCallback(
+        (target_id: string) => {
             dispatch(
-                openModal({
-                    modal: "image_viewer",
-                    params: {
-                        images: [
-                            {
+                deleteUploadFiles({
+                    chat_id: current_chat.chat_id,
+                    target_id,
+                }),
+            );
+        },
+        [current_chat?.chat_id, dispatch],
+    );
+
+    console.log('attachments[current_chat?.chat_id]', attachments);
+    console.log('current_chat?.chat_id', current_chat?.chat_id);
+
+    const toggleModalVisibility = useCallback(
+        (current_media: IChatsUploadFileLink) => {
+            if (isImageFile(current_media.content_type)) {
+                dispatch(
+                    openModal({
+                        modal: 'image_viewer',
+                        params: {
+                            images: [
+                                {
+                                    url: current_media.preview_link,
+                                    path: current_media.upload_file_name,
+                                    content_type: current_media.content_type,
+                                    file_name: current_media?.upload_file_name,
+                                },
+                            ],
+                            start_image: {
                                 url: current_media.preview_link,
                                 path: current_media.upload_file_name,
                                 content_type: current_media.content_type,
                                 file_name: current_media?.upload_file_name,
-                            }
-                        ],
-                        start_image: {
-                            url: current_media.preview_link,
-                            path: current_media.upload_file_name,
-                            content_type: current_media.content_type,
-                            file_name: current_media?.upload_file_name
-                        }
-                    }
-                }))
-        } else {
-            window.open(current_media.preview_link, "_blank");
-        }
-    },[dispatch])
+                            },
+                        },
+                    }),
+                );
+            } else {
+                window.open(current_media.preview_link, '_blank');
+            }
+        },
+        [dispatch],
+    );
 
     if (!attachments || attachments?.length === 0) {
-        return null
+        return null;
     }
 
     return (
         <div className={styles['block']}>
             <div>
                 <div className={styles['slider']}>
-                    {attachments.map((file) => (
+                    {attachments.map(file => (
                         <MediaAttachmentComponent
                             {...file}
                             key={file.upload_id}
@@ -79,5 +86,5 @@ export default function MessageFormAttachments({
                 </div>
             </div>
         </div>
-    )
+    );
 }

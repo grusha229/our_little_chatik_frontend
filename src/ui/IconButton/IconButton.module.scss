@@ -1,54 +1,54 @@
-@use "@app/helpers/styles/_colors.scss" as colors;
+@use '@app/helpers/styles/_colors.scss' as colors;
 
 .button {
-  cursor: pointer;
-  box-sizing: border-box;
-  position: relative;
-  transition-property: background-color, border, box-shadow;
-  transition-duration: 0.25s;
-  transition-timing-function: ease;
-  border: 1px solid transparent;
-  
-  background-color: colors.$color-grey-light;
-  text-decoration: none;
-  text-decoration: none;
-  color: #222222;
-  text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    position: relative;
+    transition-property: background-color, border, box-shadow;
+    transition-duration: 0.25s;
+    transition-timing-function: ease;
+    border: 1px solid transparent;
 
-  line-height: 1.2;
+    background-color: colors.$color-grey-light;
+    text-decoration: none;
+    text-decoration: none;
+    color: #222222;
+    text-align: center;
 
-  &--default {
-    height: 45px;
-    padding: 12px;
-    border-radius: 4px;
-  }
+    line-height: 1.2;
 
-  &--xsmall {
-    height: 30px;
-    padding: 0;
-    border-radius: 50%;
-    padding: 2px;
-  }
+    &--default {
+        height: 45px;
+        padding: 12px;
+        border-radius: 4px;
+    }
 
-  img {
-    width: 100%;
-    height: 100%;
-  }
+    &--xsmall {
+        height: 30px;
+        padding: 0;
+        border-radius: 50%;
+        padding: 2px;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
 }
 
 .button:hover {
-  border-color: #fcc521;
-  background-color: #fcc521;
-  color: #222222;
+    border-color: #fcc521;
+    background-color: #fcc521;
+    color: #222222;
 }
 .text {
-  text-decoration: none;
-  color: #222222;
+    text-decoration: none;
+    color: #222222;
 }
 
 .button:disabled {
-  border-color: colors.$color-grey-light;
-  background-color: #717171;
-  color: #222222;
-  cursor: default;
+    border-color: colors.$color-grey-light;
+    background-color: #717171;
+    color: #222222;
+    cursor: default;
 }

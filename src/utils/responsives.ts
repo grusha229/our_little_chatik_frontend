@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 const MOBILE_WIDTH = 768;
 const TABLET_WIDTH = 1024;
@@ -7,7 +7,6 @@ const TABLET_WIDTH = 1024;
  * @returns {Object} возвращает свойства "width" and "height".
  */
 export function useWindowSize() {
-
     function getSize() {
         return {
             width: window.innerWidth,
@@ -17,8 +16,7 @@ export function useWindowSize() {
 
     const [windowSize, setWindowSize] = useState(getSize);
 
-    useEffect((): (void | (() => void | undefined)) => {
-
+    useEffect((): void | (() => void | undefined) => {
         function handleResize() {
             setWindowSize(getSize());
         }
@@ -41,7 +39,6 @@ export function isMobile(width?: number): boolean {
 
     return width <= MOBILE_WIDTH;
 }
-
 
 export function isTablet(width?: number): boolean {
     if (width === undefined) {

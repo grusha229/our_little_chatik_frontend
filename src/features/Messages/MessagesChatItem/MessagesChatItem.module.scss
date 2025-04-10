@@ -1,4 +1,4 @@
-@use "@app/helpers/styles/colors.scss" as colors;
+@use '@app/helpers/styles/colors.scss' as colors;
 
 /* Стили для компонента ChatItem */
 .chat {
@@ -11,34 +11,34 @@
     transition: background-color 0.3s ease;
     width: 100%;
     gap: 12px;
-  }
-  
-  .chat:hover {
-    background-color: colors.$color-background-light; /* Эффект при наведении */
-  }
+}
 
-  .chat-details {
+.chat:hover {
+    background-color: colors.$color-background-light; /* Эффект при наведении */
+}
+
+.chat-details {
     display: flex;
     flex-direction: column;
     justify-content: center;
     flex: 1;
     overflow: hidden;
-  }
-  
-  .name {
+}
+
+.name {
     font-size: 16px;
     font-weight: bold;
     color: colors.$color-text-primary;
-    white-space: nowrap; 
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
+}
 
-  .message {
+.message {
     font-size: 14px;
     font-weight: 300;
     color: colors.$color-text-primary;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
+}

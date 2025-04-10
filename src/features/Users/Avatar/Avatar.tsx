@@ -1,9 +1,8 @@
-
-import styles from './Avatar.module.scss'
+import styles from './Avatar.module.scss';
 import Skeleton from '@mui/material/Skeleton';
 import { buildClassName } from '@app/utils/styles';
 
-export type TAvatarSize = 'small' | 'medium' | 'large' | 'xlarge'
+export type TAvatarSize = 'small' | 'medium' | 'large' | 'xlarge';
 
 export interface IProps {
     size?: TAvatarSize;
@@ -11,21 +10,18 @@ export interface IProps {
     alt?: string;
 }
 
-export default function Avatar({
-    size = 'medium',
-    alt = '',
-    src,
-}: IProps) {
+export default function Avatar({ size = 'medium', alt = '', src }: IProps) {
     const avatarClassName = buildClassName(styles['avatar'], styles[`avatar--${size}`]);
 
     return (
         <div className={avatarClassName}>
-        <div className={styles['avatar-container']}>
-            {(!src) ?
-                <Skeleton variant="circular" animation="pulse" width={40} height={40} />
-                : <img className={styles['avatar-image']} alt={alt} src={src} />
-            }
+            <div className={styles['avatar-container']}>
+                {!src ? (
+                    <Skeleton variant="circular" animation="pulse" width={40} height={40} />
+                ) : (
+                    <img className={styles['avatar-image']} alt={alt} src={src} />
+                )}
+            </div>
         </div>
-        </div>
-    )
+    );
 }

@@ -1,75 +1,76 @@
 import { Middleware } from '@reduxjs/toolkit';
 import { authApi } from '@app/services/auth';
-import { setTokens, deleteTokens, setActivatedEmail, deleteActivatedEmail } from '@app/store/features/auth';
+import {
+    setTokens,
+    deleteTokens,
+    setActivatedEmail,
+    deleteActivatedEmail,
+} from '@app/store/features/auth';
 
-const authMiddleware: Middleware = (store) => (next) => async (action) => {
-  const result = next(action);
+const authMiddleware: Middleware = store => next => async action => {
+    const result = next(action);
 
-  // If get tokens - save to store
-  if (authApi.endpoints.refreshToken.matchFulfilled(action)) {
-    const { token, refresh_token } = action.payload;
+    // If get tokens - save to store
+    if (authApi.endpoints.refreshToken.matchFulfilled(action)) {
+        const { token, refresh_token } = action.payload;
 
-    // Сохраняем токены в localStorage
-    localStorage.setItem('access_token', token);
-    localStorage.setItem('refresh_token', refresh_token);
+        // Сохраняем токены в localStorage
+        localStorage.setItem('access_token', token);
+        localStorage.setItem('refresh_token', refresh_token);
 
+        store.dispatch(setTokens({ token, refresh_token }));
+    }
 
-    store.dispatch(setTokens({ token, refresh_token }));
-  }
+    // If there an error - delete tokens
+    if (authApi.endpoints.refreshToken.matchRejected(action)) {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
 
-  // If there an error - delete tokens
-  if (authApi.endpoints.refreshToken.matchRejected(action)) {
+        store.dispatch(deleteTokens());
+    }
 
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
+    // If get tokens - save to store
+    if (authApi.endpoints.loginUser.matchFulfilled(action)) {
+        const { token, refresh_token } = action.payload;
 
-    store.dispatch(deleteTokens());
-  }
+        localStorage.setItem('access_token', token);
+        localStorage.setItem('refresh_token', refresh_token);
 
-  // If get tokens - save to store
-  if (authApi.endpoints.loginUser.matchFulfilled(action)) {
-    const { token, refresh_token } = action.payload;
+        store.dispatch(setTokens({ token, refresh_token }));
+    }
 
-    localStorage.setItem('access_token', token);
-    localStorage.setItem('refresh_token', refresh_token);
+    // If get tokens - save to store
+    if (authApi.endpoints.signupUser.matchFulfilled(action)) {
+        const { token, refresh_token } = action.payload;
+        const params = action.meta.arg.originalArgs;
 
-    store.dispatch(setTokens({ token, refresh_token }));
-  }
+        localStorage.setItem('access_token', token);
+        localStorage.setItem('refresh_token', refresh_token);
+        localStorage.setItem('activated_email', params.email);
 
-  // If get tokens - save to store
-  if (authApi.endpoints.signupUser.matchFulfilled(action)) {
-    const { token, refresh_token } = action.payload;
-    const params = action.meta.arg.originalArgs
+        store.dispatch(setActivatedEmail(params.email));
+        store.dispatch(setTokens({ token, refresh_token }));
+    }
 
-    localStorage.setItem('access_token', token);
-    localStorage.setItem('refresh_token', refresh_token);
-    localStorage.setItem('activated_email', params.email);
+    // If there an error - delete tokens
+    if (authApi.endpoints.logoutUser.matchFulfilled(action)) {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
 
-    store.dispatch(setActivatedEmail(params.email));
-    store.dispatch(setTokens({ token, refresh_token }));
-  }
+        store.dispatch(deleteActivatedEmail());
+        store.dispatch(deleteTokens());
+    }
 
-  // If there an error - delete tokens
-  if (authApi.endpoints.logoutUser.matchFulfilled(action)) {
+    // If there an error - delete tokens
+    if (authApi.endpoints.activateUser.matchFulfilled(action)) {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        localStorage.removeItem('activated_email');
 
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
+        store.dispatch(deleteTokens());
+    }
 
-    store.dispatch(deleteActivatedEmail());
-    store.dispatch(deleteTokens());
-  }
-
-  // If there an error - delete tokens
-  if (authApi.endpoints.activateUser.matchFulfilled(action)) {
-
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('activated_email');
-
-    store.dispatch(deleteTokens());
-  }
-
-  return result;
+    return result;
 };
 
 export default authMiddleware;
