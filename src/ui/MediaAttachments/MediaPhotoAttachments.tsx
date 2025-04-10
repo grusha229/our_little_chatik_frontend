@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import styles from './MediaPhotoAttachments.module.scss'
 import { IMediaRefItem } from '@app/models/chats'
 import { openModal } from '@app/store/features/modals';

@@ -65,7 +65,7 @@ export const chatsSlice = createSlice({
     updateChatLastMessage: (state, action: PayloadAction<IChatsChat>) => {
       const current_chat_id = action.payload.chat_id;
 
-
+      //@ts-ignore
       state.chats = state.chats.map((chat) => {
         if (chat.chat_id === current_chat_id) {
           return {
@@ -85,7 +85,7 @@ export const chatsSlice = createSlice({
         status: IChatsMessage['status'] 
       }>
     ) => {
-      const targetMessageIndex = state.messages[action.payload.chat_id].findIndex((message) => message.id === action.payload.id);
+      const targetMessageIndex = state.messages[action.payload.chat_id]?.findIndex((message) => message.id === action.payload.id) ?? 0;
 
       if (targetMessageIndex !== -1) {
         state.messages[action.payload.chat_id][targetMessageIndex].status = action.payload.status;

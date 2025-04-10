@@ -1,5 +1,4 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
 import authSlice, { loadTokensFromStorage } from './features/auth';
 import { authApi } from '@app/services/auth';
 import authMiddleware from '@app/middleware/auth';
@@ -17,7 +16,6 @@ import websocketMiddleware from '@app/middleware/websocket';
 
 import websocketSlice from './features/websocket';
 import { filesApi } from '@app/services/files';
-import { AppDispatch, RootState } from './types';
 
 // Объединение редукторов
 const rootReducer = combineReducers({

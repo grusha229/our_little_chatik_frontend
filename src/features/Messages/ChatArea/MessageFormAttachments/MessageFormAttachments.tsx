@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import MediaAttachmentComponent from '@app/ui/MediaAttachments/MediaAttachmentComponent/MediaAttachmentComponent'
 import { IChatsGetChatInfoResponse, IChatsUploadFileLink } from '@app//models/chats';
 import styles from './MessageFormAttachments.module.scss'

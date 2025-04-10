@@ -1,4 +1,4 @@
-import React from 'react';
+;
 import styles from './RegisterPage.module.scss';
 import RegisterForm from '@app/features/Auth/RegisterForm/RegisterForm';
 import Layout from '@app/features/Layout/Layout';

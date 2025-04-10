@@ -1,4 +1,4 @@
-import React from 'react'
+
 import styles from './Layout.module.scss';
 import { buildClassName } from '@app/utils/styles';
 

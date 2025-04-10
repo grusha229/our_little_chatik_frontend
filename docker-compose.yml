@@ -1,0 +1,12 @@
+services:
+  frontend:   # Имя сервиса
+    image: nginx:latest
+    volumes:
+      - ./src/config/:/etc/nginx/
+      # - "/etc/letsencrypt/live/shorty.su/fullchain.pem:/etc/nginx/certs/fullchain.pem:ro"
+      # - "/etc/letsencrypt/live/shorty.su/privkey.pem:/etc/nginx/certs/privkey.pem:ro"
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - '80:80'
+      - '443:443'

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import style from './MessagesSearchForm.module.scss';
 import { useSearchMutation } from '@app/services/search';
 import { ISearchPayload } from '@app/models/search';

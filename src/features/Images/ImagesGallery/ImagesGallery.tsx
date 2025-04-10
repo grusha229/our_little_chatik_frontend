@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { IMediaRefItem } from '@app/models/chats';
 import styles from './ImagesGallery.module.scss';
 

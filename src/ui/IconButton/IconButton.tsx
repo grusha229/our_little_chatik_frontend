@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from 'react';
+import { SyntheticEvent } from 'react';
 import styles from './IconButton.module.scss';
 import {Link} from "react-router-dom";
 import plusIcon from '@app/img/icons/icon--plus.svg';

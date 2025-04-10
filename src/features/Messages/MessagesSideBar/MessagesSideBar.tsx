@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import MessagesSearchForm from "@app/features/Messages/MessagesSearchForm/MessagesSearchForm"
 import MessagesChatList from '@app/features/Messages/MessagesChatList/MessagesChatList';
 import MessagesSearchResults from '@app/features/Messages/MessagesSearchResults/MessagesSearchResults';

@@ -1,4 +1,4 @@
-import React from 'react'
+
 import styles from './Header.module.scss'
 import CurrentUserBadge from './CurrentUserBadge/CurrentUserBadge';
 

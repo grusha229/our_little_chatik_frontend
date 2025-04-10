@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import {Link} from "react-router-dom";
 
 import styles from './MessagesChatItem.module.scss';

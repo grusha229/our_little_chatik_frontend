@@ -1,4 +1,4 @@
-import React from 'react'
+
 import styles from './MessagesPage.module.scss'
 import MessagesSideBar from '@app/features/Messages/MessagesSideBar/MessagesSideBar'
 import { useParams } from 'react-router-dom';

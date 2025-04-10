@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useGetAvatarUploadUrlMutation, usePatchCurrentUserInfoMutation } from '@app/services/users';
 import { useForm } from 'react-hook-form';
 import { ICurrentUserInfoResponse, IUsersPatchCurrentUserPayload, IUsersUploadAvatarLinkResponse } from '@app/models/users';
@@ -7,6 +7,7 @@ import Input from '@app/ui/Input/Input';
 import Button from '@app/ui/Button/Button';
 import UploadFileButton from '@app/ui/UploadFileButton/UploadFileButton';
 import { useUploadAttachmentMutation } from '@app/services/files';
+import { IErrorResponse } from '@app/services/baseQuery';
 
 export interface IProps {
     user: ICurrentUserInfoResponse
@@ -17,7 +18,7 @@ export default function PersonalInfoForm({
 }: IProps) {
 
     const [ fileToUpload, setFileToUpload ] = useState<File>()
-      const [ linkToUpload, setLinkToUpload ] = useState<IUsersUploadAvatarLinkResponse>(null)
+      const [ linkToUpload, setLinkToUpload ] = useState<IUsersUploadAvatarLinkResponse>()
 
     // Инициализация useForm
     const { register, handleSubmit, formState: { errors, isValid, isDirty }, reset, setValue, watch} = useForm<IUsersPatchCurrentUserPayload>({
@@ -52,7 +53,7 @@ export default function PersonalInfoForm({
     useEffect(() => {
         if (isLinkSuccessfullyGet && !isUninitialized && fileToUpload) {
                 uploadAttachment({
-                    url: linkToUpload?.upload_link,
+                    url: linkToUpload?.upload_link ?? '',
                     file: fileToUpload,
                     content_type: fileToUpload?.type,
                 });
@@ -60,7 +61,7 @@ export default function PersonalInfoForm({
     }, [isUninitialized, uploadAttachment, isLinkSuccessfullyGet, fileToUpload, linkToUpload?.upload_link]);
 
     const [ updateUser, error ] = usePatchCurrentUserInfoMutation();
-    const apiError = error?.error
+    const apiError = error?.error as IErrorResponse;
     let apiErrorText = apiError?.data?.message;
 
     if (apiError?.status === 403) {

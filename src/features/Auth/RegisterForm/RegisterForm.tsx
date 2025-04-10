@@ -1,10 +1,11 @@
-import React from 'react'
+
 import { useForm } from 'react-hook-form';
 import { useSignupUserMutation } from '@app/services/auth';
 import style from './RegisterForm.module.scss';
 import { ISignupPayload } from '@app/models/auth';
 import Button from '@app/ui/Button/Button';
 import Input from '@app/ui/Input/Input';
+import { IErrorResponse } from '@app/services/baseQuery';
 
 export default function LoginForm() {
 
@@ -14,13 +15,14 @@ export default function LoginForm() {
     });
 
       // Мутация для обновления пользователя
-    const [ registerUser, error ] = useSignupUserMutation();
-    const apiError = error?.error;
+    const [ registerUser, { error } ] = useSignupUserMutation();
+
+    const apiError = error as IErrorResponse;
 
     let apiErrorText = apiError?.data?.message;
 
     if (apiError?.status === 409) {
-      apiErrorText = apiError?.data?.properties?.description
+      // apiErrorText = apiError?.data?.properties?.description
     }
 
     const handleSubmitLinkForm = async (formData: ISignupPayload) => {

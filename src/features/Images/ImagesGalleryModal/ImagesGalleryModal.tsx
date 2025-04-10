@@ -1,4 +1,4 @@
-import React from 'react'
+
 import Modal from '@app/ui/Modal/Modal'
 import ImagesGallery from '@app/features/Images/ImagesGallery/ImagesGallery'
 import { useAppSelector } from '@app/store/hooks';

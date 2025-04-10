@@ -1,8 +1,8 @@
-import React from 'react';
+;
 import styles from './ActivationPage.module.scss';
 import Layout from '@app/features/Layout/Layout';
 import Block from '@app/features/Layout/Block/Block';
-import { RootState, useAppSelector } from '@app/store/hooks';
+import { useAppSelector } from '@app/store/hooks';
 import { Navigate } from 'react-router-dom';
 import ActivationForm from '@app/features/Auth/ActivationForm/ActivationForm';
 // import ActivationForm from '@app/features/Auth/ActivationForm/ActivationForm';
@@ -10,7 +10,7 @@ import ActivationForm from '@app/features/Auth/ActivationForm/ActivationForm';
 export default function ActivationPage() {
     const token = useAppSelector((state) => state.auth.token);
     const refresh_token = useAppSelector((state) => state.auth.refresh_token);
-    const activated_email = useAppSelector<RootState>((state) => state.auth.activated_email);
+    const activated_email = useAppSelector((state) => state.auth?.activated_email);
 
     if ((!token && !refresh_token)) {
       return <Navigate to="/login" replace />;

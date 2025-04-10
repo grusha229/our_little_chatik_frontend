@@ -1,0 +1,51 @@
+types {
+   # Internet media types
+    text/html                          html htm shtml;
+    text/css                           css;
+    text/xml                           xml;
+    text/plain                         txt;
+    text/javascript                    js;
+    application/javascript             js;
+    application/json                   json;
+    application/xml                    xml;
+    application/xhtml+xml              xhtml;
+    application/octet-stream           bin exe dll;
+    application/pdf                    pdf;
+    application/zip                    zip;
+    application/x-rar-compressed       rar;
+    application/x-tar                  tar;
+    application/x-gzip                 gz;
+    image/gif                          gif;
+    image/jpeg                         jpeg jpg jpe;
+    image/png                          png;
+    image/webp                         webp;
+    image/svg+xml                      svg;
+    image/x-icon                       ico;
+    audio/mpeg                         mp3;
+    audio/ogg                          ogg;
+    audio/wav                          wav;
+    video/mp4                          mp4;
+    video/x-msvideo                    avi;
+    video/x-flv                        flv;
+    video/x-matroska                   mkv;
+    application/vnd.ms-excel          xls;
+    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet xlsx;
+    application/vnd.ms-powerpoint     ppt;
+    application/vnd.openxmlformats-officedocument.presentationml.presentation pptx;
+    application/vnd.ms-word           doc;
+    application/vnd.openxmlformats-officedocument.wordprocessingml.document docx;
+
+    # Others
+    font/woff                          woff;
+    font/woff2                         woff2;
+    font/ttf                           ttf;
+    font/otf                           otf;
+    text/markdown                      md;
+    text/csv                           csv;
+    application/x-www-form-urlencoded   xhtml;
+    application/x-shockwave-flash      swf;
+
+    # Custom MIME types
+    application/vnd.api+json           json;
+    application/x-javascript           js;
+}

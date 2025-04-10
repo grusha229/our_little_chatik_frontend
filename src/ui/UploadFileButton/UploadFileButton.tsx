@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { FieldError, UseFormRegister } from 'react-hook-form';
 import Input from '@app/ui/Input/Input';
 import styles from './UploadFileButton.module.scss';

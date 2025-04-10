@@ -1,4 +1,4 @@
-import React from 'react'
+
 import styles from './Avatar.module.scss'
 import Skeleton from '@mui/material/Skeleton';
 import { buildClassName } from '@app/utils/styles';

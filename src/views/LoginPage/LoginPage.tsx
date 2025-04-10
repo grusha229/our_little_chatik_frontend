@@ -1,4 +1,4 @@
-import React from 'react';
+;
 import styles from './LoginPage.module.scss';
 import LoginForm from '@app/features/Auth/LoginForm/LoginForm';
 import Layout from '@app/features/Layout/Layout';

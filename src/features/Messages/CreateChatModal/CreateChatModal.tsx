@@ -1,4 +1,4 @@
-import React from 'react'
+
 import Modal from '@app/ui/Modal/Modal'
 import CreateChatForm from '@app/features/Messages/CreateChatForm/CreateChatForm'
 

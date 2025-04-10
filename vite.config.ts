@@ -10,13 +10,13 @@ export default defineConfig({
       '@app': path.resolve(__dirname, 'src'),
     },
   },
-  server: {
-    proxy: {
-        '/api': {
-            target: 'http://localhost:80', // URL бэкенда
-            changeOrigin: true, // Изменяет заголовок Origin в запросе
-            rewrite: (path) => path.replace(/^\/api^\/v1/, '') // Удаление /api из пути
-        }
-    }
-}
+  // server: {
+  //   proxy: {
+  //       '/api': {
+  //           target: 'http://localhost:80', // URL бэкенда
+  //           changeOrigin: true, // Изменяет заголовок Origin в запросе
+  //           rewrite: (path) => path.replace(/^\/api^\/v1/, '') // Удаление /api из пути
+  //       }
+  //   }
+  // }
 })

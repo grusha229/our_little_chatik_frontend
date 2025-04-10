@@ -15,7 +15,7 @@ export const chatApi = createApi({
       }),
       create: builder.mutation<void, IChatsCreateChatPayload>({
         query: (payload) => {
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+           
           const { participants, ...rest } = payload
           return {
             url: `/`,

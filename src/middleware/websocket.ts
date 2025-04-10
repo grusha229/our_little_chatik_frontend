@@ -1,6 +1,6 @@
 import { Middleware, MiddlewareAPI } from '@reduxjs/toolkit';
 import { websocketService } from '@app/services/websocket';
-import { addChat, addMessage, updateChatLastMessage, updateMessageStatus } from '@app/store/features/chats';
+import { addChat, addMessage, updateChatLastMessage } from '@app/store/features/chats';
 import { WsMessageType } from '@app/models/websocket';
 import { setConnectionStatus } from '@app/store/features/websocket';
 import type { RootState } from '@app/store/types';

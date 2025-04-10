@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import styles from './CurrentUserBadge.module.scss'
 import { useGetCurrentUserInfoQuery } from '@app/services/users';
 import { Avatar } from '@mui/material';

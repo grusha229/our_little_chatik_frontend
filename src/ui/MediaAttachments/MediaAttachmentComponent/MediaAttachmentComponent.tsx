@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useCallback } from 'react'
+import { SyntheticEvent, useCallback } from 'react'
 import { getAttachmentComponent, getFileType } from './MediaAttachmentComponent.utils'
 import IconButton from '@app/ui/IconButton/IconButton'
 import deleteIcon from '@app/img/icons/icon--x-mark.svg'

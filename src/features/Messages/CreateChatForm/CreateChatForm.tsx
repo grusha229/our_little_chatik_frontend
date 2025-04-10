@@ -1,4 +1,4 @@
-import React, {useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Autocomplete, Box, Chip, TextField } from "@mui/material";
 import { useSearchQuery } from "@app/services/users";
@@ -12,6 +12,7 @@ import { useCreateMutation } from "@app/services/chat";
 import { closeModal } from "@app/store/features/modals";
 import { useAppDispatch } from "@app/store/hooks";
 import { muiInputStyles } from "./CreateChatForm.utils";
+import { IErrorResponse } from "@app/services/baseQuery";
 
 export interface IUsersOption {
     id: string;
@@ -24,12 +25,12 @@ export interface IUsersOption {
 export default function CreateChatForm() {
   const [selectedUsers, setSelectedUsers] = useState<ICurrentUserInfoResponse[]>([]);
 
-  const [ createChat, error ] = useCreateMutation();
-  const apiError = error?.error
+  const [ createChat, { error } ] = useCreateMutation();
+  const apiError = error as IErrorResponse;
   let apiErrorText = apiError?.data?.message;
 
   if (apiError?.status === 403) {
-    apiErrorText = apiError?.data?.properties?.description
+    // apiErrorText = apiError?.data?.properties?.description
   }
   
 
@@ -51,7 +52,8 @@ export default function CreateChatForm() {
     refetchOnMountOrArgChange: true,
   });
 
-  const handleInputChange = useCallback((e, v) => {
+  const handleInputChange = useCallback((e: React.SyntheticEvent<Element, Event>) => {
+    //@ts-ignore
     setSearchTerm(e?.target?.value || '');
   }, []);
 
@@ -130,7 +132,7 @@ export default function CreateChatForm() {
                 color="primary"
               />
             )}
-            onChange={(event, value) => {
+            onChange={(_, value) => {
               field.onChange(value);
               setValue('participants_ids', value.map((user) => user.user_id));
               setSelectedUsers(value)

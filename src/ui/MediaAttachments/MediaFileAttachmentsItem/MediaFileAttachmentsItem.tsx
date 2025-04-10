@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import styles from './MediaFileAttachmentsItem.module.scss'
 import { TAttachmentsSize } from '@app/ui/MediaAttachments/MediaPhotoAttachments';
 import { buildClassName } from '@app/utils/styles';

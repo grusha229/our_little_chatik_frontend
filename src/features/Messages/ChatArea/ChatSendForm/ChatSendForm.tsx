@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "./ChatSendForm.module.scss";
 import Button from "@app/ui/Button/Button";
 import Input from "@app/ui/Input/Input";
@@ -23,7 +23,7 @@ export default function ChatSendForm({ current_chat }: IProps) {
 
   const dispatch = useDispatch();
   const [ sendMessage ] = useSendChatMessageMutation();
-  const [ getAttachmentsUploadLinks, { isSuccess: isLinksSuccessfullyGet, data: fetchedLinksToUpload, reset: resetUploadLinks, isUninitialized }] = useGetAttachmentsUploadUrlsMutation();
+  const [ getAttachmentsUploadLinks, { isSuccess: isLinksSuccessfullyGet, data: fetchedLinksToUpload, isUninitialized }] = useGetAttachmentsUploadUrlsMutation();
   const [ uploadAttachment ] = useUploadAttachmentMutation();
   const attachments = useAppSelector((state) => state.chats.uploads[current_chat?.chat_id])
 

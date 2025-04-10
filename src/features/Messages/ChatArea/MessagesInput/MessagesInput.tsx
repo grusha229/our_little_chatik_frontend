@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./MessagesInput.module.scss";
 import { IChatsGetChatInfoResponse,  } from "@app/models/chats";
 import MessageFormAttachments from "@app/features/Messages/ChatArea/MessageFormAttachments/MessageFormAttachments";

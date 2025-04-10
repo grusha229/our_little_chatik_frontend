@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@app/store/hooks';
 import Header from '@app/features/Header/Header';

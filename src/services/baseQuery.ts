@@ -1,12 +1,23 @@
 // services/baseQueryWithReauth.ts
 import { BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import { setTokens, deleteTokens } from '@app/store/features/auth';
-import { RootState } from '@app/store/store'; // Типизация корневого состояния
+import { RootState } from '@app/store/types'; // Типизация корневого состояния
 import { authApi } from './auth';
 
 const TEST_URL = '/api/v1';
 
-export const createBaseQueryWithReauth = (prefix: string): BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> => {
+export interface IErrorResponse {
+  status: number;
+  data: {
+    message: string;
+    code?: string;
+    properties?: {
+      description?: any
+    };
+  };
+}
+
+export const createBaseQueryWithReauth = (prefix: string): BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError | IErrorResponse> => {
   const baseQuery = fetchBaseQuery({
     baseUrl: TEST_URL + prefix, // Пустой базовый URL, он будет передаваться в query
     credentials: 'include',

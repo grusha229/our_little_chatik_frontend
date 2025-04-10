@@ -10,6 +10,7 @@ export default function debounce<T extends (...args: any[]) => void>(
             clearTimeout(timeout);
         }
 
+        //@ts-ignore
         timeout = setTimeout(() => {
             func(...args);
         }, wait);
