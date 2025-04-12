@@ -25,7 +25,7 @@ export const authApi = createApi({
         /** Renew activation code */
         renewActivation: builder.mutation({
             query: () => ({
-                url: `/activation/new`,
+                url: `/renew`,
                 method: 'POST',
             }),
         }),
