@@ -34,9 +34,10 @@ export const createBaseQueryWithReauth = (prefix: string): BaseQueryFn<string | 
         let result = await baseQuery(args, api, extraOptions);
         // Если получили ошибку 401 (неавторизован)
         if (result.error?.status === 401) {
-            const { refresh_token } = (api.getState() as RootState).auth;
+            const { refresh_token, token, activated_email } = (api.getState() as RootState).auth;
 
-            if (refresh_token) {
+            if (refresh_token && refresh_token !== '') {
+                console.log('refresh_token_exists');
                 // Используем refreshToken для обновления токенов
                 const refreshResult = await api.dispatch(authApi.endpoints.refreshToken.initiate({ refresh_token }));
 
@@ -50,7 +51,10 @@ export const createBaseQueryWithReauth = (prefix: string): BaseQueryFn<string | 
                     // Если обновление не удалось, разлогиниваем пользователя
                     api.dispatch(deleteTokens());
                 }
+            } else if (refresh_token === '' && token && activated_email) {
+                return result;
             } else {
+                console.log('refresh_token_doesnt_exists');
                 // Если нет refreshToken, разлогиниваем пользователя
                 api.dispatch(deleteTokens());
             }

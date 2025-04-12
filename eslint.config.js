@@ -26,8 +26,22 @@ export default tseslint.config(
 
       // удаление неиспользуемого
       'unused-imports/no-unused-imports': 'warn',
-      'unused-imports/no-unused-vars': [
-        'warn',
+      // 'unused-imports/no-unused-vars': [
+      //   'error',
+      //   {
+      //     vars: 'all',
+      //     varsIgnorePattern: '^_',
+      //     args: 'after-used',
+      //     argsIgnorePattern: '^_',
+      //   },
+      // ],
+
+      '@typescript-eslint/no-empty-interface': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
+      '@typescript-eslint/no-unused-expressions': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
         {
           vars: 'all',
           varsIgnorePattern: '^_',
@@ -35,12 +49,6 @@ export default tseslint.config(
           argsIgnorePattern: '^_',
         },
       ],
-
-      '@typescript-eslint/no-empty-interface': 'off',
-      '@typescript-eslint/no-empty-object-type': 'off',
-      '@typescript-eslint/no-unused-expressions': 'off',
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unused-vars': 'off', // отключено в пользу unused-imports
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
