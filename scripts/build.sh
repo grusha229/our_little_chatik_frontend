@@ -9,9 +9,9 @@ if [ -d "$DIST_DIR" ]; then
 fi
 
 echo "📦 Install dependencies..."
-npm install
+yarn install
 
 echo "🔨 Building started..."
-npm run build
+yarn build
 
 echo "✅ Build completed"
