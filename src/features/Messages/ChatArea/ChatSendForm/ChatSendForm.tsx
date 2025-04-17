@@ -50,6 +50,7 @@ export default function ChatSendForm({ current_chat }: IProps) {
 
     const current_user = useAppSelector(state => state.users.current_user);
     const current_id = current_user?.user_id || '';
+    const current_user_nickname = current_user?.nickname || '';
     const watchPayload = watch('payload');
     const isMessageValid = watchPayload.trim().length > 0 || attachments?.length > 0;
 
@@ -134,7 +135,7 @@ export default function ChatSendForm({ current_chat }: IProps) {
                 content_type: link.content_type,
             })) || [];
 
-        const newMessage = generateNewMessage(lastMessageId, formData.payload, current_id, mediaRefs);
+        const newMessage = generateNewMessage(lastMessageId, formData.payload, current_id, current_user_nickname, mediaRefs);
 
         setLastMessageId(prev => prev + 1);
         dispatch(addMessage({ chat_id, message: newMessage }));
