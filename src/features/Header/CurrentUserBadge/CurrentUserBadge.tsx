@@ -31,7 +31,7 @@ export default function CurrentUserBadge() {
 
     return (
         <div className={styles['block']} onClick={toggleModalVisibility}>
-            <Avatar src={avatarSrc} />
+            <Avatar src={avatarSrc} title={`${currentUser?.name} ${currentUser?.surname}`} />
             <div className={styles['personal-info']}>
                 <div className={styles['personal-info--name']}>
                     {currentUser?.name} {currentUser?.surname}

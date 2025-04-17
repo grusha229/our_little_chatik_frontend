@@ -20,7 +20,7 @@ export default function PersonalInfoModal() {
             <div className={styles['content']}>
                 {currentUser ? (
                     <>
-                        <Avatar src={avatarSrc} size="xlarge" />
+                        <Avatar src={avatarSrc} title="It`s you!" size="xlarge" />
                         <PersonalInfoForm user={currentUser} />
                         <div className={styles['content--footer']}>
                             <LogoutButton />

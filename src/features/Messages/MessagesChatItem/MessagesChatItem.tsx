@@ -21,7 +21,7 @@ export default function MessagesChatItem({ heading, last_message, img_src, link,
     if (link) {
         return (
             <Link to={`${link}`} className={styles['chat']} onClick={didItemClicked} ref={ref}>
-                <Avatar src={img_src} />
+                <Avatar src={img_src} title={heading} />
                 <div className={styles['chat-details']}>
                     <div className={styles['name']}>{heading}</div>
                     <div className={styles['message']}>{last_message}</div>
@@ -32,7 +32,7 @@ export default function MessagesChatItem({ heading, last_message, img_src, link,
 
     return (
         <div className={styles['chat']} onClick={didItemClicked} ref={ref}>
-            <Avatar src={img_src} />
+            <Avatar src={img_src} title={heading} />
             <div className={styles['chat-details']}>
                 <div className={styles['name']}>{heading}</div>
                 <div className={styles['message']}>{last_message}</div>

@@ -33,7 +33,7 @@ export default function ChatHeader({ current_chat, isLoading }: IProps) {
                         </>
                     ) : (
                         <>
-                            <Avatar src={avatarSrc} />
+                            <Avatar src={avatarSrc} title={current_chat?.name} />
                             <>{current_chat?.name}</>
                         </>
                     )}

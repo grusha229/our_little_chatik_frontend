@@ -9,13 +9,14 @@ export interface IProps {
     size?: TAvatarSize;
     src?: string;
     alt?: string;
+    title: string;
 }
 
-export default function Avatar({ size = 'medium', alt = '', src = avatarFallbackIcon }: IProps) {
+export default function Avatar({ size = 'medium', alt = '', src = avatarFallbackIcon, title }: IProps) {
     const avatarClassName = buildClassName(styles['avatar'], styles[`avatar--${size}`]);
 
     return (
-        <div className={avatarClassName}>
+        <div className={avatarClassName} title={title}>
             <div className={styles['avatar-container']}>
                 {!src ? (
                     <Skeleton variant="circular" animation="pulse" width={40} height={40} />
