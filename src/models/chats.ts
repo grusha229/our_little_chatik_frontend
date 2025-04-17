@@ -32,6 +32,7 @@ export interface IChatsMessage {
     sender_id: string;
     updated_at: string;
     status: TStatus;
+    sender_nickname: string;
 }
 
 export interface IChatsPhoto {

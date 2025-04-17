@@ -50,11 +50,10 @@ export const Message = ({ data, sender, isMine, ...props }: IProps) => {
         }
     };
     const messageStatus = getMessageStatus();
-    const senderName = `${sender?.name} ${sender?.surname}`
 
     return (
         <div className={`${styles['message']} ${isMine ? styles['mine'] : styles['notMine']}`} {...props}>
-            <Avatar size="small" src={avatarSrc} title={senderName} />
+            <Avatar size="small" src={avatarSrc} title={data.sender_nickname} />
             <div className={styles['message-content']}>
                 {isMediaExists && <MediaPhotoAttachments media={data.media?.refs || []} />}
                 <div className={styles['message--text']}>{data.payload}</div>
