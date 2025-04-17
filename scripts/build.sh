@@ -17,6 +17,6 @@ fi
 echo "🔨 Building started..."
 
 # Выполняем сборку
-yarn run build
+npm run build
 
 echo "✅ Build completed"
