@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import styles from './ConversationsSIdebar.module.scss';
+import styles from './ConversationsSidebar.module.scss';
 import { useAppDispatch } from '@app/store/hooks';
 import { openModal } from '@app/store/features/modals';
 import IconButton from '@app/ui/Button/IconButton/IconButton';
