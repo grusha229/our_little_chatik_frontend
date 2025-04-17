@@ -2,12 +2,11 @@ import { useForm } from 'react-hook-form';
 import { useActivateUserMutation } from '@app/services/auth';
 import style from './ActivationForm.module.scss';
 import { IActivationPayload } from '@app/models/auth';
-import Button from '@app/ui/Button/Button';
+import Button from '@app/ui/Button/Button/Button';
 import Input from '@app/ui/Input/Input';
 import { IErrorResponse } from '@app/services/baseQuery';
-import ResendActivation from '../ResendActivation/ResendActivation';
+import ResendActivation from '../ResendActivationBlock/ResendActivationBlock';
 export default function ActivationForm() {
-    // Инициализация useForm
     const {
         register,
         handleSubmit,

@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useLoginUserMutation } from '@app/services/auth';
 import style from './LoginForm.module.scss';
 import { ILoginPayload } from '@app/models/auth';
-import Button from '@app/ui/Button/Button';
+import Button from '@app/ui/Button/Button/Button';
 import Input from '@app/ui/Input/Input';
 import { IErrorResponse } from '@app/services/baseQuery';
 

@@ -1,8 +1,8 @@
 import Modal from '@app/ui/Modal/Modal';
 import styles from './PersonalInfoModal.module.scss';
 import { useAppSelector } from '@app/store/hooks';
-import Avatar from '@app/features/Users/Avatar/Avatar';
-import LogoutButton from '@app/features/Header/LogoutButton/LogoutButton';
+import Avatar from '@app/ui/Avatar/Avatar';
+import LogoutButton from '@app/features/Users/LogoutButton/LogoutButton';
 import PersonalInfoForm from '@app/features/Users/PersonalInfoForm/PersonalInfoForm';
 import Loader from '@app/ui/Loader/Loader';
 

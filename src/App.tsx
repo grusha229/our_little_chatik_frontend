@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoginPage from './views/LoginPage/LoginPage';
-import MessagesPage from './views/MessagesPage/MessagesPage';
+import LoginPage from './pages/LoginPage/LoginPage';
+import MessagesPage from './pages/MessagesPage/MessagesPage';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
-import RegisterPage from './views/RegisterPage/RegisterPage';
-import PrivateRoute from './views/PrivateRoute/PrivateRoute';
-import PublicRoute from './views/PublicRoute';
-import ErrorPage from './views/404/404';
-import ActivationPage from './views/ActivationPage/ActivationPage';
-import AuthRedirect from './views/AuthRedirect';
+import RegisterPage from './pages/RegisterPage/RegisterPage';
+import PrivateRoute from './pages/PrivateRoute/PrivateRoute';
+import PublicRoute from './pages/PublicRoute/PublicRoute';
+import ErrorPage from './pages/404Page/404Page';
+import ActivationPage from './pages/ActivationPage/ActivationPage';
+import AuthRedirect from './pages/AuthRedirect/AuthRedirect';
 
 function App() {
     return (

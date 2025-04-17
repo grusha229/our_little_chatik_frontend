@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form';
 import { ICurrentUserInfoResponse, IUsersPatchCurrentUserPayload, IUsersUploadAvatarLinkResponse } from '@app/models/users';
 import styles from './PersonalInfoForm.module.scss';
 import Input from '@app/ui/Input/Input';
-import Button from '@app/ui/Button/Button';
-import UploadFileButton from '@app/ui/UploadFileButton/UploadFileButton';
+import Button from '@app/ui/Button/Button/Button';
+import UploadFileButton from '@app/ui/Button/UploadFileButton/UploadFileButton';
 import { useUploadAttachmentMutation } from '@app/services/files';
 import { IErrorResponse } from '@app/services/baseQuery';
 

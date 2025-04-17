@@ -1,6 +1,6 @@
 import { SyntheticEvent, useCallback } from 'react';
 import { getAttachmentComponent, getFileType } from './MediaAttachmentComponent.utils';
-import IconButton from '@app/ui/IconButton/IconButton';
+import IconButton from '@app/ui/Button/IconButton/IconButton';
 import deleteIcon from '@app/img/icons/icon--x-mark.svg';
 import styles from './MediaAttachmentComponent.module.scss';
 import { TAttachmentsSize } from '@app/ui/MediaAttachments/MediaPhotoAttachments';
