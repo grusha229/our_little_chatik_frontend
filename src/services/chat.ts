@@ -51,10 +51,11 @@ export const chatApi = createApi({
         }),
         sendChatMessage: builder.mutation<IChatsSendMessageResponse, IChatsSendMessagePayload>({
             query: payload => {
+                const { chat_id, id: _id, ...data } = payload;
                 return {
-                    url: `/${payload.id}/messages`,
+                    url: `/${chat_id}/messages`,
                     method: 'POST',
-                    body: payload,
+                    body: data,
                 };
             },
         }),

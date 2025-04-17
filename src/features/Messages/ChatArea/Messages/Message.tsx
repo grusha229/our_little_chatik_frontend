@@ -4,6 +4,7 @@ import { IChatsMessage, IChatsUser } from '@app/models/chats';
 import Avatar from '@app/features/Users/Avatar/Avatar';
 import MediaPhotoAttachments from '@app/ui/MediaAttachments/MediaPhotoAttachments';
 import Loader from '@app/ui/Loader/Loader';
+import alertIcon from '@app/img/icons/icon--alert.svg';
 
 export interface IProps {
     data: IChatsMessage;
@@ -38,7 +39,17 @@ export const Message = ({ data, sender, isMine, ...props }: IProps) => {
     const avatarSrc = sender?.participant_avatar;
     const isMediaExists = data.media?.refs && data.media?.refs?.length > 0;
 
-    const isMessagePending = data?.status === 'pending';
+    const getMessageStatus = () => {
+        switch (data.status) {
+            case 'rejected':
+                return <img src={alertIcon} alt="" />;
+            case 'pending':
+                return <Loader size="xsmall" />;
+            case 'done':
+                return <p className={styles['message--time']}>{messageTime}</p>;
+        }
+    };
+    const messageStatus = getMessageStatus();
 
     return (
         <div className={`${styles['message']} ${isMine ? styles['mine'] : styles['notMine']}`} {...props}>
@@ -47,7 +58,7 @@ export const Message = ({ data, sender, isMine, ...props }: IProps) => {
                 {isMediaExists && <MediaPhotoAttachments media={data.media?.refs || []} />}
                 <div className={styles['message--text']}>{data.payload}</div>
             </div>
-            {isMessagePending ? <Loader size="xsmall" /> : <p className={styles['message--time']}>{messageTime}</p>}
+            {messageStatus}
         </div>
     );
 };

@@ -31,7 +31,7 @@ export interface IChatsMessage {
     reactions?: any;
     sender_id: string;
     updated_at: string;
-    status?: 'pending' | 'sent' | 'failed';
+    status: TStatus;
 }
 
 export interface IChatsPhoto {
@@ -84,9 +84,10 @@ export type IChatsGetChatMessagesResponse = Array<IChatsMessage>;
 
 export interface IChatsSendMessagePayload {
     /** Chat id */
-    id: string;
+    chat_id: string;
     payload: string;
     upload_ids?: Array<string>;
+    id: number;
     // status: 'pending'
 }
 

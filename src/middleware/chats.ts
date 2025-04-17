@@ -1,6 +1,6 @@
 import { Middleware } from '@reduxjs/toolkit';
 import { chatApi } from '@app/services/chat';
-import { addMoreMessages, addUploadFiles, setChatMessages, setChats, setCurrentChat } from '@app/store/features/chats';
+import { addMoreMessages, addUploadFiles, setChatMessages, setChats, setCurrentChat, updateMessageStatus } from '@app/store/features/chats';
 import { AppDispatch } from '@app/store/types';
 
 const chatsMiddleware: Middleware = store => next => async action => {
@@ -23,6 +23,27 @@ const chatsMiddleware: Middleware = store => next => async action => {
 
     if (chatApi.endpoints.chatsList.matchFulfilled(action)) {
         store.dispatch(setChats(action.payload));
+    }
+
+    if (chatApi.endpoints.sendChatMessage.matchFulfilled(action)) {
+        store.dispatch(
+            updateMessageStatus({
+                id: action.payload.id,
+                status: 'done',
+                chat_id: action.payload.chat_id,
+            }),
+        );
+    }
+
+    if (chatApi.endpoints.sendChatMessage.matchRejected(action)) {
+        console.log('match Rejected', action);
+        store.dispatch(
+            updateMessageStatus({
+                chat_id: action.meta.arg.originalArgs.chat_id,
+                status: 'rejected',
+                id: action.meta.arg.originalArgs.id,
+            }),
+        );
     }
 
     if (chatApi.endpoints.getChatInfo.matchFulfilled(action)) {

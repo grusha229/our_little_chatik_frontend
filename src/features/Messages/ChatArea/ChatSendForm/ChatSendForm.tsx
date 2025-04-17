@@ -7,7 +7,7 @@ import { IChatsFilesLink, IChatsGetChatInfoResponse, IChatsSendMessagePayload, I
 import { useGetAttachmentsUploadUrlsMutation, useSendChatMessageMutation } from '@app/services/chat';
 import { generateNewMessage } from './ChatSendForm.utils';
 import { useAppSelector } from '@app/store/hooks';
-import { addMessage, addUploadFiles, editUploadFilesStatus, resetUploadFiles, updateMessageStatus } from '@app/store/features/chats';
+import { addMessage, addUploadFiles, editUploadFilesStatus, resetUploadFiles } from '@app/store/features/chats';
 import { useDispatch } from 'react-redux';
 import { useUploadAttachmentMutation } from '@app/services/files';
 import UploadFileButton from '@app/ui/UploadFileButton/UploadFileButton';
@@ -19,7 +19,7 @@ export interface IProps {
 export default function ChatSendForm({ current_chat }: IProps) {
     const [filesToUpload, setFilesToUpload] = useState<File[]>([]);
     const chat_id = current_chat?.chat_id;
-    const [lastMessageId, setLastMessageId] = useState(current_chat.last_message?.id ?? 0 + 1);
+    const [lastMessageId, setLastMessageId] = useState(current_chat.last_message?.id ? current_chat.last_message?.id + 1 : 1);
 
     const dispatch = useDispatch();
     const [sendMessage] = useSendChatMessageMutation();
@@ -42,7 +42,8 @@ export default function ChatSendForm({ current_chat }: IProps) {
     } = useForm<IChatsSendMessagePayload>({
         defaultValues: {
             payload: '',
-            id: chat_id,
+            chat_id,
+            id: lastMessageId,
             upload_ids: upload_ids, // Добавляем файлы в `defaultValues`
         },
     });
@@ -55,8 +56,13 @@ export default function ChatSendForm({ current_chat }: IProps) {
     const isSendButtonDisabled = !isMessageValid || isSubmitting;
 
     useEffect(() => {
-        reset({ payload: '', id: chat_id, upload_ids: [] });
-    }, [chat_id, reset]);
+        reset({
+            payload: '',
+            chat_id,
+            id: lastMessageId,
+            upload_ids,
+        });
+    }, [lastMessageId, chat_id, reset]);
 
     useEffect(() => {
         setValue('upload_ids', upload_ids);
@@ -119,50 +125,23 @@ export default function ChatSendForm({ current_chat }: IProps) {
         [chat_id, dispatch, getAttachmentsUploadLinks],
     );
 
-    const onSubmit = useCallback(
-        async (formData: IChatsSendMessagePayload) => {
-            const mediaRefs: IMediaRefItem[] =
-                attachments?.map(link => ({
-                    url: link.preview_link,
-                    path: link.preview_link,
-                    file_name: link.upload_file_name,
-                    content_type: link.content_type,
-                })) || [];
+    const onSubmit = async (formData: IChatsSendMessagePayload) => {
+        const mediaRefs: IMediaRefItem[] =
+            attachments?.map(link => ({
+                url: link.preview_link,
+                path: link.preview_link,
+                file_name: link.upload_file_name,
+                content_type: link.content_type,
+            })) || [];
 
-            const newMessage = generateNewMessage(lastMessageId, formData.payload, current_id, mediaRefs);
+        const newMessage = generateNewMessage(lastMessageId, formData.payload, current_id, mediaRefs);
 
-            setLastMessageId(prev => prev + 1);
-            dispatch(addMessage({ chat_id, message: newMessage }));
-
-            try {
-                await sendMessage(formData)
-                    .unwrap()
-                    .then(response => {
-                        // Обновляем статус на "sent" и ID на настоящий
-                        dispatch(
-                            updateMessageStatus({
-                                id: response.id,
-                                status: 'sent',
-                                chat_id: response.chat_id,
-                            }),
-                        );
-                    });
-            } catch (error) {
-                console.error(error);
-                // В случае ошибки обновляем статус на "failed"
-                dispatch(
-                    updateMessageStatus({
-                        id: newMessage.id,
-                        status: 'failed',
-                        chat_id,
-                    }),
-                );
-            }
-            isAttachmentsReady && dispatch(resetUploadFiles({ chat_id }));
-            reset(); // Очистка формы
-        },
-        [attachments, isAttachmentsReady, chat_id, current_id, dispatch, lastMessageId, reset, sendMessage],
-    );
+        setLastMessageId(prev => prev + 1);
+        dispatch(addMessage({ chat_id, message: newMessage }));
+        await sendMessage(formData);
+        isAttachmentsReady && dispatch(resetUploadFiles({ chat_id }));
+        reset(); // Очистка формы
+    };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles['form']}>
