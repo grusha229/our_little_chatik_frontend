@@ -18,6 +18,7 @@ export const filesApi = createApi({
                     headers: {
                         'Content-Type': content_type || file.type || 'application/octet-stream',
                     },
+                    credentials: 'omit',
                     body: file,
                 };
             },
