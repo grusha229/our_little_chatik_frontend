@@ -104,3 +104,21 @@ button:focus-visible {
 .MuiAutocomplete-noOptions, .MuiOutlinedInput-input {
   color: #ffffff !important;
 }
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #999 transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
