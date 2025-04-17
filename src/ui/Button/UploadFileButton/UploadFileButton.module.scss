@@ -7,6 +7,7 @@
     padding: 10px 20px;
     background-color: colors.$color-background;
     color: colors.$color-grey-light;
+    border: 1px solid colors.$color-background;
 
     border-radius: 5px;
     cursor: pointer;
@@ -19,7 +20,7 @@
 
     &:hover {
         background-color: colors.$color-background-light;
-        border: 1px solid colors.$color-grey-light;
+        border-color: colors.$color-grey-light;
         color: colors.$color-grey-light;
     }
 }

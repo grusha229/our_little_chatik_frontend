@@ -1,0 +1,25 @@
+@use '@app/helpers/styles/colors.scss' as colors;
+.block {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.block__title {
+    font-size: 18px;
+
+    border-bottom: 1px solid colors.$color-grey-light;
+    padding-bottom: 4px;
+    margin-bottom: 16px;
+}
+
+.block__content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.block__id {
+    font-size: 12px;
+    color: colors.$color-grey-light;
+}

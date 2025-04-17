@@ -1,5 +1,5 @@
 import styles from './Modal.module.scss';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { closeModal, IModalsState } from '@app/store/features/modals';
 import { useAppSelector, useAppDispatch } from '@app/store/hooks';
 import iconClose from '@app/img/icons/icon--x-mark-white.svg';
@@ -28,6 +28,12 @@ const Modal = ({ name, children, header, footer, size = 'medium', onClose }: IPr
     const modalClassName = buildClassName(styles['modal'], isModalVisible ? styles['visible'] : '');
 
     const modalBlockClassName = buildClassName(styles['modal-block'], styles[`modal--${size}`]);
+
+    useEffect(() => {
+        return () => {
+            dispatch(closeModal(name));
+        };
+    }, []);
 
     return (
         <div className={modalClassName} onClick={toggleModalVisibility}>

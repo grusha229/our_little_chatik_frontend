@@ -9,6 +9,10 @@ export interface IPersonalInfo extends IBaseModalState {
     current_id: string;
 }
 
+export interface IConversationInfoModal extends IBaseModalState {
+    chat_id: string;
+}
+
 export interface IImageViewer extends IBaseModalState {
     images: IMediaRefItem[];
     start_image: IMediaRefItem | null;
@@ -18,6 +22,7 @@ export interface IModalsState {
     create_chat: IBaseModalState;
     user_info: IPersonalInfo;
     image_viewer: IImageViewer;
+    conversation_info: IConversationInfoModal;
 }
 
 const initialState: IModalsState = {
@@ -32,6 +37,10 @@ const initialState: IModalsState = {
         isVisible: false,
         images: [],
         start_image: null,
+    },
+    conversation_info: {
+        isVisible: false,
+        chat_id: '',
     },
 };
 

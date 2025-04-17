@@ -45,7 +45,7 @@ export const ChatMessageItem = ({ data, sender, isMine, ...props }: IProps) => {
                 return <img src={alertIcon} alt="" />;
             case 'pending':
                 return <Loader size="xsmall" />;
-            case 'done':
+            default:
                 return <p className={styles['message--time']}>{messageTime}</p>;
         }
     };

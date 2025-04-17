@@ -7,6 +7,10 @@ export interface IChatsUser {
     surname: string;
     participant_id: string;
     participant_nickname: string;
+    /** @deprecated api not implemented now  */
+    participant_name?: string;
+    /** @deprecated api not implemented now  */
+    participant_surname?: string;
 }
 
 export interface IMediaRefItem {

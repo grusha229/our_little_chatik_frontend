@@ -1,5 +1,4 @@
 import styles from './Avatar.module.scss';
-import Skeleton from '@mui/material/Skeleton';
 import { buildClassName } from '@app/utils/styles';
 import avatarFallbackIcon from '@app/img/icons/icon--avatar.svg';
 
@@ -14,15 +13,13 @@ export interface IProps {
 
 export default function Avatar({ size = 'medium', alt = '', src = avatarFallbackIcon, title }: IProps) {
     const avatarClassName = buildClassName(styles['avatar'], styles[`avatar--${size}`]);
+    const isAvatarExists = !!src;
+    const avatarSrc = isAvatarExists ? src : avatarFallbackIcon;
 
     return (
         <div className={avatarClassName} title={title}>
             <div className={styles['avatar-container']}>
-                {!src ? (
-                    <Skeleton variant="circular" animation="pulse" width={40} height={40} />
-                ) : (
-                    <img className={styles['avatar-image']} alt={alt} src={src} />
-                )}
+                <img className={styles['avatar-image']} alt={alt} src={avatarSrc} />
             </div>
         </div>
     );

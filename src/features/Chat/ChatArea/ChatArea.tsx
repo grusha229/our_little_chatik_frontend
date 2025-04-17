@@ -8,6 +8,7 @@ import { useAppSelector } from '@app/store/hooks.js';
 import MessagesInput from './MessagesInput/MessagesInput.js';
 import useDocumentTitle from '@app/utils/useDocumentTitle.js';
 import ChatMessagesList from '../ChatMessages/ChatMessagesList/ChatMessagesList.js';
+import ChatInfoModal from '../ChatInfoModal/ChatInfoModal.js';
 
 export default function ChatArea() {
     const params = useParams();
@@ -36,6 +37,7 @@ export default function ChatArea() {
                 <ChatHeader current_chat={currentChat} isLoading={isLoading} />
                 <ChatMessagesList current_chat={currentChat} />
                 <MessagesInput current_chat={currentChat} />
+                <ChatInfoModal />
             </div>
         </>
     );

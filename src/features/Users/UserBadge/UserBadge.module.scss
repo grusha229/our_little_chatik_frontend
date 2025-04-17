@@ -1,0 +1,23 @@
+@use '@app/helpers/styles/colors.scss' as colors;
+
+.badge {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+    }
+
+    &__name {
+        text-transform: capitalize;
+    }
+
+    &__nickname {
+        color: colors.$color-grey-light;
+        font-size: 14px;
+    }
+}
