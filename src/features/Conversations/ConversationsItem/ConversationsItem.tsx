@@ -3,24 +3,25 @@ import { Link } from 'react-router-dom';
 
 import styles from './ConversationsItem.module.scss';
 import Avatar from '@app/ui/Avatar/Avatar';
-import { IChatsMessage } from '@app/models/chats';
+import { IChatsMessage, IChatsUser } from '@app/models/chats';
 
 export interface IProps {
     heading: string;
     last_message?: IChatsMessage;
+    last_sender?: IChatsUser;
     img_src?: string;
     link?: string;
     onClick?: () => void;
     ref?: React.MutableRefObject<any>;
 }
 
-export default function ConversationsItem({ heading, last_message, img_src, link, onClick, ref }: IProps) {
+export default function ConversationsItem({ heading, last_message, img_src, link, onClick, ref, last_sender }: IProps) {
     const didItemClicked = useCallback(() => {
         return onClick && onClick();
     }, [onClick]);
 
     const lastMessageText = last_message?.payload ?? '';
-    const lastMessageSender = last_message?.sender_nickname ?? '';
+    const lastMessageSender = last_sender?.participant_nickname ?? '';
 
     if (link) {
         return (

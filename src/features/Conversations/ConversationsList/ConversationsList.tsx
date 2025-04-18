@@ -3,6 +3,7 @@ import { useChatsListQuery } from '@app/services/chat';
 import styles from './ConversationsList.module.scss';
 import { useAppSelector } from '@app/store/hooks';
 import ConversationsItem from '../ConversationsItem/ConversationsItem';
+import { getSenderById } from '@app/features/Chat/ChatMessages/ChatMessagesList/ChatMessagesList.utils';
 
 export function ConversationsList() {
     const { refetch } = useChatsListQuery();
@@ -31,6 +32,7 @@ export function ConversationsList() {
                     heading={chat.name}
                     img_src={chat.photo?.path}
                     link={`/messages/${chat.chat_id}`}
+                    last_sender={getSenderById(chat.last_message.sender_id, chat.participants)}
                 />
             ))}
         </div>
