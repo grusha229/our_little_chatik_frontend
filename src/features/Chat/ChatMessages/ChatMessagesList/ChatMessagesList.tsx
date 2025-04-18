@@ -151,8 +151,8 @@ export default function ChatMessagesList({ current_chat }: IProps) {
                     data={message}
                     data-index={index}
                     key={message.id}
-                    isMine={message.sender_id === YOUR_ID}
-                    sender={getSenderById(message.sender_id, participants)}
+                    isMine={message?.sender_id === YOUR_ID}
+                    sender={getSenderById(message?.sender_id, participants)}
                 />
             ))}
             {hasMore && (
