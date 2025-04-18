@@ -51,7 +51,7 @@ export default function ConversationsSearchResults() {
                             key={message.id}
                             heading={message.payload}
                             last_message={message}
-                            img_src={message.sender_id}
+                            img_src={message?.sender_id}
                             link={`/messages/${message.chat_id}?message_id=${message.id}`}
                         />
                     ))}

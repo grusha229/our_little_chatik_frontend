@@ -30,7 +30,11 @@ export default function ConversationsItem({ heading, last_message, img_src, link
                 <div className={styles['chat-details']}>
                     <div className={styles['name']}>{heading}</div>
                     <div className={styles['message']}>
-                        {lastMessageSender}: {lastMessageText}
+                        {lastMessageSender && lastMessageText && (
+                            <>
+                                {lastMessageSender}: {lastMessageText}
+                            </>
+                        )}
                     </div>
                 </div>
             </Link>
@@ -43,7 +47,11 @@ export default function ConversationsItem({ heading, last_message, img_src, link
             <div className={styles['chat-details']}>
                 <div className={styles['name']}>{heading}</div>
                 <div className={styles['message']}>
-                    {lastMessageSender}: {lastMessageText}
+                    {lastMessageSender && lastMessageText && (
+                        <>
+                            {lastMessageSender}: {lastMessageText}
+                        </>
+                    )}
                 </div>
             </div>
         </div>
