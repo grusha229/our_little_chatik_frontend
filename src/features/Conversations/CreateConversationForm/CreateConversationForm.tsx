@@ -2,7 +2,6 @@ import { useCallback, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Autocomplete, Box, Chip, TextField } from '@mui/material';
 import { useSearchQuery } from '@app/services/users';
-import ConversationsItem from '@app/features/Conversations/ConversationsItem/ConversationsItem';
 import Button from '@app/ui/Button/Button/Button';
 import debounce from '@app/utils/debounce';
 import { ICurrentUserInfoResponse } from '@app/models/users';
@@ -13,6 +12,7 @@ import { closeModal } from '@app/store/features/modals';
 import { useAppDispatch } from '@app/store/hooks';
 import { muiInputStyles } from './CreateConversationForm.utils';
 import { IErrorResponse } from '@app/services/baseQuery';
+import UserBadge from '@app/features/Users/UserBadge/UserBadge';
 
 export interface IUsersOption {
     id: string;
@@ -123,10 +123,12 @@ export default function CreateConversationForm() {
                         renderTags={() => null}
                         renderOption={(props, option) => (
                             <li {...props} key={option.user_id}>
-                                <ConversationsItem
-                                    heading={`${option.name} ${option.surname}`}
-                                    last_message={option.nickname}
-                                    img_src={option.avatar}
+                                <UserBadge
+                                    avatar={option.avatar}
+                                    id={option.user_id}
+                                    name={option.name}
+                                    surname={option.surname}
+                                    nickname={option.nickname}
                                 />
                             </li>
                         )}

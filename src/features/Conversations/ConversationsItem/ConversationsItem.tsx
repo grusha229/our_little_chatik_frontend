@@ -41,7 +41,9 @@ export default function ConversationsItem({ heading, last_message, img_src, link
             <Avatar src={img_src} title={heading} />
             <div className={styles['chat-details']}>
                 <div className={styles['name']}>{heading}</div>
-                <div className={styles['message']}>{lastMessageSender}: {lastMessageText}</div>
+                <div className={styles['message']}>
+                    {lastMessageSender}: {lastMessageText}
+                </div>
             </div>
         </div>
     );

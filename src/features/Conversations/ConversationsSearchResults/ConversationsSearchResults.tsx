@@ -50,7 +50,7 @@ export default function ConversationsSearchResults() {
                         <ConversationsItem
                             key={message.id}
                             heading={message.payload}
-                            last_message={message.payload}
+                            last_message={message}
                             img_src={message.sender_id}
                             link={`/messages/${message.chat_id}?message_id=${message.id}`}
                         />
