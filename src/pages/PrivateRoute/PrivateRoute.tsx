@@ -13,7 +13,7 @@ const PrivateRoute = () => {
         if (token) {
             dispatch({
                 type: 'websocket/connect',
-                payload: `ws://${window.location.hostname}/ws/events`,
+                payload: `wss://${window.location.hostname}/ws/events`,
             });
         }
     }, [token, dispatch]);
