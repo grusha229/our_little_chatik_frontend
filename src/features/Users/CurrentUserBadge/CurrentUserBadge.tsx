@@ -10,7 +10,7 @@ export default function CurrentUserBadge() {
 
     const { refetch } = useGetCurrentUserInfoQuery();
     const currentUser = useAppSelector(state => state.users.current_user);
-    const avatarSrc = undefined;
+    const avatarSrc = currentUser?.avatar;
 
     const isOnline = useAppSelector(state => state.websocket.connected);
 
