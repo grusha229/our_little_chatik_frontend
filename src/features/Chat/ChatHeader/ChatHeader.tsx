@@ -19,7 +19,7 @@ export default function ChatHeader({ current_chat, isLoading }: IProps) {
 
     const { width: windowWidth } = useWindowSize();
     const isDesktopView = isDesktop(windowWidth);
-    const avatarSrc = current_chat?.photo?.url;
+    const avatarSrc = current_chat?.photo?.path;
 
     const toggleModalVisibility = useCallback(() => {
         dispatch(
