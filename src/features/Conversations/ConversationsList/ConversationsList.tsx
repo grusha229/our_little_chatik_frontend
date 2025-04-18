@@ -27,7 +27,7 @@ export function ConversationsList() {
             {sortedChats?.map(chat => (
                 <ConversationsItem
                     key={chat.chat_id}
-                    last_message={chat.last_message?.payload}
+                    last_message={chat.last_message}
                     heading={chat.name}
                     img_src={chat.photo?.path}
                     link={`/messages/${chat.chat_id}`}
